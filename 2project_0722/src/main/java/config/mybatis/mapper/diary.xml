@@ -13,11 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	-->
 	
 	<!-- 산책 추가 -->
-	<insert id="diary_walks_insert" parameterType="vo.WalksVo">
-		<!-- insert into Walks(w_id, p_id) values(	#{ w_id }, 
+<!-- 	<insert id="diary_walks_insert" parameterType="vo.WalksVo">
+		insert into Walks(w_id, p_id) values(	#{ w_id }, 
 								 	#{ p_id } get Name ()를 호출한 효과와 같다
-								 ) -->
-	</insert>
+								 )
+	</insert> -->
 
 </mapper>
 

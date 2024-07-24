@@ -9,6 +9,6 @@
 	<context:annotation-config />
 
 
-	<bean id="diary_dao" class="dao.DiaryDao" autowire="default" />
-
+<!-- 	<bean id="diary_dao" class="dao.DiaryDao" autowire="default" />
+ -->
 </beans>
