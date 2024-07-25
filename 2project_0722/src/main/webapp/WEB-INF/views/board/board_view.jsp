@@ -272,6 +272,7 @@ article p {
 					<div class="post-img">
 							<img src="../resources/images/${image.b_filename}" 
 								class="img-thumbnail" >
+								
 					</div>
 				</c:forEach>
 				</div>

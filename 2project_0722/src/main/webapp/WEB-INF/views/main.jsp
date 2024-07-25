@@ -156,7 +156,7 @@ input {
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
 								<li><a href="board/list.do">자유게시판</a></li>
-								<li><a href="#">Dropdown 2</a></li>
+								<li><a href="#">아파요</a></li>
 								<li><a href="#">Dropdown 3</a></li>
 								<li><a href="#">Dropdown 4</a></li>
 							</ul></li>
