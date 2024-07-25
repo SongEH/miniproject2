@@ -152,7 +152,7 @@ input {
 				<nav id="navmenu" class="navmenu">
 					<ul>
 						<li><a href="#" class="active">다이어리<br></a></li>
-						<li class="dropdown"><a href="blog.html"><span>커뮤니티</span>
+						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
 								<li><a href="#">Dropdown 1</a></li>

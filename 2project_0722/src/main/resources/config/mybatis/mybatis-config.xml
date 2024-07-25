@@ -10,12 +10,15 @@
 	
 	
 	<typeAliases>
-		<!-- <typeAlias type="vo.WalksVo" alias="walks"/> -->
+		 <!-- <typeAlias type="vo.WalksVo" alias="walks"/> -->
+		 <typeAlias type="vo.MemberVo" alias="member"/> 
+		 <typeAlias type="vo.BoardVo" alias="board"/> 
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/diary.xml" />
-		
+		<mapper resource="config/mybatis/mapper/board.xml"/>
+		<mapper resource="config/mybatis/mapper/member.xml"/>
 	</mappers>
 	
 </configuration>
