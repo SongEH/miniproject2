@@ -152,7 +152,11 @@ input {
 				<nav id="navmenu" class="navmenu">
 					<ul>
 						<li><a href="#" class="active">다이어리<br></a></li>
+<<<<<<< HEAD
 						<li class="dropdown"><a href="#"><span>커뮤니티</span>
+=======
+						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
 								<li><a href="board/list.do">자유게시판</a></li>
