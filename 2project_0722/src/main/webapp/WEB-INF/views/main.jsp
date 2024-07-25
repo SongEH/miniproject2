@@ -157,7 +157,7 @@ input {
 							<ul>
 								<li><a href="board/list.do">자유게시판</a></li>
 								<li><a href="#">아파요</a></li>
-								<li><a href="#">Dropdown 3</a></li>
+								<li><a href="#">산책메이트 구하기</a></li>
 								<li><a href="#">Dropdown 4</a></li>
 							</ul></li>
 						<li><a href="#">플레이스</a></li>
