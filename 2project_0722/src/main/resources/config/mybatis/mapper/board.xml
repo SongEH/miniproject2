@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+
+	<select id="board_list_page" parameterType="Map" resultType="vo.BoardVo">
+		SELECT v.*
+		FROM (
+		    SELECT
+		        p.*, 
+		        RANK() OVER (ORDER BY b_idx DESC) AS no
+		    FROM (
+		        SELECT * FROM board
+		    ) p
+		) v
+		WHERE no BETWEEN #{start} AND #{end}
+	</select>
+	
+	
+	<select id="board_row_total" resultType="int">
+		select nvl(count(*),0) from board
+	</select>
+	
+<!-- ************************** 다중이미지 홀출  ***************************** -->
+	<resultMap type="vo.BoardVo"  id="BoardMap">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_image_list"
+	                    />
+	</resultMap>
+	
+	
+	<select id="board_image_list"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+	
+	<select id="board_list_all" resultMap="BoardMap">
+		select
+			rank() over(order by b_idx desc) as no, b.*
+			from 
+			(select * from board) b
+	</select>
+<!-- ************************** 다중이미지 홀출  ***************************** -->
+	
+
+	
+	<select id="board.get_bix" resultType="int">
+		select * from dual
+	</select>
+	
+<!-- ```````````````````````` insert 게시글```````````````````````````````` -->
+ 	<insert id="board_insert" parameterType="vo.BoardVo" >
+ 			insert into board values(seq_board_b_idx.nextVal,
+ 											#{m_idx},
+ 											#{b_cate},
+ 											#{b_title},
+ 											#{b_content},
+ 											sysdate,
+ 											sysdate,
+ 											sysdate,
+ 											#{m_name}
+ 											)
+	</insert> 
+<!-- ```````````````````````` insert 게시글```````````````````````````````` -->
+
+
+
+<!-- ``````````  insert 이미지 파일의 b_idx를 얻기 위한 selectOne ``````````````-->
+<select id="board_get_b_idx"  resultType="int">
+  		select seq_board_b_idx.currVal from dual
+</select>
+<!-- ``````````  insert 이미지 파일의 b_idx를 얻기 위한 selectOne ``````````````-->
+
+
+<!-- ````````````````` insert 이미지 파일명 ``````````````````````````````` -->	
+ 	<insert id="board_insert_images" parameterType="vo.BoardImagesVo">
+ 			insert into board_images (img_idx, b_idx, b_filename)
+ 			 values(seq_board_images_img_idx.nextVal,
+ 											#{b_idx},
+ 											#{b_filename}
+ 											)
+	</insert> 
+<!-- ````````````````` insert 이미지 파일명 ``````````````````````````````` -->	
+
+
+
+
+<!-- ************************** 상세보기  ***************************** -->
+
+	<resultMap type="vo.BoardVo"  id="BoardMap2">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_image_list2"
+	                    />
+	</resultMap>
+	
+	
+	<select id="board_image_list2"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+	
+	<select id="board_list_one" parameterType="int" resultMap="BoardMap2">
+	      select * from board where b_idx = #{b_idx}
+	</select>
+
+<!-- ************************** 상세보기  ***************************** -->
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
