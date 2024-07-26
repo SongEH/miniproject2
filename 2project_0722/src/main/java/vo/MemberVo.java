@@ -1,209 +1,121 @@
-<<<<<<< HEAD
 package vo;
 
 public class MemberVo {
 
-	int    mem_idx;
-	String mem_name;
-	String mem_id;
-	String mem_pwd;
-	String mem_zipcode;
-	String mem_addr;
-	String mem_ip;
-	String mem_regdate;
-	String mem_grade;
+	int    m_idx;
+	String m_name;
+	String m_id;
+	String m_pwd;
+	String m_zipcode;
+	String m_addr;
+	String m_ip;
+	String m_regdate;
+	String m_grade;
 	
 	public MemberVo() {
 		// TODO Auto-generated constructor stub
 	}
 		
-	public MemberVo(String mem_name, String mem_id, String mem_pwd, String mem_zipcode, String mem_addr,
-			String mem_ip) {
+	public MemberVo(String m_name, String m_id, String m_pwd, String m_zipcode, String m_addr,
+			String mem_ip, String m_ip) {
 		super();
-		this.mem_name = mem_name;
-		this.mem_id = mem_id;
-		this.mem_pwd = mem_pwd;
-		this.mem_zipcode = mem_zipcode;
-		this.mem_addr = mem_addr;
-		this.mem_ip = mem_ip;
+		this.m_name = m_name;
+		this.m_id = m_id;
+		this.m_pwd = m_pwd;
+		this.m_zipcode = m_zipcode;
+		this.m_addr = m_addr;
+		this.m_ip = m_ip;
 	}
 	
 		
 	
 
-	public MemberVo(int mem_idx, String mem_name, String mem_id, String mem_pwd, String mem_zipcode, String mem_addr,
-			String mem_ip, String mem_grade) {
+	public MemberVo(int m_idx, String m_name, String m_id, String m_pwd, String m_zipcode, String m_addr,
+			String m_ip, String m_grade) {
 		super();
-		this.mem_idx = mem_idx;
-		this.mem_name = mem_name;
-		this.mem_id = mem_id;
-		this.mem_pwd = mem_pwd;
-		this.mem_zipcode = mem_zipcode;
-		this.mem_addr = mem_addr;
-		this.mem_ip = mem_ip;
-		this.mem_grade = mem_grade;
+		this.m_idx = m_idx;
+		this.m_name = m_name;
+		this.m_id = m_id;
+		this.m_pwd = m_pwd;
+		this.m_zipcode = m_zipcode;
+		this.m_addr = m_addr;
+		this.m_ip = m_ip;
+		this.m_grade = m_grade;
 	}
 
-	public int getMem_idx() {
-		return mem_idx;
+	public int getM_idx() {
+		return m_idx;
 	}
-	public void setMem_idx(int mem_idx) {
-		this.mem_idx = mem_idx;
+
+	public void setM_idx(int m_idx) {
+		this.m_idx = m_idx;
 	}
-	public String getMem_name() {
-		return mem_name;
+
+	public String getM_name() {
+		return m_name;
 	}
-	public void setMem_name(String mem_name) {
-		this.mem_name = mem_name;
+
+	public void setM_name(String m_name) {
+		this.m_name = m_name;
 	}
-	public String getMem_id() {
-		return mem_id;
+
+	public String getM_id() {
+		return m_id;
 	}
-	public void setMem_id(String mem_id) {
-		this.mem_id = mem_id;
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
 	}
-	public String getMem_pwd() {
-		return mem_pwd;
+
+	public String getM_pwd() {
+		return m_pwd;
 	}
-	public void setMem_pwd(String mem_pwd) {
-		this.mem_pwd = mem_pwd;
+
+	public void setM_pwd(String m_pwd) {
+		this.m_pwd = m_pwd;
 	}
-	public String getMem_zipcode() {
-		return mem_zipcode;
+
+	public String getM_zipcode() {
+		return m_zipcode;
 	}
-	public void setMem_zipcode(String mem_zipcode) {
-		this.mem_zipcode = mem_zipcode;
+
+	public void setM_zipcode(String m_zipcode) {
+		this.m_zipcode = m_zipcode;
 	}
-	public String getMem_addr() {
-		return mem_addr;
+
+	public String getM_addr() {
+		return m_addr;
 	}
-	public void setMem_addr(String mem_addr) {
-		this.mem_addr = mem_addr;
+
+	public void setM_addr(String m_addr) {
+		this.m_addr = m_addr;
 	}
-	public String getMem_ip() {
-		return mem_ip;
+
+	public String getM_ip() {
+		return m_ip;
 	}
-	public void setMem_ip(String mem_ip) {
-		this.mem_ip = mem_ip;
+
+	public void setM_ip(String m_ip) {
+		this.m_ip = m_ip;
 	}
-	public String getMem_regdate() {
-		return mem_regdate;
+
+	public String getM_regdate() {
+		return m_regdate;
 	}
-	public void setMem_regdate(String mem_regdate) {
-		this.mem_regdate = mem_regdate;
+
+	public void setM_regdate(String m_regdate) {
+		this.m_regdate = m_regdate;
 	}
-	public String getMem_grade() {
-		return mem_grade;
+
+	public String getM_grade() {
+		return m_grade;
 	}
-	public void setMem_grade(String mem_grade) {
-		this.mem_grade = mem_grade;
+
+	public void setM_grade(String m_grade) {
+		this.m_grade = m_grade;
 	}
+
 	
 	
 	
 }
-=======
-package vo;
-
-public class MemberVo {
-
-	int    mem_idx;
-	String mem_name;
-	String mem_id;
-	String mem_pwd;
-	String mem_zipcode;
-	String mem_addr;
-	String mem_ip;
-	String mem_regdate;
-	String mem_grade;
-	
-	public MemberVo() {
-		// TODO Auto-generated constructor stub
-	}
-		
-	public MemberVo(String mem_name, String mem_id, String mem_pwd, String mem_zipcode, String mem_addr,
-			String mem_ip) {
-		super();
-		this.mem_name = mem_name;
-		this.mem_id = mem_id;
-		this.mem_pwd = mem_pwd;
-		this.mem_zipcode = mem_zipcode;
-		this.mem_addr = mem_addr;
-		this.mem_ip = mem_ip;
-	}
-	
-		
-	
-
-	public MemberVo(int mem_idx, String mem_name, String mem_id, String mem_pwd, String mem_zipcode, String mem_addr,
-			String mem_ip, String mem_grade) {
-		super();
-		this.mem_idx = mem_idx;
-		this.mem_name = mem_name;
-		this.mem_id = mem_id;
-		this.mem_pwd = mem_pwd;
-		this.mem_zipcode = mem_zipcode;
-		this.mem_addr = mem_addr;
-		this.mem_ip = mem_ip;
-		this.mem_grade = mem_grade;
-	}
-
-	public int getMem_idx() {
-		return mem_idx;
-	}
-	public void setMem_idx(int mem_idx) {
-		this.mem_idx = mem_idx;
-	}
-	public String getMem_name() {
-		return mem_name;
-	}
-	public void setMem_name(String mem_name) {
-		this.mem_name = mem_name;
-	}
-	public String getMem_id() {
-		return mem_id;
-	}
-	public void setMem_id(String mem_id) {
-		this.mem_id = mem_id;
-	}
-	public String getMem_pwd() {
-		return mem_pwd;
-	}
-	public void setMem_pwd(String mem_pwd) {
-		this.mem_pwd = mem_pwd;
-	}
-	public String getMem_zipcode() {
-		return mem_zipcode;
-	}
-	public void setMem_zipcode(String mem_zipcode) {
-		this.mem_zipcode = mem_zipcode;
-	}
-	public String getMem_addr() {
-		return mem_addr;
-	}
-	public void setMem_addr(String mem_addr) {
-		this.mem_addr = mem_addr;
-	}
-	public String getMem_ip() {
-		return mem_ip;
-	}
-	public void setMem_ip(String mem_ip) {
-		this.mem_ip = mem_ip;
-	}
-	public String getMem_regdate() {
-		return mem_regdate;
-	}
-	public void setMem_regdate(String mem_regdate) {
-		this.mem_regdate = mem_regdate;
-	}
-	public String getMem_grade() {
-		return mem_grade;
-	}
-	public void setMem_grade(String mem_grade) {
-		this.mem_grade = mem_grade;
-	}
-	
-	
-	
-}
->>>>>>> refs/remotes/origin/CheonTk's-Branch

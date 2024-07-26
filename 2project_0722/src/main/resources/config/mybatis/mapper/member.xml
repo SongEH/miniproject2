@@ -7,18 +7,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
    <!-- 전체조회 -->
    <select id="member_list" resultType="member">
-       select * from member order by mem_idx
+       select * from member order by m_idx
    </select>
    
    
    <!-- mem_idx 이용해서  MemberVo  구하기 -->
    <select id="member_one_idx"  parameterType="int"  resultType="vo.MemberVo">
-       select * from member where mem_idx=#{mem_idx}
+       select * from member where m_idx=#{m_idx}
    </select>
    
    <!-- mem_id 이용해서  MemberVo  구하기 -->
    <select id="member_one_id"  parameterType="String"  resultType="vo.MemberVo">
-       select * from member where mem_id= #{mem_id}
+       select * from member where m_id= #{m_id}
    </select>
    
    <!-- 추가  
@@ -26,31 +26,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    -->
    <insert id="member_insert"  parameterType="vo.MemberVo">
        insert into member values(seq_member_idx.nextVal,
-                                  #{ mem_name }, 
-                                  #{ mem_id },
-                                  #{ mem_pwd },
-                                  #{ mem_zipcode },
-                                  #{ mem_addr },
-                                  #{ mem_ip},
+                                  #{ m_name }, 
+                                  #{ m_id },
+                                  #{ m_pwd },
+                                  #{ m_zipcode },
+                                  #{ m_addr },
+                                  #{ m_ip},
                                   default,
                                   default)
    </insert>
    
    <!-- 삭제  -->
    <delete id="member_delete" parameterType="int">
-      delete from member where mem_idx=#{ mem_idx }
+      delete from member where m_idx=#{ m_idx }
    </delete>
    
    <!-- 수정  -->
    <update id="member_update" parameterType="member">
       update member 
-             set mem_name=#{ mem_name },
-                 mem_pwd=#{ mem_pwd },
-                 mem_zipcode=#{ mem_zipcode },
-                 mem_addr=#{ mem_addr },
-                 mem_ip=#{ mem_ip },
-                 mem_grade=#{ mem_grade }  
-      where mem_idx=#{ mem_idx }
+             set m_name=#{ m_name },
+                 m_pwd=#{ m_pwd },
+                 m_zipcode=#{ m_zipcode },
+                 m_addr=#{ m_addr },
+                 m_ip=#{ m_ip },
+                 m_grade=#{ m_grade }  
+      where m_idx=#{ m_idx }
    </update>
    
    

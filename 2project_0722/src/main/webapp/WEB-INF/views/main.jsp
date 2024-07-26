@@ -144,7 +144,7 @@ input {
 
 			<div
 				class="container position-relative d-flex align-items-center justify-content-between">
-				<a href="index.html" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+				<a href="${pageContext.request.contextPath}/index.jsp" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
 					<!-- <img src="resources/assets/img/logo.png" alt=""> -->
 					<h1 class="sitename">LOGO</h1>
 				</a>
@@ -152,16 +152,12 @@ input {
 				<nav id="navmenu" class="navmenu">
 					<ul>
 						<li><a href="#" class="active">다이어리<br></a></li>
-<<<<<<< HEAD
 						<li class="dropdown"><a href="#"><span>커뮤니티</span>
-=======
-						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
-								<li><a href="board/list.do">자유게시판</a></li>
-								<li><a href="#">아파요</a></li>
-								<li><a href="#">산책메이트 구하기</a></li>
+								<li><a href="board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a href="board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a href="board/list.do?b_cate=mate">동네친구</a></li>
 								<li><a href="#">Dropdown 4</a></li>
 							</ul></li>
 						<li><a href="#">플레이스</a></li>
