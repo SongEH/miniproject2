@@ -34,8 +34,8 @@
             <div class="mb-4">
                 <label for="p_gender" class="block text-gray-700 text-sm font-bold mb-2">성별</label>
                 <select id="p_gender" name="p_gender" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="male">수컷</option>
-                    <option value="female">암컷</option>
+                    <option value="수컷">수컷</option>
+                    <option value="암컷">암컷</option>
                 </select>
             </div>
             <div class="mb-4">

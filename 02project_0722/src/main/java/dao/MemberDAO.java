@@ -58,4 +58,8 @@ public class MemberDAO {
     public List<PetVO> getPetsByMemberId(int m_idx) {
         return sqlSession.selectList("pet.selectByMemberId", m_idx);
     }
+    
+    public void updateMemberForUser(MemberVO member) {
+        sqlSession.update("member.updateMemberForUser", member);
+    }
 }

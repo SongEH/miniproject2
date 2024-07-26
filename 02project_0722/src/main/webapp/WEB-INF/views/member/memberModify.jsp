@@ -10,6 +10,23 @@
     <title>회원 수정</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var addr = '';
+                    if (data.userSelectedType === 'R') {
+                        addr = data.roadAddress;
+                    } else {
+                        addr = data.jibunAddress;
+                    }
+                    document.getElementById('m_zipcode').value = data.zonecode;
+                    document.getElementById('m_addr').value = addr;
+                }
+            }).open();
+        }
+    </script>
 </head>
 <body class="bg-gray-100">
     <div class="container mx-auto p-6">
@@ -40,7 +57,10 @@
                 
                 <div class="mb-4">
                     <label for="m_zipcode" class="block text-gray-700 font-bold mb-2">우편번호</label>
-                    <input type="text" id="m_zipcode" name="m_zipcode" value="${member.m_zipcode}" class="w-full p-2 border border-gray-300 rounded">
+                    <div class="flex">
+                        <input type="text" id="m_zipcode" name="m_zipcode" value="${member.m_zipcode}" class="w-7/8 p-2 border border-gray-300 rounded">
+                        <button type="button" onclick="execDaumPostcode()" class="w-1/8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">주소 검색</button>
+                    </div>
                 </div>
                 
                 <div class="mb-4">

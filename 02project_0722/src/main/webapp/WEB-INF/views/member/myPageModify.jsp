@@ -9,8 +9,25 @@
     <title>회원 정보 수정</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script>
+        function execDaumPostcode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    var addr = '';
+                    if (data.userSelectedType === 'R') {
+                        addr = data.roadAddress;
+                    } else {
+                        addr = data.jibunAddress;
+                    }
+                    document.getElementById('m_zipcode').value = data.zonecode;
+                    document.getElementById('m_addr').value = addr;
+                }
+            }).open();
+        }
+    </script>
 </head>
-<body>
+<body class="bg-gray-100">
     <div class="container mx-auto p-6">
         <h1 class="text-3xl font-bold mb-6">회원 정보 수정</h1>
         <form action="${pageContext.request.contextPath}/member/mypage/modify.do" method="post">
@@ -29,7 +46,10 @@
             </div>
             <div class="mb-4">
                 <label for="m_zipcode" class="block text-gray-700 text-sm font-bold mb-2">우편번호</label>
-                <input type="text" id="m_zipcode" name="m_zipcode" value="${member.m_zipcode}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <div class="flex">
+                    <input type="text" id="m_zipcode" name="m_zipcode" value="${member.m_zipcode}" class="shadow appearance-none border rounded w-7/8 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    <button type="button" onclick="execDaumPostcode()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">주소 검색</button>
+                </div>
             </div>
             <div class="mb-4">
                 <label for="m_addr" class="block text-gray-700 text-sm font-bold mb-2">주소</label>

@@ -2,6 +2,8 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -64,18 +66,19 @@ public class PetController {
     @RequestMapping(value = "modify.do", method = RequestMethod.GET)
     public String modifyForm(@RequestParam("p_idx") int p_idx, Model model) {
         PetVO pet = petDAO.getPetById(p_idx);
+        
+        if (pet.getP_birthday() != null) {
+            model.addAttribute("formattedBirthday", pet.getP_birthday());
+        }
+
         model.addAttribute("pet", pet);
         return "pet/petModify";
     }
 
     @RequestMapping(value = "modify.do", method = RequestMethod.POST)
-    public String modify(PetVO pet, @RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+    public String modify(PetVO pet, @RequestParam("file") MultipartFile file, @RequestParam("p_birthday") String p_birthday) throws IllegalStateException, IOException {
         String absPath = application.getRealPath("/resources/images/pets/");
-        File dir = new File(absPath);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        String p_filename = "no_file";
+        String p_filename = pet.getP_photo();
 
         if (!file.isEmpty()) {
             p_filename = file.getOriginalFilename();
@@ -86,9 +89,14 @@ public class PetController {
                 p_filename = String.format("%d_%s", tm, p_filename);
                 f = new File(absPath, p_filename);
             }
-
             file.transferTo(f);
-            pet.setP_photo(p_filename);
+        }
+
+        pet.setP_photo(p_filename);
+
+        if (pet.getP_birthday() == null || pet.getP_birthday().isEmpty()) {
+            PetVO originalPet = petDAO.getPetById(pet.getP_idx());
+            pet.setP_birthday(originalPet.getP_birthday());
         }
 
         petDAO.updatePet(pet);
@@ -98,6 +106,6 @@ public class PetController {
     @RequestMapping("delete.do")
     public String delete(@RequestParam("p_idx") int p_idx, @RequestParam("m_idx") int m_idx) {
         petDAO.deletePet(p_idx);
-        return "redirect:/member/mypage.do?m_idx=" + m_idx;
+        return "redirect:../member/mypage.do?m_idx=" + m_idx;
     }
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,6 +84,7 @@
                     response.forEach(function(pet) {
                         console.log('펫 정보:', pet);
                         let petPhoto = pet.p_photo ? '${pageContext.request.contextPath}/resources/images/pets/' + pet.p_photo : '${pageContext.request.contextPath}/resources/images/pets/default.png';
+                        const formattedBirthday = pet.p_birthday ? new Date(pet.p_birthday).toLocaleDateString() : '생일을 등록하세요.';
                         $('#pet-list').append(`
                             <div class="border-b py-3">
                                 <div class="flex items-center mb-4">
@@ -90,7 +93,7 @@
                                         <p class="text-gray-700 font-bold">이름&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp \${pet.p_name}</p>
                                         <p class="text-gray-700">종류&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp \${pet.p_value}</p>
                                         <p class="text-gray-700">품종&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp \${pet.p_breed}</p>
-                                        <p class="text-gray-700">생일&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp \${pet.p_birthday}</p>
+                                        <p class="text-gray-700">생일&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp \${formattedBirthday}</p>
                                         <p class="text-gray-700">성별&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp:&nbsp \${pet.p_gender}</p>
                                         <p class="text-gray-700">등록 번호&nbsp:&nbsp \${pet.p_serialNum}</p>
                                     </div>

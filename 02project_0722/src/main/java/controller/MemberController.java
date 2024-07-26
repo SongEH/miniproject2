@@ -97,8 +97,8 @@ public class MemberController {
     
     @RequestMapping(value = "mypage/modify.do", method = RequestMethod.POST)
     public String myPageEdit(MemberVO member) {
-        memberDAO.updateMember(member);
-        return "redirect:mypage.do?m_idx=" + member.getM_idx();
+        memberDAO.updateMemberForUser(member);
+        return "redirect:../mypage.do?m_idx=" + member.getM_idx();
     }
 
     @RequestMapping(value = "mypage/delete.do", method = RequestMethod.POST)

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../top.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +11,18 @@
     <title>반려동물 수정</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#p_birthday").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        });
+        
+        let petPhoto = pet.p_photo ? '${pageContext.request.contextPath}/resources/images/pets/' + pet.p_photo : '${pageContext.request.contextPath}/resources/images/pets/default.png';
+    </script>
 </head>
 <body>
     <div class="container mx-auto p-6">
@@ -16,6 +30,7 @@
         <form action="${pageContext.request.contextPath}/pet/modify.do" method="post" enctype="multipart/form-data">
             <input type="hidden" name="p_idx" value="${pet.p_idx}">
             <input type="hidden" name="m_idx" value="${pet.m_idx}">
+            <input type="hidden" name="p_photo" value="${pet.p_photo}">
             <div class="mb-4">
                 <label for="p_name" class="block text-gray-700 text-sm font-bold mb-2">이름</label>
                 <input type="text" id="p_name" name="p_name" value="${pet.p_name}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -30,13 +45,13 @@
             </div>
             <div class="mb-4">
                 <label for="p_birthday" class="block text-gray-700 text-sm font-bold mb-2">생일</label>
-                <input type="date" id="p_birthday" name="p_birthday" value="${pet.p_birthday}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" id="p_birthday" name="p_birthday" value="${formattedBirthday}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="mb-4">
                 <label for="p_gender" class="block text-gray-700 text-sm font-bold mb-2">성별</label>
                 <select id="p_gender" name="p_gender" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    <option value="male" ${pet.p_gender == '수컷' ? 'selected' : ''}>수컷</option>
-                    <option value="female" ${pet.p_gender == '암컷' ? 'selected' : ''}>암컷</option>
+                    <option value="수컷" ${pet.p_gender == '수컷' ? 'selected' : ''}>수컷</option>
+                    <option value="암컷" ${pet.p_gender == '암컷' ? 'selected' : ''}>암컷</option>
                 </select>
             </div>
             <div class="mb-4">
@@ -56,5 +71,13 @@
         </form>
     </div>
 <jsp:include page="../footer.jsp" />
+<script>
+    $(document).ready(function() {
+        const formattedBirthday = "${formattedBirthday}";
+        if (formattedBirthday) {
+            $("#p_birthday").val(formattedBirthday.substring(0, 10)); // 날짜만 표시 (yyyy-mm-dd)
+        }
+    });
+</script>
 </body>
 </html>
