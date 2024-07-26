@@ -23,6 +23,11 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="controller" />
+	<!-- 수만추가 -->
+	<context:component-scan base-package="service" />
+	<context:component-scan base-package="dao" />
+	<!-- 수만추가 끝 -->
+	
 	
 	<!-- 수동생성 -->
 	

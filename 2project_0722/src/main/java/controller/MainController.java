@@ -28,7 +28,15 @@ public class MainController {
 		return "main";
 	}
 	
-
+	@RequestMapping("/news/news.do")
+	public String news() {
+		return"news/news_main";
+	}
+	
+	@RequestMapping("/place/place.do")
+	public String place() {
+		return"place/place_main";
+	}
 	
 	
 }

@@ -123,6 +123,29 @@
 			<artifactId>json</artifactId>
 			<version>20240205</version>
 		</dependency>
+		
+		<!-- Jackson for JSON parsing /수만추가-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+
+		<!-- HttpClient for making HTTP requests -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+
+		<!-- JSTL dependency for JSP -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		
 	</dependencies>
 
 </project>

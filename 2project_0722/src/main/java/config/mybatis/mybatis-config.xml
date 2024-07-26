@@ -11,11 +11,14 @@
 	
 	<typeAliases>
 		<!-- <typeAlias type="vo.WalksVo" alias="walks"/> -->
+		<typeAlias type="vo.NewsItem"  alias="newsitem"/>
+		<typeAlias type="vo.PlaceVo"  alias="place"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/diary.xml" />
-		
+		<mapper resource="config/mybatis/mapper/newsitem.xml" />
+		<mapper resource="config/mybatis/mapper/place.xml" />
 	</mappers>
 	
 </configuration>

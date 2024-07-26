@@ -11,4 +11,8 @@
 
 <!-- 	<bean id="diary_dao" class="dao.DiaryDao" autowire="default" />
  -->
+ <!-- 수만추가  -->
+ <bean id="newsitem_dao"  class="dao.NewsItemImpl"  autowire="default"></bean>
+ <bean id="location_dao"  class="dao.LocationDaoImpl"  autowire="default"></bean>
+ <!-- 수만추가 끝 -->
 </beans>

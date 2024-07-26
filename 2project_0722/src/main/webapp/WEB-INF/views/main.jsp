@@ -160,8 +160,8 @@ input {
 								<li><a href="#">Dropdown 3</a></li>
 								<li><a href="#">Dropdown 4</a></li>
 							</ul></li>
-						<li><a href="#">플레이스</a></li>
-						<li><a href="#portfolio">뉴스</a></li>
+						<li><a href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
+						<li><a href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
 						<li><a href="#team">쇼핑몰</a></li>
 
 						<li><a href="#">문의</a></li>
@@ -241,7 +241,7 @@ input {
 									<i class="bi bi-geo-alt"></i>
 								</div>
 								<h4 class="title">
-									<a href="" class="stretched-link">플레이스</a>
+									<a href="${ pageContext.request.contextPath}/location/location.do" class="stretched-link">플레이스</a>
 								</h4>
 							</div>
 						</div>
@@ -253,7 +253,7 @@ input {
 									<i class="bi bi-command"></i>
 								</div>
 								<h4 class="title">
-									<a href="" class="stretched-link">뉴스</a>
+									<a href="${ pageContext.request.contextPath}/news/news.do" class="stretched-link">뉴스</a>
 								</h4>
 							</div>
 						</div>
