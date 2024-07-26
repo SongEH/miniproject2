@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,5 +48,19 @@ public class PetDAO {
     
     public void updatePetPhoto(Map<String, Object> params) {
         sqlSession.update(NAMESPACE + ".updatePetPhoto", params);
+    }
+    
+    public List<PetVO> getPetsWithPaging(int offset, int limit, String searchKeyword) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        params.put("searchKeyword", searchKeyword != null ? searchKeyword : "");
+        return sqlSession.selectList(NAMESPACE + ".getPetsWithPaging", params);
+    }
+
+    public int getPetCount(String searchKeyword) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("searchKeyword", searchKeyword != null ? searchKeyword : "");
+        return sqlSession.selectOne(NAMESPACE + ".getPetCount", params);
     }
 }

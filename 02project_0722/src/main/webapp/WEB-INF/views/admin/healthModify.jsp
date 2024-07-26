@@ -1,0 +1,87 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../top.jsp" %>
+<%@ include file="../admin/topMenu.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반려동물 진료 기록 수정</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script>
+        $(function() {
+            $("#h_date").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+            $("#h_ndate").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        });
+    </script>
+    <style>
+        input[readonly] {
+            background-color: #f9f9f9;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-6">
+        <h1 class="text-3xl font-bold mb-6">반려동물 진료 기록 수정</h1>
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <form action="${pageContext.request.contextPath}/admin/healthModify.do" method="post">
+                <input type="hidden" name="h_idx" value="${health.h_idx}">
+                <input type="hidden" name="m_idx" value="${health.m_idx}">
+                <input type="hidden" name="p_idx" value="${health.p_idx}">
+                <div class="mb-4">
+                    <label for="m_name" class="block text-gray-700 font-bold mb-2">회원 이름</label>
+                    <input type="text" id="m_name" name="m_name" value="${health.m_name}" class="w-full p-2 border border-gray-300 rounded" readonly>
+                </div>
+                <div class="mb-4">
+                    <label for="pet_name" class="block text-gray-700 font-bold mb-2">반려동물 이름</label>
+                    <input type="text" id="pet_name" name="pet_name" value="${health.pet_name}" class="w-full p-2 border border-gray-300 rounded" readonly>
+                </div>
+                <div class="mb-4">
+                    <label for="h_type" class="block text-gray-700 font-bold mb-2">진료 유형</label>
+                    <input type="text" id="h_type" name="h_type" value="${health.h_type}" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="h_date" class="block text-gray-700 font-bold mb-2">진료 날짜</label>
+                    <input type="text" id="h_date" name="h_date" value="<fmt:formatDate value='${health.h_date}' pattern='yyyy-MM-dd'/>" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="h_time" class="block text-gray-700 font-bold mb-2">진료 시간 (HH:mm)</label>
+                    <input type="text" id="h_time" name="h_time" value="${health.h_time}" class="w-full p-2 border border-gray-300 rounded" placeholder="HH:mm">
+                </div>
+                <div class="mb-4">
+                    <label for="h_cost" class="block text-gray-700 font-bold mb-2">비용</label>
+                    <input type="text" id="h_cost" name="h_cost" value="${health.h_cost}" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="h_content" class="block text-gray-700 font-bold mb-2">내용</label>
+                    <input type="text" id="h_content" name="h_content" value="${health.h_content}" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="h_hname" class="block text-gray-700 font-bold mb-2">병원 이름</label>
+                    <input type="text" id="h_hname" name="h_hname" value="${health.h_hname}" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="mb-4">
+                    <label for="h_ndate" class="block text-gray-700 font-bold mb-2">다음 예약 날짜</label>
+                    <input type="text" id="h_ndate" name="h_ndate" value="<fmt:formatDate value='${health.h_ndate}' pattern='yyyy-MM-dd'/>" class="w-full p-2 border border-gray-300 rounded">
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <jsp:include page="../footer.jsp" />
+</body>
+</html>

@@ -100,7 +100,7 @@
                                 </div>
                                 <div class="flex justify-between mt-4">
                                     <a href="${pageContext.request.contextPath}/pet/modify.do?p_idx=\${pet.p_idx}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">수정</a>
-                                    <a href="${pageContext.request.contextPath}/pet/delete.do?p_idx=\${pet.p_idx}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                                    <a href="${pageContext.request.contextPath}/pet/delete.do?p_idx=\${pet.p_idx}&m_idx=\${pet.m_idx}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                                 </div>
                             </div>
                         `);

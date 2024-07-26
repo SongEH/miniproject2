@@ -47,4 +47,41 @@
         AND (#{gradeFilter, jdbcType=VARCHAR} IS NULL OR m_grade = #{gradeFilter, jdbcType=VARCHAR})
         AND (#{yearFilter, jdbcType=VARCHAR} IS NULL OR TO_CHAR(m_rdate, 'YYYY') = #{yearFilter, jdbcType=VARCHAR})
     </select>
+    
+    <update id="updateMemberForUser" parameterType="vo.MemberVO">
+	    UPDATE member
+	    SET m_name = #{m_name, jdbcType=VARCHAR},
+	        m_nickname = #{m_nickname, jdbcType=VARCHAR},
+	        m_email = #{m_email, jdbcType=VARCHAR},
+	        m_zipcode = #{m_zipcode, jdbcType=VARCHAR},
+	        m_addr = #{m_addr, jdbcType=VARCHAR}
+	    WHERE m_idx = #{m_idx}
+	</update>
+	
+    <select id="getMembersWithPaging" resultType="vo.MemberVO">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT A.*, ROWNUM RNUM FROM (
+                SELECT * FROM Member
+                WHERE (#{searchKeyword} IS NULL OR LOWER(m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                   OR LOWER(m_nickname) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                   OR LOWER(m_email) LIKE '%' || LOWER(#{searchKeyword}) || '%')
+                ORDER BY m_idx
+            ) A WHERE ROWNUM <= #{offset} + #{limit}
+        ) WHERE RNUM > #{offset}
+        ]]>
+    </select>
+
+    <select id="getMemberCount" resultType="int">
+        SELECT COUNT(*)
+        FROM Member
+        WHERE (#{searchKeyword} IS NULL OR LOWER(m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(m_nickname) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(m_email) LIKE '%' || LOWER(#{searchKeyword}) || '%')
+    </select>
+    
+	<insert id="insertMember" parameterType="vo.MemberVO">
+        INSERT INTO Member (m_idx, m_name, m_nickname, m_email, m_pwd, m_zipcode, m_addr, m_grade)
+        VALUES (member_seq.nextval, #{m_name}, #{m_nickname}, #{m_email}, #{m_pwd}, #{m_zipcode}, #{m_addr}, #{m_grade})
+    </insert>
 </mapper>

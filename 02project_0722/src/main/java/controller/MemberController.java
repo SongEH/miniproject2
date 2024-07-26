@@ -31,7 +31,7 @@ public class MemberController {
                        @RequestParam(value = "searchKeyword", required = false) String searchKeyword,
                        @RequestParam(value = "gradeFilter", required = false) String gradeFilter,
                        @RequestParam(value = "yearFilter", required = false) String yearFilter) {
-        int limit = 20;
+        int limit = 10;
         int offset = (page - 1) * limit;
 
         List<MemberVO> members = memberDAO.getMembersWithPaging(offset, limit, searchKeyword, gradeFilter, yearFilter);

@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insertPet" parameterType="vo.PetVO">
 	    INSERT INTO Pet (p_idx, p_name, p_value, p_breed, p_birthday, p_gender, p_serialNum, p_photo, m_idx)
-	    VALUES (#{p_idx}, #{p_name}, #{p_value}, #{p_breed}, #{p_birthday}, #{p_gender}, #{p_serialNum}, #{p_photo}, #{m_idx})
+	    VALUES (Pet_Seq.NEXTVAL, #{p_name}, #{p_value}, #{p_breed}, #{p_birthday}, #{p_gender}, #{p_serialNum}, #{p_photo}, #{m_idx})
 	</insert>
 
 	<update id="updatePet" parameterType="vo.PetVO">
@@ -46,4 +46,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="deletePet" parameterType="int">
         DELETE FROM Pet WHERE p_idx = #{p_idx}
     </delete>
+    
+    <select id="getPetsWithPaging" resultType="vo.PetVO">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT A.*, ROWNUM RNUM FROM (
+                SELECT * FROM Pet
+                WHERE LOWER(p_name) LIKE '%' || LOWER(#{searchKeyword}) || '%' 
+                   OR LOWER(p_value) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                   OR LOWER(p_breed) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                ORDER BY p_idx
+            ) A WHERE ROWNUM <= #{offset} + #{limit}
+        ) WHERE RNUM > #{offset}
+        ]]>
+    </select>
+
+    <select id="getPetCount" resultType="int">
+        SELECT COUNT(*)
+        FROM Pet
+        WHERE LOWER(p_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(p_value) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(p_breed) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+    </select>
+
 </mapper>

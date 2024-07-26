@@ -62,4 +62,8 @@ public class MemberDAO {
     public void updateMemberForUser(MemberVO member) {
         sqlSession.update("member.updateMemberForUser", member);
     }
+    
+    public void insertMember(MemberVO member) {
+        sqlSession.insert("member.insertMember", member);
+    }
 }

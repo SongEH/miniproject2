@@ -70,7 +70,7 @@
                             <td class="py-2 text-center">
                                 <a href="${pageContext.request.contextPath}/member/modify.do?m_idx=${member.m_idx}" class="text-blue-500 hover:underline">수정</a>
                             </td>
-                            <td class="py-2 text-center">
+                            <td class="py-2 text-center" onclick="return confirm('정말 삭제하시겠습니까?');">
                                 <a href="${pageContext.request.contextPath}/member/delete.do?m_idx=${member.m_idx}" class="text-red-500 hover:underline">삭제</a>
                             </td>                    
                         </tr>

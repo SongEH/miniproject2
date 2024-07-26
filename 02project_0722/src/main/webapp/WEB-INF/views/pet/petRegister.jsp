@@ -9,6 +9,16 @@
     <title>반려동물 등록</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+        $(function() {
+            $("#p_birthday").datepicker({
+                dateFormat: "yy-mm-dd"
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container mx-auto p-6">
@@ -29,7 +39,7 @@
             </div>
             <div class="mb-4">
                 <label for="p_birthday" class="block text-gray-700 text-sm font-bold mb-2">생일</label>
-                <input type="date" id="p_birthday" name="p_birthday" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" id="p_birthday" name="p_birthday" value="${formattedBirthday}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
             <div class="mb-4">
                 <label for="p_gender" class="block text-gray-700 text-sm font-bold mb-2">성별</label>

@@ -18,7 +18,7 @@
         <h1 class="text-3xl font-bold mb-6">반려동물 관리</h1>
         <form method="get" action="${pageContext.request.contextPath}/admin/petList.do" class="mb-4">
             <div class="flex justify-end mt-2">
-            	<input type="text" name="searchKeyword" placeholder="검색어 입력" class="shadow appearance-none border rounded w-7/8 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <input type="text" name="searchKeyword" placeholder="검색어 입력" class="shadow appearance-none border rounded w-7/8 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">검색</button>
             </div>
         </form>
@@ -80,9 +80,9 @@
                 </nav>
             </div>
         </div>
-       	<div class="flex justify-center mt-6">
-			<a href="${pageContext.request.contextPath}/admin/menu" class="bg-blue-500 text-white py-2 px-4 rounded-full shadow-lg hover:bg-blue-600 transition duration-300">메뉴로 돌아가기</a>
-       	</div>
+		<div class="flex justify-center mt-6">
+			<a href="${pageContext.request.contextPath}/admin/memberListForPets.do" class="bg-blue-500 text-white py-2 px-4 rounded-full shadow-lg hover:bg-blue-600 transition duration-300">회원 정보로 돌아가기</a>
+		</div>
     </div>
 <jsp:include page="../footer.jsp" />
 </body>

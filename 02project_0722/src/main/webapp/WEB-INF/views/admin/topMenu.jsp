@@ -15,6 +15,7 @@
                 <button @click="open = !open" class="text-gray-600 hover:text-gray-800">회원 관리메뉴</button>
                 <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2">
                     <a href="${pageContext.request.contextPath}/member/list.do" class="block py-2 text-gray-600 hover:bg-gray-100">회원 목록</a>
+                    <a href="${pageContext.request.contextPath}/admin/register.do" class="block py-2 text-gray-600 hover:bg-gray-100">회원 등록</a>
                 </div>
             </div>
             <div x-data="{ open: false }" class="relative">
@@ -34,8 +35,8 @@
             <div x-data="{ open: false }" class="relative">
                 <button @click="open = !open" class="text-gray-600 hover:text-gray-800">반려동물 정보 관리</button>
                 <div x-show="open" @click.away="open = false" class="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2">
-                    <a href="${pageContext.request.contextPath}/pet/list.do" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">반려동물 목록</a>
-                    <a href="${pageContext.request.contextPath}/pet/add.do" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">반려동물 추가</a>
+                    <a href="${pageContext.request.contextPath}/admin/petList.do" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">반려동물 목록</a>
+                    <a href="${pageContext.request.contextPath}/admin/memberListForPets.do" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">회원별 반려동물</a>
                 </div>
             </div>
             <div x-data="{ open: false }" class="relative">
@@ -77,7 +78,8 @@
             <button @click="open = !open" class="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100">반려동물 정보 관리</button>
             <div x-show="open" class="pl-4">
                 <a href="${pageContext.request.contextPath}/pet/list.do" class="block py-2 text-gray-600 hover:bg-gray-100">반려동물 목록</a>
-                <a href="${pageContext.request.contextPath}/pet/detail.do" class="block py-2 text-gray-600 hover:bg-gray-100">반려동물 추가</a>
+                <a href="${pageContext.request.contextPath}/admin/memberListForPets.do" class="block py-2 text-gray-600 hover:bg-gray-100">회원 별 반려동물 목록</a>
+                <a href="${pageContext.request.contextPath}/admin/healthList.do" class="block py-2 text-gray-600 hover:bg-gray-100">진료기록 목록</a>
             </div>
         </div>
         <div x-data="{ open: false }" class="relative">

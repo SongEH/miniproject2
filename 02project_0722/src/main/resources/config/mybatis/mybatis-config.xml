@@ -5,6 +5,7 @@
         <setting name="cacheEnabled" value="false"/>
         <setting name="useGeneratedKeys" value="true"/>
         <setting name="defaultExecutorType" value="REUSE"/>
+        <setting name="jdbcTypeForNull" value="VARCHAR"/>
     </settings>
     
     <typeAliases>
@@ -12,6 +13,7 @@
         <typeAlias type="vo.BoardVO" alias="board"/>
         <typeAlias type="vo.PetVO" alias="pet"/>
         <typeAlias type="vo.StatisticsVO" alias="statistics"/>
+        <typeAlias type="vo.HealthVO" alias="helath"/>
     </typeAliases>
     
     <mappers>
@@ -19,5 +21,6 @@
         <mapper resource="config/mybatis/mapper/board.xml"/>
         <mapper resource="config/mybatis/mapper/pet.xml"/>
         <mapper resource="config/mybatis/mapper/statistics.xml"/>
+        <mapper resource="config/mybatis/mapper/health.xml"/>
     </mappers>
 </configuration>
