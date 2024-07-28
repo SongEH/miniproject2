@@ -19,6 +19,8 @@
 		<mapper resource="config/mybatis/mapper/diary.xml" />
 		<mapper resource="config/mybatis/mapper/board.xml"/>
 		<mapper resource="config/mybatis/mapper/member.xml"/>
+		<mapper resource="config/mybatis/mapper/reply.xml"/>
 	</mappers>
+	
 	
 </configuration>

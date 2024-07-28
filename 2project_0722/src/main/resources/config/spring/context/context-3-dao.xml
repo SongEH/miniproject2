@@ -20,5 +20,15 @@
 	<bean id="board_images_dao" class="dao.BoardImagesDao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+	
+	<bean id="reply_dao" class="dao.ReplyDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<bean id="cmt_dao" class="dao.CommentDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	
 </beans>
 

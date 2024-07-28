@@ -4,28 +4,28 @@
 
 <mapper namespace="board">
 
-
+<!--  
 	<select id="board_list_page" parameterType="Map" resultType="vo.BoardVo">
 		SELECT v.*
-		FROM (
-		    SELECT
-		        p.*, 
-		        RANK() OVER (ORDER BY b_idx DESC) AS no
-		    FROM (
-		        SELECT * FROM board
-		    ) p
-		) v
-		WHERE no BETWEEN #{start} AND #{end}
+			FROM (
+			    SELECT
+			        p.*, 
+			        RANK() OVER (ORDER BY b_idx DESC) AS no
+			    FROM 
+			    	( SELECT * FROM board ) p
+			) v
+			WHERE no BETWEEN #{start} AND #{end}
 	</select>
+-->
 	
 <!--  ************************** BOARD_ROW_TOTAL  ***************************** -->
-	<select id="board_row_total" resultType="int">
-		select nvl(count(*),0) from board
+	<select id="board_row_total" parameterType="String" resultType="int">
+		select nvl(count(*),0) from board where b_cate = #{b_cate}
 	</select>
 <!--  ************************** BOARD_ROW_TOTAL  ***************************** -->
 
 	
-<!-- ************************** BOARD_LIST_ALL  ***************************** -->
+<!-- ************************** BOARD_LIST  ***************************** -->
 	<resultMap type="vo.BoardVo"  id="BoardMap">
 	    <result property="b_idx"  column="b_idx"/>
 	    <collection property="image_list"
@@ -40,13 +40,13 @@
 	</select>
 	
 	
-	<select id="board_list_all" resultMap="BoardMap">
+	<select id="board_list" resultMap="BoardMap">
 		select
 			rank() over(order by b_idx desc) as no, b.*
 			from 
-			(select * from board ) b
+			(select * from board where  ) b
 	</select>
-<!-- ************************** BOARD_LIST_ALL  ***************************** -->
+<!-- ************************** BOARD_LIST  ***************************** -->
 	
 
 <!-- ************************** BOARD_LIST_B_CATE  ***************************** -->
@@ -63,16 +63,42 @@
 	     select * from board_images where b_idx=#{ b_idx } 
 	</select>
 	
-	
-	<select id="board_list" parameterType="String" resultMap="BoardMap3">
-		select
-			rank() over(order by b_idx desc) as no, b.*
-			from 
-			(select * from board where b_cate = #{b_cate} ) b
+
+	<select id="board_list_b_cate" parameterType="String" resultMap="BoardMap3">
+				select
+				rank() over(order by b_idx desc) as no, b.*
+				from 
+					(select * from board where b_cate = #{b_cate}) b
 	</select>
 <!-- ************************** BOARD_LIST_B_CATE  ***************************** -->
 
 
+<!-- ************************** BOARD_LIST_page  ***************************** -->
+	<resultMap type="vo.BoardVo"  id="BoardMap4">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_list_image_page"
+	                    />
+	</resultMap>
+	
+	<select id="board_list_image_page"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+
+	<select id="board_list_page" parameterType="Map" resultMap="BoardMap4">
+		select *	from
+		(
+			select
+			rank() over(order by b_idx desc) as no, b.*
+			from 
+					(select * from board where b_cate = #{b_cate}) b
+ 		)
+		where no between #{start} and #{end} 
+	</select>
+	
+<!-- ************************** BOARD_LIST_page  ***************************** -->
 
 
 	
@@ -113,7 +139,7 @@
 
 
 
-<!-- ************************** BOARD_VIEW  ***************************** -->
+<!-- ************************** BOARD_LIST_ONE  ***************************** -->
 
 	<resultMap type="vo.BoardVo"  id="BoardMap2">
 	    <result property="b_idx"  column="b_idx"/>
@@ -133,7 +159,7 @@
 	      select * from board where b_idx = #{b_idx}
 	</select>
 
-<!-- ************************** BOARD_VIEW  ***************************** -->
+<!-- ************************** BOARD_LIST_ONE  ***************************** -->
 
 
 
@@ -141,7 +167,8 @@
 	<update id="board_update" parameterType="vo.BoardVo">
 		update board set b_title = #{b_title},
 						 b_content = #{b_content},
-						 b_udate = sysdate
+						 b_udate = sysdate,
+						 b_cate = #{b_cate}
 						 where b_idx = #{b_idx}
 	</update>
 <!-- ************************** BOARD_UPDATE  ***************************** -->

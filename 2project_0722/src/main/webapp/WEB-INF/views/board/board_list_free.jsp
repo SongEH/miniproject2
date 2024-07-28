@@ -17,6 +17,15 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <!-- Favicons -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
@@ -212,10 +221,35 @@ main.main {
 }
 
 .img-thumbnail {
-    cursor: pointer; /* Changes cursor to a hand (click) shape */
+	cursor: pointer; /* Changes cursor to a hand (click) shape */
 }
 
+/* 페이지 메뉴 CSS  */
+.pagination {
+	text-align: center !important;
+	margin: auto;
+}
 </style>
+
+<script type="text/javascript">
+	function insert_form() {
+
+		if ("${ empty user}" == "true") {
+
+			if (confirm("글쓰기는 로그인 후 이용가능합니다\n로그인 하시겠습니까?") == false) {
+				return;
+			} else {
+				location.href = "../member/login_form.do?url="
+						+ encodeURIComponent(location.href);
+				return;
+				alert(encodeURIComponent(location.href));
+			}
+		}
+
+		location.href = "insert_form.do"
+
+	}
+</script>
 
 
 <body class="index-page">
@@ -245,7 +279,8 @@ main.main {
 
 			<div
 				class="container position-relative d-flex align-items-center justify-content-between">
-				<a href="index.html" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+				<a href="${pageContext.request.contextPath}/index.jsp"
+					class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
 					<!-- <img src="resources/assets/img/logo.png" alt=""> -->
 					<h1 class="sitename">LOGO</h1>
 				</a>
@@ -257,10 +292,12 @@ main.main {
 						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
-								<li><a href="#">Dropdown 1</a></li>
-								<li><a href="#">Dropdown 2</a></li>
-								<li><a href="#">Dropdown 3</a></li>
-								<li><a href="#">Dropdown 4</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
 							</ul></li>
 						<li><a href="#">플레이스</a></li>
 						<li><a href="#portfolio">뉴스</a></li>
@@ -278,61 +315,80 @@ main.main {
 	</header>
 
 
-	<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
+	<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
+
 	<main class="main mt-300">
+		<!-- form으로 보내고 싶은 데이터  -->
+
 		<div class="container d-flex justify-content-end">
 			<input class="btn btn-success" type="button" value="글쓰기"
-				onclick="location.href='insert_form.do'">
+				onclick="insert_form();">
 		</div>
+		<c:forEach var="item" items="${list}">
+			<c:if test="${item.b_cate eq 'free' }">
+				<form>
+
+					<section id="blog-posts-2" class="blog-posts-2 section">
+						<div class="container">
+							<div class="row gy-5">
 
 
-		<section id="blog-posts-2" class="blog-posts-2 section">
-			<div class="container">
-				<div class="row gy-5">
-					<c:forEach var="item" items="${vo}">
-						<div class="container-fluid">
-							<article class="blog-post">
-								<div>
-									${item.m_name } ${item.b_rdate }        
-								</div>
-								<h3 class="post-title mt-1">
-									<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
-								</h3>
-								<%-- <div class="post-description">${item.b_content }</div> --%>
 
-								<div class="post-description">
-									<a href="view.do?b_idx=${item.b_idx}" >
-									<c:out value="${item.b_content}" escapeXml="false" />
-									</a>
-								</div>
-								<div class="image-container">
-								<div class="post-images">
-									<c:forEach var="image" items="${item.image_list}" varStatus="status">
-										<c:if test="${status.count < 6}">
-										<div class="post-img">
-											<img src="../resources/images/${image.b_filename}" alt=""
-												class="img-thumbnail" onclick="location.href='view.do?b_idx=${item.b_idx}'">
+
+
+
+								<div class="container-fluid">
+									<article class="blog-post">
+										<div>${item.m_name }${item.b_rdate }</div>
+										<h3 class="post-title mt-1">
+											<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
+										</h3>
+										<%-- <div class="post-description">${item.b_content }</div> --%>
+
+										<div class="post-description">
+											<a href="view.do?b_idx=${item.b_idx}"> <c:out
+													value="${item.b_content}" escapeXml="false" />
+											</a>
 										</div>
-										</c:if>
-									</c:forEach>
+										<div class="image-container">
+											<div class="post-images">
+												<c:forEach var="image" items="${item.image_list}"
+													varStatus="status">
+													<c:if test="${status.count < 6}">
+														<div class="post-img">
+															<img src="../resources/images/${image.b_filename}" alt=""
+																class="img-thumbnail"
+																onclick="location.href='view.do?b_idx=${item.b_idx}'">
+														</div>
+													</c:if>
+												</c:forEach>
+											</div>
+										</div>
+									</article>
 								</div>
-								</div>
-							</article>
+
+							</div>
 						</div>
-					</c:forEach>
-				</div>
-			</div>
-		</section>
+					</section>
+				</form>
+			</c:if>
+		</c:forEach>
 
-		<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
 
+		<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
 
 
 
 		<!-- Pagination menu -->
-		<div class="pagination">${pageMenu}</div>
+		<div class="container" style="text-align: center;">
+			<div class="pagination">${pageMenu}</div>
+		</div>
 
+		<!--  페이지 메뉴 부트스트랩 -->
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+		<script
+			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	</main>
-
 </body>
 </html>

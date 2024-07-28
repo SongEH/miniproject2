@@ -55,80 +55,139 @@ public class BoardController {
 
 	
 	
-//-------------------post_list-------------------------------------
+//--------------------------------------------iboard_list-------------------------------------
 	@RequestMapping("list.do")
 	public String list(String b_cate,
-							@RequestParam(name="page", defaultValue = "1") int nowPage,Model model) throws Exception, IOException {
+			@RequestParam(name="page", defaultValue = "1") int nowPage,Model model) throws Exception, IOException {
 
-		
-			List<BoardVo> vo = board_dao.selectList(b_cate);
 			
-			System.out.println("b_cate" + b_cate);
+	
+//		List<BoardVo> vo = board_dao.selectList();
+			
+//		List<BoardVo> vo = board_dao.selectList_b_cate(b_cate);	
+			
 			
 			
 		// 게시물 표현 범위 
-				int start	 	= (nowPage-1) * Mycommon.Photo.BLOCK_LIST + 1; 
-				int end		 = start + Mycommon.Photo.BLOCK_LIST -1;
+				
 				
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				
+				int start	 	= (nowPage-1) * Mycommon.board.BLOCK_LIST+ 1; 
+				System.out.println("start:" + start);
+				int end		 = start + Mycommon.board.BLOCK_LIST -1;
+				System.out.println("end:" + end);
+				System.out.println("b_cate: " + b_cate);
 				map.put("start",start);
 				map.put("end",end);
+				map.put("b_cate", b_cate);
 				
-				
+				//게시판 목록 가지고 오기 
 				List<BoardVo> list = board_dao.selectList(map);
 				
-	
-				
+				System.out.println("list_size():" + list.size());
+					
 				//전체 게시물 수 
-				int rowTotal = board_dao.selectRowTotal();
+				int rowTotal = board_dao.selectRowTotal(b_cate);
 				
 				System.out.println(rowTotal);
 				
+				String baseurl = "list.do?b_cate=" + b_cate;
+				System.out.println(baseurl);
 				
 				//pageMenu만들기
+				String pageMenu = Paging.getPaging(baseurl,
+																		nowPage,
+																		rowTotal,
+																		Mycommon.board.BLOCK_LIST,
+																		Mycommon.board.BLOCK_PAGE,
+																		b_cate
+																	);
 				
-				String pageMenu = Paging.getPaging("list.do", nowPage, rowTotal,
-													Mycommon.Photo.BLOCK_LIST,
-													Mycommon.Photo.BLOCK_PAGE);
+				int b_idx = 0;
+				
+				for(BoardVo vo: list) {
+					b_cate = vo.getB_cate();
+					b_idx = vo.getB_idx();
+					System.out.println("b_cate" + b_cate);
+				}
 				
 				
+				//이미지 섬네일용 만들기 
+				List<String> image_file = new ArrayList<String>();
+				
+			
+		
+				
+				List<BoardImagesVo> post_list = board_images_dao.selectlist(b_idx);
 				
 				
+				if(post_list != null) {
+					
+					for (BoardImagesVo image : post_list) {
+						System.out.println(image.getB_filename());
+						
+						image_file.add(image.getB_filename());
+
+					}
+					
+				}
+				
+//				
 			
 				// Request Binding
 				model.addAttribute("list", list);
 				model.addAttribute("pageMenu", pageMenu);
-				model.addAttribute("vo", vo);
+				model.addAttribute("image_file", image_file);
 				
+				for(BoardVo vo : list) {
+					b_cate = vo.getB_cate();
+				}
+				if(b_cate.equals("free")) {
+					
+					return "board/board_list_free";		
+				}else if(b_cate.equals("medical")) {
+					return "board/board_list_medical";
+				}else {
+					return "board/board_list_mate";
+				}
+					
 				
-				return "board/board_list";
+ 				
+				
 	} // end list.do
-//-------------------post_list-------------------------------------
+//--------------------------------------------iboard_list-------------------------------------
 	
 	
 	
 	
 	
-//-------------insert_form start--------------------------------------------
+//--------------------------------------------insert_form start--------------------------------------------
 	
 	@RequestMapping("insert_form.do")
-	public String insert_form() {
+	public String insert_form(RedirectAttributes ra) {
 		
-		System.out.println("----insert_form.do-----");
+			MemberVo user = (MemberVo) session.getAttribute("user");
+		
+			if(user == null) {
+			
+			ra.addAttribute("reason", "session_timeout");
+			
+			return "redirect:../member/login_form.do";
+		}
 		
 	 return "/board/board_insert_form";
 	}
 	
-// ------------- insert_form end -------------------------------------------
+//--------------------------------------------iinsert_form end -------------------------------------------
 
 	
 	
 	
-//------------- insert start ------------------------------------------------------
+//--------------------------------------------i insert start ------------------------------------------------------
 	@RequestMapping("insert.do")
-	public String insert(BoardVo vo, @RequestParam(name="photo") List<MultipartFile> photo_list ,Model model, RedirectAttributes ra ) throws Exception, IOException{
+	public String insert(String b_cate ,BoardVo vo, @RequestParam(name="photo") List<MultipartFile> photo_list ,Model model, RedirectAttributes ra ) throws Exception, IOException{
 		
 //Session check
 	
@@ -193,7 +252,6 @@ public class BoardController {
 		
 		System.out.println("b_idx: " + b_idx);
 				
-					
 		//DB에 insert post_images
 	
 		 Map<String, Object> map = new HashMap<String, Object>(); 
@@ -218,18 +276,19 @@ public class BoardController {
 		//로그인 유저 정보 넣기 
 //		model.addAttribute("filename_list", filename_list);
 //		ra.addAttribute("filename_list", filename_list); 
-//		ra.addAttribute("b_idx", b_idx);
+		ra.addAttribute("b_cate", b_cate);
 //		 ra.addAttribute("filename_list", String.join(",", filename_list));
 //		ra.addAttribute("vo", vo);
 		/* ra.addAttribute("ivo", ivo); */
 
 		
+		
 		return "redirect:list.do";
 	}
-// ------------- insert_form end ------------------------------------------	
+//--------------------------------------------i insert_form end ------------------------------------------	
 	
 	
-//---------------- 상세보기 --------------------------------------------------
+//--------------------------------------------상세보기 --------------------------------------------------
 	
 	@RequestMapping("view.do")
 	public String view(int b_idx,Model model) {
@@ -253,6 +312,8 @@ public class BoardController {
 //			session.setAttribute("show", true);
 //		
 		}
+		System.out.println("vo.getB_cate())" + vo.getB_cate()); 
+		
 		
 		//결과적으로 request binding
 		model.addAttribute("vo", vo);
@@ -260,10 +321,19 @@ public class BoardController {
 		
 		return "board/board_view";
 	}
-	//---------------- 상세보기 --------------------------------------------------
+//--------------------------------------------i상세보기 --------------------------------------------------
 	 
 	
-//-----------------------------------modify.do--------------------------------------수정대기 
+	
+
+	
+	@RequestMapping("reply_form.do")
+	public String reply_form() {
+		
+		return "board/board_reply_form";
+	}
+	
+//--------------------------------------------imodify.do--------------------------------------수정대기 
 	
 	/*
 	  @RequestMapping("modify.do") public String modify(BoardVo vo,
@@ -355,10 +425,10 @@ public class BoardController {
 	  
 	  return "board_view"; }
 	 */
-//-----------------------------------modify.do--------------------------------------
+//--------------------------------------------imodify.do--------------------------------------
 	
 	
-//-----------------------------------modify_form.do--------------------------------------	
+//--------------------------------------------modify_form.do--------------------------------------	
 
 	@RequestMapping("modify_form.do")
 	public String modify_form(int b_idx, BoardVo vo,
@@ -390,12 +460,12 @@ public class BoardController {
 		return "board/board_modify_form";
 	}
 	
-//-----------------------------------modify_form.do--------------------------------------	
+//--------------------------------------------imodify_form.do--------------------------------------	
 	
 	
 	
 	
-//-----------------------------------modify.do--------------------------------------
+//--------------------------------------------imodify.do--------------------------------------
 	@RequestMapping("modify.do")
 	public String modify(int b_idx, BoardVo vo, RedirectAttributes ra) {
 	
@@ -407,7 +477,7 @@ public class BoardController {
 		return "redirect:view.do";
 	}
 	
-//-----------------------------------modify.do--------------------------------------	
+//--------------------------------------------imodify.do--------------------------------------	
 	
 	
 	

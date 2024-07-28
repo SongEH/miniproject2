@@ -48,10 +48,19 @@ $(function(){
 				});
 
 		//저장버튼 클릭시 form 전송
-		$("#save").click(function() {
+		/* $("#save").click(function() {
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#frm").submit();
-		});
+		}); */
+		
+		
+		function save(f){
+			
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+			
+			f.action = "insert.do";
+			f.submit();
+		}
 
 	});
 </script>
@@ -90,8 +99,8 @@ $(function(){
 			<tr>
 				<td colspan="2">
 					<!-- <input type="button" id="save" value="저장" onclick="location.href='insert.do'"/> -->
-					<input type="submit" id="save" value="저장" /> <input type="button"
-					value="취소" />
+					<input type="submit" id="save" value="저장" onclick="save(this.form);"/>
+					 <input type="button"	value="취소" />
 				</td>
 			</tr>
 		</table>

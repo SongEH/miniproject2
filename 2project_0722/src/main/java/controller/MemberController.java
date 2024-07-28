@@ -37,7 +37,9 @@ public class MemberController {
 //-------------------member_login_form--------------------------------
 	// class requestMapping + method requestMapping => /member/login_form.do
 	@RequestMapping("login_form.do")
-	public String login_form() {
+	public String login_form(String url, Model model) {
+		
+		model.addAttribute("url", url);
 		
 		return "member/member_login_form";
 	}
@@ -46,10 +48,11 @@ public class MemberController {
 	
 //-------------------member_login-------------------------------------
 	@RequestMapping("login.do")
-	public String login(String m_id, String m_pwd, Model model, RedirectAttributes ra) {
+	public String login(String m_id, String m_pwd,String url, Model model, RedirectAttributes ra) {
 		
 		MemberVo user = member_dao.selectOne(m_id);
 		
+		System.out.println(url);
 		//아이디 검증 
 		if(user==null) {
 	
@@ -73,7 +76,11 @@ public class MemberController {
 		//로그인처리: 현재 로그인된 객체(user)정보를 session저장
 		session.setAttribute("user", user);
 		
-		return "redirect:../board/list.do";
+		if(url.isEmpty()) {
+			return "redirect:../board/list.do";
+		}else {
+		 	return "redirect:" + url;
+		}
 	}
 //-------------------member_login-------------------------------------
 	

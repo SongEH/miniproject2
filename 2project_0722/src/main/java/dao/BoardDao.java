@@ -29,18 +29,22 @@ public class BoardDao {
 
 /*-----------------------전체조회-----------------------   */
 	public List<BoardVo> selectList() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("board.board_list_all");
+		return sqlSession.selectList("board.board_list");
 	}
 /*-----------------------전체조회-----------------------   */
 	
 	
 /*-----------------------전체조회(카테고리구분)-----------------------   */
-	public List<BoardVo> selectList(String b_cate) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList("board.board_list", b_cate);
-	}
+//	public List<BoardVo> selectList(String b_cate) {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectList("board.board_list_b_cate", b_cate);
+//	}
 /*-----------------------전체조회(카테고리구분)-----------------------   */
+	
+	public List<BoardVo> selectList_b_cate(String b_cate) {
+		return sqlSession.selectList("board.board_list_b_cate", b_cate);
+	}
+	
 	
 	
 		
@@ -50,9 +54,9 @@ public class BoardDao {
 		
 	}
 
-	public int selectRowTotal() {
+	public int selectRowTotal(String b_cate) {
 		
-		return sqlSession.selectOne("board.board_row_total");
+		return sqlSession.selectOne("board.board_row_total", b_cate);
 	}
 
 
@@ -78,6 +82,9 @@ public class BoardDao {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("board.board_delete", b_idx);
 	}
+
+
+	
 
 
 }

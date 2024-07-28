@@ -14,8 +14,15 @@
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!-- Favicons -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
@@ -141,42 +148,39 @@ main.main {
 	display: flex;
 }
 
-
 /* 메인 내용 부분 CSS */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+	font-family: Arial, sans-serif;
+	line-height: 1.6;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
 }
 
 .container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
 }
 
 .author-date {
-    font-size: 1rem;
-    margin: 0.5rem 0;
+	font-size: 1rem;
+	margin: 0.5rem 0;
 }
 
 article {
-    padding: 1rem;
-    background: #fff;
-    margin-top: 1rem;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	padding: 1rem;
+	background: #fff;
+	margin-top: 1rem;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 article p {
-    margin-bottom: 1rem;
+	margin-bottom: 1rem;
 }
 
-
 /* 이미지 영역 CSS */
-
 .post-images {
 	display: flex;
 	gap: 8px;
@@ -197,20 +201,130 @@ article p {
 	display: block;
 }
 
+
+/*  댓글영역 CSS  */
+#re_content, #reply_display{
+
+	width: 100%;
+}
+
 </style>
 
+<!-- ------------------------삭제버튼 클릭 시 동작-------------------------  -->
+<script type="text/javascript">
+	function del() {
+
+		if (confirm("정말 삭제하시겠습니까?") == false)
+			return;
+
+		location.href = "delete.do?b_idx=${ vo.b_idx}";
+
+	}
+</script>
+<!-- ------------------------삭제버튼 클릭 시 동작-------------------------  -->
+
+
+
+
+<!-- ------------------------댓글 작성 ------------------------------------  -->
 <script type="text/javascript">
 
-	function del(){
-		
-		if(confirm("정말 삭제하시겠습니까?")==false) return;
-		
-		location.href="delete.do?b_idx=${ vo.b_idx}";
-		
-	}
+		function reply_insert(){
+			
+			if("${ empty user }" == "true"){
+				   
+				   if(confirm("로그인후 댓글쓰기가 가능합니다\n로그인 하시겠습니까?")==false) return;
+				   
+				   location.href="../member/login_form.do?url=" + encodeURIComponent(location.href) ;
+				   
+				   return;
+			   }
+			
+			let re_content = $("#re_content").val().trim();
+			
+			 
+			if(re_content==''){
+			   alert("댓글내용을 입력하세요!!");
+			   
+			   $("#re_content").val("");
+			   $("#re_content").focus();
+			   return;
+			   }
+			   
+			   //Ajax통해서 댓글 등록
+			   $.ajax({
+				   url		:	"../reply/insert.do",
+				   data		:	{
+					              "re_content": re_content,
+					              "b_idx":"${ vo.b_idx }",
+					              "m_idx":"${user.m_idx}",
+					              "m_name":"${user.m_name}"
+					            },
+				   dataType	:	"json",
+				   success	:	function(res_data){
+					   // res_data = {"result": true }
+					   
+					   //작성했던 댓글 입력창에서 지우기
+					   $("#re_content").val("");
+					   
+					   
+					   if(res_data.result==false){
+						   alert("댓글등록 실패!!");
+						   return;
+					   }
+					   
+					   reply_list(1);
+					   
+				   },
+				   error	:	function(err){
+					   alert(err.responseText);
+				   }
+			   });
+			   
+		   }//end:reply_insert()
+		   
+		   
+		   
+		   
+		var g_page=1;
+   //댓글목록 요청
+   function reply_list(page){
+	   alert(page)
+	   g_page = page;
+	   
+	   $.ajax({
+		   
+		   url		:	"../reply/list.do",
+		   data		:	{"b_idx":"${ vo.b_idx}", "page": page },
+		   success	:	function(res_data){
+			   
+			   $("#reply_display").html(res_data);
+			   
+		   },
+		   error	:	function(err){
+			   alert(err.responseText);
+		   }
+
+	   });
+	   
+   }//end:reply_list()	
+   
+   
+   //초기화 : 시작시
+   
+
+   $(document).ready(function(){
+       
+	   //현재 게시물에 달린 댓글목록 출력
+	   reply_list(1);
+   });
+    
+
+<!-- ------------------------댓글 작성 ------------------------------------  -->
 
 
 </script>
+
 
 
 <body class="index-page">
@@ -235,12 +349,12 @@ article p {
 		</div>
 		<!-- End Top Bar -->
 
-		
+
 		<div class="branding d-flex align-items-cente">
 
 			<div
 				class="container position-relative d-flex align-items-center justify-content-between">
-				<a href="index.html" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+				<a href="${pageContext.request.contextPath}/index.jsp" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
 					<!-- <img src="resources/assets/img/logo.png" alt=""> -->
 					<h1 class="sitename">LOGO</h1>
 				</a>
@@ -251,10 +365,12 @@ article p {
 						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
-								<li><a href="#">Dropdown 1</a></li>
-								<li><a href="#">Dropdown 2</a></li>
-								<li><a href="#">Dropdown 3</a></li>
-								<li><a href="#">Dropdown 4</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
 							</ul></li>
 						<li><a href="#">플레이스</a></li>
 						<li><a href="#portfolio">뉴스</a></li>
@@ -271,54 +387,94 @@ article p {
 
 	</header>
 
-	<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
+<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
 	<main class="main mt-300">
-		
 		<form method="post" enctype="multipart/form-data">
-		<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
-		
-		<input type="hidden" name="b_idx" value="${vo.b_idx }">
-		
-		<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
-		
-		
-		<div class="container">
-		
-			<div>
-				<h1>${vo.b_title }</h1>
-				<p class="author-date">${vo.m_name} | Date: ${vo.b_rdate  }</p>
-			</div>
-			
-			<div>
-			<c:if test="${ user.m_idx eq vo.m_idx }">
-				<%-- <input class="btn btn-info" type="button" value="수정" onclick="modify_form.do?b_idx=${vo.b_idx}"> --%>
-				<input class="btn btn-info" type="button" value="수정" onclick="location.href='modify_form.do?b_idx=${vo.b_idx}'">
-				<input class="btn btn-danger" type="button" value="삭제" onclick="del();">
-				<input class="btn btn-success" type="button" value="목록으로" onclick="location.href='list.do'">
-			</c:if>
-			</div>
-			
-			
-			<div>
-				<div class="post-images">
-				 <c:forEach var="image" items="${image_list }">
-					<div class="post-img">
-							<img src="../resources/images/${image.b_filename}" 
-								class="img-thumbnail" >
+
+			<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
+			<input type="hidden" name="b_idx" value="${vo.b_idx }"> <input
+				type="hidden" name="b_cate" value="${vo.b_cate }">
+			<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
+
+
+			<!-- -----------------메인 헤더 출력 공간  ---------------------------- -->
+			<div class="container">
+				<div>
+					<h1>${vo.b_title }</h1>
+					<p class="author-date">${vo.m_name}|Date:${vo.b_rdate  }</p>
+				</div>
+
+				<div>
+					<!-- 유저 본인만 삭제 및 수정 가능  -->
+
+					<div>
+						<c:if test="${ user.m_idx eq vo.m_idx }">
+							<input class="btn btn-info" type="button" value="수정"
+								onclick="location.href='modify_form.do?b_idx=${vo.b_idx}'">
+							<input class="btn btn-danger" type="button" value="삭제"
+								onclick="del();">
+						</c:if>
+						<input class="btn btn-success" type="button" value="목록으로"
+							onclick="location.href='list.do?b_cate=${vo.b_cate }'">
 					</div>
-				</c:forEach>
+					<!-- -----------------메인 헤더 출력 공간 ---------------------------- -->
+
+					<!-- -----------------첨부 파일 이미지 출력 공간 ---------------------------- -->
+					<div>
+						<div class="post-images">
+							<c:forEach var="image" items="${image_list }">
+								<div class="post-img">
+									<img src="../resources/images/${image.b_filename}"
+										class="img-thumbnail">
+								</div>
+							</c:forEach>
+						</div>
+					</div>
+					<!-- -----------------첨부 파일 이미지 출력 공간 ---------------------------- -->
+
+
+					<!-- -----------------메인 내용 출력 공간 ---------------------------- -->
+					<article>
+						<div class="post-description">${vo.b_content }</div>
+					</article>
+					<!-- -----------------메인 내용 출력 공간 ---------------------------- -->
 				</div>
 			</div>
-			
-			
-			<article>
-				<div class="post-description">
-					${vo.b_content }
-				</div>	
-			</article>
-		</div>
-		</div>
 		</form>
+
+		<!-- ----------------댓글 공간-------------------------------------->
+
+
+		<div class="container">
+			<hr>
+			<div class="row">
+				<div class="col-sm-10">
+					<textarea rows="3" id="re_content" name="re_content"
+						placeholder="로그인후에 댓글쓰기가 가능합니다"></textarea>
+				</div>
+				<div class="col-sm-2">
+					<input id="btn_re_register" type="button" value="댓글쓰기"
+						onclick="reply_insert();">
+				</div>
+			</div>
+		</div>
+		<hr>
+
+		
+		<div>
+				<div id="reply_display"></div>
+			
+		</div>
+
+
+
+		<!-- Pagination menu -->
+		<div class="container" style="text-align: center;">
+			<div class="pagination">${pageMenu}</div>
+		</div>
+
+
+
 	</main>
 
 </body>

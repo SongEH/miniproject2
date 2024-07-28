@@ -98,7 +98,10 @@
 			<div class="panel-heading"><h3>로그인</h3></div>
 			<div class="panel-body">
 			    <table class="table">
-			        <tr>
+			    <input type="hidden" name="url" value="${param.url }">
+
+
+		        <tr>
 			            <th>아이디</th>
 			            <td><input class="form-control"  name="m_id"  value="${ param.m_id }"></td>
 			        </tr>
