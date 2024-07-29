@@ -268,7 +268,7 @@ body {
 <body>
 
 	<!-- top 옵션-->
-	<%@include file="../top.jsp"%>
+	<%@include file="../top2.jsp"%>
 
 	<!-- navbar 옵션  -->
 	<%@include file="../navbar.jsp"%> 

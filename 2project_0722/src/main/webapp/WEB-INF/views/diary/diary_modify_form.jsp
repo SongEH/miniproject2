@@ -9,21 +9,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="resources/css/common.css">
 
-<!--  Bootstrap  3.x  -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<style type="text/css">
-#box {
-	width: 600px;
-	margin: auto;
-	margin-top: 150px;
-}
+ <style type="text/css">
+
 
 textarea {
 	resize: none;
@@ -32,7 +29,18 @@ textarea {
 h4 {
 	font-weight: bold;
 }
-</style>
+
+.box {
+margin-top:150px;
+	/* width: 800px;
+	height: 600px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden; */
+}
+</style> 
 
 
 <script type="text/javascript">
@@ -91,50 +99,50 @@ h4 {
 </head>
 <body>
 
+	<!-- top 옵션-->
+	<%@include file="../top.jsp"%>
+	<h4>수정하기</h4><br>
+	
+  	<div class="box">	
+  	<h4>수정하기</h4><br>
+  	
 	<c:choose>
 		<c:when test="${table_name == 'weight'}">
 			<form method="post">
 				<input type="hidden" name="w_idx" value="${ map.W_IDX }">
 				<input type="hidden" name="m_idx" value="999">
 				<div id="box">
-					<!-- Bootstrap Panel -->
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h4>수정하기</h4>
+						<table class="table">
+							<tr>
+								<th>날짜</th>
+								<td><fmt:formatDate value="${map.W_RDATE}"
+										pattern="yyyy-MM-dd" var="formattedDate" /> <input
+									class="form-control form-control-lg" type="text" name="w_rdate"
+									value="${formattedDate}" /></td>
+							</tr>
+							<tr>
+								<th>반려동물</th>
+								<td><input class="form-control form-control-lg"
+									type="number" name="p_idx" value="${map.P_IDX}"></td>
+							</tr>
+							<tr>
+								<th>체중(kg)</th>
+								<td><input class="form-control form-control-lg"
+									type="number" name="w_weight" step="0.01"
+									value="${map.W_WEIGHT}"></td>
+							</tr>
+						</table>
+
+
+						<div style="margin-top: 10px;">
+							<input class="btn btn-info" type="button" value="목록보기"
+								onclick="location.href='list.do'"> <input
+								class="btn btn-primary" type="button" value="수정하기"
+								onclick="send(this.form);">
 						</div>
-						<div class="panel-body">
-							<table class="table">
-								<tr>
-									<th>날짜</th>
-									<td><fmt:formatDate value="${map.W_RDATE}"
-											pattern="yyyy-MM-dd" var="formattedDate" /> <input
-										class="form-control form-control-lg" type="text"
-										name="w_rdate" value="${formattedDate}" /></td>
-								</tr>
-								<tr>
-									<th>반려동물</th>
-									<td><input class="form-control form-control-lg"
-										type="number" name="p_idx" value="${map.P_IDX}"></td>
-								</tr>
-								<tr>
-									<th>체중(kg)</th>
-									<td><input class="form-control form-control-lg"
-										type="number" name="w_weight" step="0.01"
-										value="${map.W_WEIGHT}"></td>
-								</tr>
-							</table>
 
 
-							<div style="margin-top: 10px;">
-								<input class="btn btn-info" type="button" value="목록보기"
-									onclick="location.href='list.do'"> <input
-									class="btn btn-primary" type="button" value="수정하기"
-									onclick="send(this.form);">
-							</div>
-
-						</div>
 					</div>
-				</div>
 			</form>
 		</c:when>
 
@@ -344,7 +352,7 @@ h4 {
 
 		</c:when>
 	</c:choose>
-
+	</div>
 
 </body>
 </html>

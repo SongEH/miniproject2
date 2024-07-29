@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    // alert('Clicked on: ' + info.dateStr);
     
 	      // 클릭한 날짜를 보여주는 div 업데이트
-	      document.getElementById('selected-date').innerText = 'Selected Date: ' + info.dateStr;
+	      document.getElementById('selected-date').innerText =  info.dateStr;
 	      
 	      // 선택한 날짜 select-date 의 value값을 info.dateStr로 설정  
 	      document.getElementById('select_date').value = info.dateStr;
@@ -255,6 +255,7 @@ body {
 #calendar {
 	max-width: 1100px;
 	margin: 0 auto;
+	margin-top: 150px;
 }
 
 #memo-form-container {
@@ -369,6 +370,11 @@ body {
 .diary-btn-gray-outline:active {
 	transform: scale(0.9);
 }
+
+
+#selected-date { 
+	font-size:27px;
+}
 </style>
 
 <script type="text/javascript">
@@ -402,11 +408,6 @@ body {
 	<!-- top 옵션-->
 	<%@include file="../top.jsp"%>
 
-	<!-- navbar 옵션  -->
-	<%@include file="../navbar.jsp"%> 
-	
-	  
-	
 	
 	<div id='calendar'></div>
 

@@ -10,17 +10,19 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!--  Bootstrap  3.x  -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="resources/css/common.css">
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	
 <style type="text/css">
-   #box{
-      width: 800px;
-      margin: auto;
-      margin-top: 20px;
-   }
+
    
    .common{
       border: 1px solid #cccccc;
@@ -45,6 +47,42 @@
       height: 80px;
    }
    
+   
+.box {
+margin-top:150px;
+	/* width: 800px;
+	height: 600px;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden; */
+}
+
+.container {
+	width: 80%;
+}
+
+/* .th_h{
+	margin-top:15px !important;
+} */
+.container th {
+	/* color:red !important; */
+	font-size: 18px;
+	text-align:center;
+	color:#3C4043 !important;
+	padding:20px !important;
+	vertical-align: middle;
+	margin:0px !important;
+}
+.container td {
+	padding:20px !important;
+	
+}
+
+.container td, .container th{
+	border:none !important;
+}
 </style>
 
 <script type="text/javascript">
@@ -59,9 +97,12 @@
 
 </head>
 <body>
-  <div id="box">
-        <!-- Bootstrap Panel -->
-		<div class="panel panel-primary">
+
+	<!-- top 옵션-->
+	<%@include file="../top.jsp"%>
+  	
+  	<div class="box">
+  	상세보기<br>
 
 			<c:choose>
 				<c:when test="${table_name == 'weight'}">
@@ -87,7 +128,7 @@
 						<td><input class="form-control form-control-lg"
 							type="number" name="w_weight" step="0.01" value="${map.W_WEIGHT}"></td>
 					</tr>
-				</table>
+				</table><br>
 				<div>
 					<input class="btn btn-primary" type="button" value="목록보기"
 						onclick="location.href='diary_list.do'"> <a
@@ -275,7 +316,6 @@
 			
 			
 			</c:choose>
-		</div>
 
 
 	</div>

@@ -40,13 +40,7 @@ body {
 
 
 .box {
-	width: 800px;
-	height: 600px;
-	margin: auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden;
+	margin-top:150px;
 }
 
 .container {
@@ -305,19 +299,25 @@ body {
 
 
 <body>
-    <h1>카테고리 선택</h1>
-    <button onclick="showForm('stoll')">산책</button>
-    <button onclick="showForm('weight')">체중</button>
-	<button onclick="showForm('feeding')">사료/간식/영양제</button>
-	<button onclick="showForm('health')">건강</button>
-	<button onclick="showForm('note')">메모</button>
+	<!-- top 옵션-->
+	<%@include file="../top.jsp"%>
+  	
+  	<div class="box">
+  	
 
-	<div class="container">
-	    <div id="input-container" class="input-container">
-	        <!-- 입력 폼이 여기에 동적으로 삽입됩니다. -->
-	    </div>
+	    <h1>카테고리 선택</h1>
+	    <button onclick="showForm('stoll')">산책</button>
+	    <button onclick="showForm('weight')">체중</button>
+		<button onclick="showForm('feeding')">사료/간식/영양제</button>
+		<button onclick="showForm('health')">건강</button>
+		<button onclick="showForm('note')">메모</button>
+	
+		<div class="container">
+		    <div id="input-container" class="input-container">
+		        <!-- 입력 폼이 여기에 동적으로 삽입됩니다. -->
+		    </div>
+		</div>
 	</div>
-
 
 </body>
 </html>
