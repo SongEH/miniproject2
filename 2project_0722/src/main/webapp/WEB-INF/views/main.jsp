@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -49,14 +50,17 @@
 <!-- 공통 css -->
 <link rel="stylesheet" href="resources/css/common.css">
 
-	
+
 <style>
 @font-face {
-    font-family: 'RixInooAriDuriR';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'RixInooAriDuriR';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
+
 @font-face {
 	font-family: 'Noto Sans KR';
 	font-style: normal;
@@ -136,6 +140,23 @@ input {
 						href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
 						href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
 				</div>
+				<div class="text-end">
+					<!-- 로그인이 안되어 있는 경우  -->
+					<c:if test="${ empty sessionScope.user }">
+						<input class="btn btn-default" type="button" value="로그인" onclick="location.href='member/login_form.do'">
+						<input class="btn btn-default" type="button" value="회원가입" onclick="location.href='member/insert_form.do'">
+					</c:if>
+					<!-- 로그인이 되어 있는 경우  -->
+					<c:if test="${ not empty sessionScope.user }">
+						<input class="btn btn-default" type="button" value="로그아웃" onclick="location.href='member/logout.do'">
+						<input class="btn btn-default" type="button" value="마이페이지">
+						<!-- 로그인이 되어 있고 관리자인 경우  -->
+						<c:if test="${ sessionScope.user.m_grade == '관리자'}">
+							<input class="btn btn-info" type="button" value="관리자페이지">
+						</c:if>
+					</c:if>
+				</div>
+
 			</div>
 		</div>
 		<!-- End Top Bar -->
@@ -598,7 +619,7 @@ input {
 	<!-- Preloader -->
 	<div id="preloader"></div>
 
-<!-- Vendor JS Files -->
+	<!-- Vendor JS Files -->
 	<script
 		src="resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/assets/vendor/php-email-form/validate.js"></script>
@@ -610,11 +631,11 @@ input {
 	<script
 		src="resources/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
 	<script
-		src="resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script> 
+		src="resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
 
-<!-- Main JS File -->
-<script src="resources/assets/js/main.js"></script>
+	<!-- Main JS File -->
+	<script src="resources/assets/js/main.js"></script>
 
 </body>
 
