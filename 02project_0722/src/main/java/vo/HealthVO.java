@@ -1,18 +1,18 @@
 package vo;
 
-import java.util.Date;
+import java.sql.Time;
 
 public class HealthVO {
     private int h_idx;
     private int m_idx;
     private int p_idx;
     private String h_type;
-    private Date h_date;
-    private Date h_time;
+    private String h_date;
+    private Time h_time;
     private double h_cost;
     private String h_content;
     private String h_hname;
-    private Date h_ndate;
+    private String h_ndate;
     private String m_name;
     private String pet_name;
 
@@ -48,19 +48,19 @@ public class HealthVO {
         this.h_type = h_type;
     }
 
-    public Date getH_date() {
+    public String getH_date() {
         return h_date;
     }
 
-    public void setH_date(Date h_date) {
+    public void setH_date(String h_date) {
         this.h_date = h_date;
     }
 
-    public Date getH_time() {
+    public Time getH_time() {
         return h_time;
     }
 
-    public void setH_time(Date h_time) {
+    public void setH_time(Time h_time) {
         this.h_time = h_time;
     }
 
@@ -88,11 +88,11 @@ public class HealthVO {
         this.h_hname = h_hname;
     }
 
-    public Date getH_ndate() {
+    public String getH_ndate() {
         return h_ndate;
     }
 
-    public void setH_ndate(Date h_ndate) {
+    public void setH_ndate(String h_ndate) {
         this.h_ndate = h_ndate;
     }
 

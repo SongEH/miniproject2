@@ -37,11 +37,11 @@
                     </tr>
                     <tr class="border-b">
                         <th class="py-3 px-6 bg-gray-50 text-left">진료 날짜</th>
-                        <td class="py-3 px-6"><fmt:formatDate value="${health.h_date}" pattern="yyyy-MM-dd" /></td>
+                        <td class="py-3 px-6">${formattedHdate.substring(0,10)}</td>
                     </tr>
                     <tr class="border-b">
                         <th class="py-3 px-6 bg-gray-50 text-left">진료 시간</th>
-                        <td class="py-3 px-6"><fmt:formatDate value="${health.h_time}" pattern="HH:mm:ss" /></td>
+                        <td class="py-3 px-6"><fmt:formatDate value="${health.h_time}" pattern="HH:mm" /></td>
                     </tr>
                     <tr class="border-b">
                         <th class="py-3 px-6 bg-gray-50 text-left">비용</th>
@@ -57,19 +57,33 @@
                     </tr>
                     <tr>
                         <th class="py-3 px-6 bg-gray-50 text-left">다음 예약 날짜</th>
-                        <td class="py-3 px-6"><fmt:formatDate value="${health.h_ndate}" pattern="yyyy-MM-dd" /></td>
+                        <td class="py-3 px-6">${formattedHndate.substring(0,10)}</td>
                     </tr>
                 </tbody>
             </table>
-            <div class="flex justify-end mt-4">
+            <div class="flex justify-between mt-4">
                 <a href="${pageContext.request.contextPath}/admin/healthList.do" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">목록으로</a>
+                <div class="flex space-x-2">
+                    <a href="${pageContext.request.contextPath}/admin/healthModify.do?h_idx=${health.h_idx}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">수정</a>
+                    <a href="${pageContext.request.contextPath}/admin/healthDelete.do?h_idx=${health.h_idx}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                </div>
             </div>
-            <div class="flex space-x-2">
-				<a href="${pageContext.request.contextPath}/admin/healthModify.do?h_idx=${health.h_idx}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">수정</a>
-				<a href="${pageContext.request.contextPath}/admin/healthDelete.do?h_idx=${health.h_idx}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
-           	</div>
         </div>
     </div>
     <jsp:include page="../footer.jsp" />
+<script>
+    $(document).ready(function() {
+        const formattedHdate = "${formattedHdate}";
+        if (formattedHdate) {
+            $("#h_date").val(formattedHdate.substring(0, 10)); // 날짜만 표시 (yyyy-mm-dd)
+        }
+    });
+    $(document).ready(function() {
+        const formattedHndate = "${formattedHndate}";
+        if (formattedHndate) {
+            $("#h_ndate").val(formattedHndate.substring(0, 10)); // 날짜만 표시 (yyyy-mm-dd)
+        }
+    });
+</script>
 </body>
 </html>

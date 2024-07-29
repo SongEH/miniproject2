@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="mapper.HealthMapper">
+<mapper namespace="health">
     <select id="getAllHealthRecords" resultType="vo.HealthVO">
         SELECT * FROM HealthView
     </select>
@@ -17,9 +17,7 @@
 
     <update id="updateHealthRecord" parameterType="vo.HealthVO">
         UPDATE Health
-        SET m_idx = #{m_idx},
-            p_idx = #{p_idx},
-            h_type = #{h_type},
+        SET h_type = #{h_type},
             h_date = #{h_date},
             h_time = #{h_time},
             h_cost = #{h_cost},

@@ -19,33 +19,31 @@ public class HealthDAO {
         this.sqlSession = sqlSession;
     }
 
-    private static final String NAMESPACE = "mapper.HealthMapper";
-    
     public List<HealthVO> getAllHealthRecords() {
-        return sqlSession.selectList(NAMESPACE + ".getAllHealthRecords");
+        return sqlSession.selectList("health.getAllHealthRecords");
     }
 
     public HealthVO getHealthRecordById(int h_idx) {
-        return sqlSession.selectOne(NAMESPACE + ".getHealthRecordById", h_idx);
+        return sqlSession.selectOne("health.getHealthRecordById", h_idx);
     }
     
     public void insertHealthRecord(HealthVO health) {
-        sqlSession.insert(NAMESPACE + ".insertHealthRecord", health);
+        sqlSession.insert("health.insertHealthRecord", health);
     }
 
     public void updateHealthRecord(HealthVO health) {
-        sqlSession.update(NAMESPACE + ".updateHealthRecord", health);
+        sqlSession.update("health.updateHealthRecord", health);
     }
 
     public void deleteHealthRecord(int h_idx) {
-        sqlSession.delete(NAMESPACE + ".deleteHealthRecord", h_idx);
+        sqlSession.delete("health.deleteHealthRecord", h_idx);
     }
 
     public List<HealthVO> getHealthRecordsWithPaging(Map<String, Object> params) {
-        return sqlSession.selectList(NAMESPACE + ".getHealthRecordsWithPaging", params);
+        return sqlSession.selectList("health.getHealthRecordsWithPaging", params);
     }
 
     public int getHealthRecordCount(Map<String, Object> params) {
-        return sqlSession.selectOne(NAMESPACE + ".getHealthRecordCount", params);
+        return sqlSession.selectOne("health.getHealthRecordCount", params);
     }
 }

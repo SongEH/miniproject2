@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -121,9 +122,17 @@ public class AdminController {
         return "admin/healthList";
     }
 
-    @RequestMapping(value = "healthDetail.do", method = RequestMethod.GET)
+    @RequestMapping("healthDetail.do")
     public String healthDetail(@RequestParam("h_idx") int h_idx, Model model) {
         HealthVO health = healthDAO.getHealthRecordById(h_idx);
+        
+        if (health.getH_date() != null) {
+            model.addAttribute("formattedHdate", health.getH_date());
+        }
+        if (health.getH_ndate() != null) {
+            model.addAttribute("formattedHndate", health.getH_ndate());
+        }
+        
         model.addAttribute("health", health);
         return "admin/healthDetail";
     }
@@ -131,24 +140,37 @@ public class AdminController {
     @RequestMapping(value = "healthModify.do", method = RequestMethod.GET)
     public String healthModifyForm(@RequestParam("h_idx") int h_idx, Model model) {
         HealthVO health = healthDAO.getHealthRecordById(h_idx);
+        
+        if (health.getH_date() != null) {
+            model.addAttribute("formattedHdate", health.getH_date());
+        }
+        if (health.getH_ndate() != null) {
+            model.addAttribute("formattedHndate", health.getH_ndate());
+        }
+        
         model.addAttribute("health", health);
         return "admin/healthModify";
     }
 
     @RequestMapping(value = "healthModify.do", method = RequestMethod.POST)
-    public String healthModify(HealthVO health, @RequestParam("h_time_str") String h_time_str) {
-        try {
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-            Date parsedTime = timeFormat.parse(h_time_str);
-            health.setH_time(parsedTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public String healthModify(@ModelAttribute HealthVO health, @RequestParam("h_date") String h_date, @RequestParam("h_time") String h_time, @RequestParam("h_ndate") String h_ndate) {
+
+    	//health.setH_idx(h_idx);
+    	
+        if (health.getH_date() == null || health.getH_date().isEmpty()) {
+            HealthVO originalHealth = healthDAO.getHealthRecordById(health.getH_idx());
+            health.setH_date(originalHealth.getH_date());
         }
+        if (health.getH_ndate() == null || health.getH_ndate().isEmpty()) {
+        	HealthVO originalHealth = healthDAO.getHealthRecordById(health.getH_idx());
+            health.setH_ndate(originalHealth.getH_ndate());
+        }
+    	
         healthDAO.updateHealthRecord(health);
         return "redirect:healthList.do";
     }
 
-    @RequestMapping(value = "healthDelete.do", method = RequestMethod.GET)
+    @RequestMapping("healthDelete.do")
     public String healthDelete(@RequestParam("h_idx") int h_idx) {
         healthDAO.deleteHealthRecord(h_idx);
         return "redirect:healthList.do";
