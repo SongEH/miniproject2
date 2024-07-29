@@ -62,9 +62,15 @@
                     <input type="text" id="pet_name" name="pet_name" value="${health.pet_name}" class="w-full p-2 border border-gray-300 rounded" readonly>
                 </div>
                 <div class="mb-4">
-                    <label for="h_type" class="block text-gray-700 font-bold mb-2">진료 유형</label>
-                    <input type="text" id="h_type" name="h_type" value="${health.h_type}" class="w-full p-2 border border-gray-300 rounded">
-                </div>
+	                <label for="h_type" class="block text-gray-700 text-sm font-bold mb-2">진료 유형</label>
+	                <select id="h_type" name="h_type" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+	                    <option value="진료" ${health.h_type == '진료' ? 'selected' : ''}>진료</option>
+	                    <option value="검진" ${health.h_type == '검진' ? 'selected' : ''}>검진</option>
+	                    <option value="치료" ${health.h_type == '치료' ? 'selected' : ''}>치료</option>
+	                    <option value="수술" ${health.h_type == '수술' ? 'selected' : ''}>수술</option>
+	                    <option value="상담" ${health.h_type == '상담' ? 'selected' : ''}>검진</option>
+	                </select>
+	            </div>
                 <div class="mb-4">
                     <label for="h_date" class="block text-gray-700 font-bold mb-2">진료 날짜</label>
                     <input type="text" id="h_date" name="h_date" value="${formattedHdate}" class="w-full p-2 border border-gray-300 rounded">

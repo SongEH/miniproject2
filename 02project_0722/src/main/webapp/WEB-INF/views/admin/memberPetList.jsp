@@ -57,10 +57,10 @@
                             <td class="py-3 px-6">${pet.p_gender}</td>
                             <td class="py-3 px-6">${pet.p_serialNum}</td>
                             <td class="py-2 text-center">
-                                <a href="${pageContext.request.contextPath}/pet/modify.do?p_idx=${pet.p_idx}" class="text-blue-500 hover:underline">수정</a>
+                                <a href="${pageContext.request.contextPath}/admin/petmodify.do?p_idx=${pet.p_idx}" class="text-blue-500 hover:underline">수정</a>
                             </td>
                             <td class="py-2 text-center">
-                                <a href="${pageContext.request.contextPath}/pet/delete.do?p_idx=${pet.p_idx}" class="text-red-500 hover:underline" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+                                <a href="${pageContext.request.contextPath}/admin/petdelete.do?p_idx=${pet.p_idx}" class="text-red-500 hover:underline" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                             </td>
                         </tr>
                     </c:forEach>

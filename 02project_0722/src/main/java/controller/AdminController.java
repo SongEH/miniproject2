@@ -1,11 +1,12 @@
 package controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import dao.HealthDAO;
 import dao.MemberDAO;
@@ -35,6 +37,9 @@ public class AdminController {
     
     @Autowired
     private HealthDAO healthDAO;
+    
+	@Autowired
+	ServletContext application;
     
     @GetMapping("menu")
     public String adminMenu() {
@@ -174,6 +179,53 @@ public class AdminController {
     public String healthDelete(@RequestParam("h_idx") int h_idx) {
         healthDAO.deleteHealthRecord(h_idx);
         return "redirect:healthList.do";
+    }
+    
+
+    @RequestMapping(value = "petmodify.do", method = RequestMethod.GET)
+    public String petModifyForm(@RequestParam("p_idx") int p_idx, Model model) {
+        PetVO pet = petDAO.getPetById(p_idx);
+        
+        if (pet.getP_birthday() != null) {
+            model.addAttribute("formattedBirthday", pet.getP_birthday());
+        }
+
+        model.addAttribute("pet", pet);
+        return "admin/petModify";
+    }
+
+    @RequestMapping(value = "petmodify.do", method = RequestMethod.POST)
+    public String petModify(PetVO pet, @RequestParam("file") MultipartFile file, @RequestParam("p_birthday") String p_birthday,@RequestParam("m_idx") int m_idx) throws IllegalStateException, IOException {
+        String absPath = application.getRealPath("/resources/images/pets/");
+        String p_filename = pet.getP_photo();
+
+        if (!file.isEmpty()) {
+            p_filename = file.getOriginalFilename();
+            File f = new File(absPath, p_filename);
+
+            if (f.exists()) {
+                long tm = System.currentTimeMillis();
+                p_filename = String.format("%d_%s", tm, p_filename);
+                f = new File(absPath, p_filename);
+            }
+            file.transferTo(f);
+        }
+
+        pet.setP_photo(p_filename);
+
+        if (pet.getP_birthday() == null || pet.getP_birthday().isEmpty()) {
+            PetVO originalPet = petDAO.getPetById(pet.getP_idx());
+            pet.setP_birthday(originalPet.getP_birthday());
+        }
+
+        petDAO.updatePet(pet);
+        return "redirect:memberListForPets.do";
+    }
+
+    @RequestMapping("petdelete.do")
+    public String petDelete(@RequestParam("p_idx") int p_idx) {
+        petDAO.deletePet(p_idx);
+        return "redirect:memberListForPets.do";
     }
     
 }
