@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 
 
-<link rel="stylesheet" href="resources/css/common.css">
+<link rel="stylesheet" href="../resources/css/common.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -112,11 +112,6 @@ margin-top:150px;
 						<td>
 							<fmt:formatDate value="${map.W_RDATE}" pattern="yyyy-MM-dd" var="formattedDate" />
     						<input class="form-control form-control-lg" type="text" name="w_rdate" value="${formattedDate}" /></td>
-					</tr>
-					<tr>
-						<th>회원</th>
-						<td><input class="form-control form-control-lg"
-							type="number" name="m_idx" value="${map.M_IDX}"></td>
 					</tr>
 					<tr>
 						<th>반려동물</th>

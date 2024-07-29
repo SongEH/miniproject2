@@ -12,8 +12,8 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="resources/assets/img/favicon.png" rel="icon">
-<link href="resources/assets/img/apple-touch-icon.png"
+<link href="../resources/assets/img/favicon.png" rel="icon">
+<link href="../resources/assets/img/apple-touch-icon.png"
 	rel="apple-touch-icon">
 
 <!-- Fonts -->
@@ -24,18 +24,18 @@
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"
+<link href="../resources/assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+<link href="../resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
 	rel="stylesheet">
-<link href="resources/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="resources/assets/vendor/glightbox/css/glightbox.min.css"
+<link href="../resources/assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="../resources/assets/vendor/glightbox/css/glightbox.min.css"
 	rel="stylesheet">
-<link href="resources/assets/vendor/swiper/swiper-bundle.min.css"
+<link href="../resources/assets/vendor/swiper/swiper-bundle.min.css"
 	rel="stylesheet">
 
 <!-- Main CSS File -->
-<link href="resources/assets/css/main.css" rel="stylesheet">
+<link href="../resources/assets/css/main.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: Impact
@@ -47,7 +47,7 @@
 
  
 <!-- 공통 css -->
-<link rel="stylesheet" href="resources/css/common.css">
+<link rel="stylesheet" href="../resources/css/common.css">
 
 <!--  부트스트랩 스타일 수정  -->
 <style>
@@ -151,7 +151,7 @@ input {
 
 				<nav id="navmenu" class="navmenu">
 					<ul>
-						<li><a href="#">다이어리<br></a></li>
+						<li><a href="${pageContext.request.contextPath}/diary/diary_list.do">다이어리<br></a></li>
 						<li class="dropdown"><a href="blog.html"><span>커뮤니티</span>
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>

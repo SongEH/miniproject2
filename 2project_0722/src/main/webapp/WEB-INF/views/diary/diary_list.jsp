@@ -10,9 +10,9 @@
 <title>Insert title here</title>
 
 <!-- fullCalendar API 관련 JS파일 -->
-<script src='resources/index.global.js'></script>
+<script src='../resources/index.global.js'></script>
 
-<link rel="stylesheet" href="resources/css/common.css">
+<link rel="stylesheet" href="../resources/css/common.css">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -111,13 +111,82 @@ document.addEventListener('DOMContentLoaded', function() {
                   var data3 = response.feeding_list; // 이미 JSON 형태로 반환되므로 별도의 파싱 필요 없음
                   formHtml += '사료/간식/영양제<br>';
                   data3.forEach(function(FeedingVo) {
-                	  
-                	    });
+                	  formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+                	  formHtml += '<tr><th>반려동물</th>';
+                	  formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (FeedingVo.p_idx || '') + '"></td></tr><br>';
+                	  formHtml += '<tr><th>시간</th>';
+                	  formHtml += '<td>';
+                	  formHtml += '<fmt:formatDate value="${FeedingVo.f_time}" pattern="HH:mm" var="formattedStartTime" />';
+                	  formHtml += '<input class="form-control form-control-lg" type="time" name="f_time" value="${formattedStartTime}" />';
+                	  formHtml += '</td></tr><br>';
+                	  formHtml += '<tr><th>종류</th>';
+                	  formHtml += '<td>';         
+                	  formHtml += '<input class="form-control form-control-lg" type="text" name="f_type" value="' + (FeedingVo.f_type || '') + '">';
+                	  formHtml += '</td></tr><br>';
+                	  formHtml += '<tr><th>사료명</th>';
+                	  formHtml += '<td><input class="form-control form-control-lg" type="text" name="f_pname" value="' + (FeedingVo.f_pname || '') + '"></td></tr><br>';
+                	  formHtml += '</table></form></div>';
+                	  formHtml += '<a href="diary_view.do?table_name=feeding&idx=' + (FeedingVo.f_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
+                	  formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'feeding\',' + (FeedingVo.f_idx || '') + ');"><br>';
+                  });
 
+                  
+                  
                   var data4 = response.health_list; // 이미 JSON 형태로 반환되므로 별도의 파싱 필요 없음
                   formHtml += '건강<br>';
                   data4.forEach(function(HealthVo) {
-                	  
+                	  formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+
+                	// 반려동물 입력란
+                	formHtml += '<tr><th>반려동물</th>';
+                	formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_p_idx" value="' + (HealthVo.p_idx || '') + '"></td></tr><br>';
+
+                	// 날짜 입력란
+                	formHtml += '<tr><th>날짜</th>';
+                	formHtml += '<td>';
+                	var formattedDate = new Date(HealthVo.h_rdate);
+                	var year = formattedDate.getFullYear();
+                	var month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
+                	var day = formattedDate.getDate().toString().padStart(2, '0');
+                	var formattedDateString = year + '-' + month + '-' + day;
+                	formHtml += '<input class="form-control form-control-lg" type="text" name="h_rdate" value="' + formattedDateString + '">';
+                	formHtml += '</td></tr><br>';
+
+                	// 시간 입력란
+                	formHtml += '<tr><th>시간</th>';
+                	formHtml += '<td>';
+                	var formattedTime = HealthVo.h_time.substring(0, 5); // HH:mm 형식으로 자르기
+                	formHtml += '<input class="form-control form-control-lg" type="time" name="h_time" value="' + formattedTime + '">';
+                	formHtml += '</td></tr><br>';
+
+                	// 비용 입력란
+                	formHtml += '<tr><th>비용</th>';
+                	formHtml += '<td><input class="form-control form-control-lg" type="number" name="h_cost" step="0.01" value="' + (HealthVo.h_cost || '') + '"></td></tr><br>';
+
+                	// 종류 입력란
+                	formHtml += '<tr><th>종류</th>';
+                	formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_type" value="' + (HealthVo.h_type || '') + '"></td></tr><br>';
+
+                	// 내용 입력란
+                	formHtml += '<tr><th>내용</th>';
+                	formHtml += '<td><textarea class="form-control form-control-lg" name="h_content" rows="3">' + (HealthVo.h_content || '') + '</textarea></td></tr><br>';
+
+                	// 진단명 입력란
+                	formHtml += '<tr><th>진단명</th>';
+                	formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_hname" value="' + (HealthVo.h_hname || '') + '"></td></tr><br>';
+
+                	// 다음 진료일 입력란
+                	formHtml += '<tr><th>다음 진료일</th>';
+                	formHtml += '<td>';
+                	var nextFormattedDate = new Date(HealthVo.h_ndate);
+                	var nextYear = nextFormattedDate.getFullYear();
+                	var nextMonth = (nextFormattedDate.getMonth() + 1).toString().padStart(2, '0');
+                	var nextDay = nextFormattedDate.getDate().toString().padStart(2, '0');
+                	var nextFormattedDateString = nextYear + '-' + nextMonth + '-' + nextDay;
+                	formHtml += '<input class="form-control form-control-lg" type="text" name="h_ndate" value="' + nextFormattedDateString + '">';
+                	formHtml += '</td></tr><br>';
+
+                	formHtml += '</tbody></table></form></div>';
                 	    });
 
                   

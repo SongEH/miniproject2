@@ -28,7 +28,7 @@ import vo.StollVo;
 import vo.WeightVo;
 
 @Controller
-/* @RequestMapping("/board/") */
+@RequestMapping("/diary/") 
 public class DiaryController {
 
 	public DiaryController() {
@@ -46,19 +46,19 @@ public class DiaryController {
 
 	
 	// 다이어리 메인에 표시할 내용. 오늘날짜기준 데이터 표시  
-	@RequestMapping("/diary_list.do")
+	@RequestMapping("diary_list.do")
 	public String diary_list(Model model) {
 
 		List<WeightVo> weight_list = diary_dao.selectList_weight(); 
 		// 체중말고도 더하기 
 		model.addAttribute("weight_list", weight_list);
 		
-		return "diary/diary_list";
+		return "/diary/diary_list";
 	}
 	
 	
 	// 선택한 날짜 기록
-	@RequestMapping(value = "/diary_select_date.do", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "diary_select_date.do", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
 	public String diary_select_date(String date) {
 		System.out.println("컨트롤러 : " + date);
@@ -83,88 +83,9 @@ public class DiaryController {
 		return json.toString();
 	}
 	
-
-	// 새글쓰기 폼 띄우기
-	@RequestMapping("/diary_insert_form.do")
-	public String diary_insert_form(Model model) {
-
-		String select_date = request.getParameter("select_date");
-	
-		model.addAttribute("select_date", select_date);
-		
-		return "diary/diary_insert_form__";
-	}
-	
-	
-	// 체중 기록 추가 
-	@RequestMapping("/diary_insert_weight.do")
-	public String diary_insert_weight(WeightVo vo) {
-		// m_idx 처리!!!!!! 
-		
-		int res = diary_dao.diary_insert_weight(vo);
-
-		return "redirect:diary_list.do";
-	}
-	
-	// 산책 기록 추가 
-	@RequestMapping("/diary_insert_stoll.do")
-	public String diary_insert_stoll(StollVo vo) {
-		
-		// m_idx 처리!!!!!!  
-		vo.setM_idx(999); 
-		System.out.println(vo);
-		int res = diary_dao.diary_insert_stoll(vo);
-
-		return "redirect:diary_list.do";
-	}
-	
-	// 사료 기록 추가 
-	@RequestMapping("/diary_insert_feeding.do")
-	public String diary_insert_feeding(FeedingVo vo) {
-		// m_idx 처리!!!!!! 
-		
-		int res = diary_dao.diary_insert_feeding(vo);
-
-		return "redirect:diary_list.do";
-	}
-	
-	// 진료 기록 추가 
-	@RequestMapping("/diary_insert_health.do")
-	public String diary_insert_health(HealthVo vo) {
-		// m_idx 처리!!!!!! 
-		
-		int res = diary_dao.diary_insert_health(vo);
-
-		return "redirect:diary_list.do";
-	}
-	
-	// 메모 추가 
-	@RequestMapping("/diary_insert_note.do")
-	public String diary_insert_note(NoteVo vo) {
-		// m_idx 처리!!!!!! 
-		
-		int res = diary_dao.diary_insert_note(vo);
-
-		return "redirect:diary_list.do";
-	}
-
-	
-	// 체중 상세보기
-	@RequestMapping("/diary_view_weight.do")
-	public String diary_view_weight(int w_idx, Model model) {
-
-		// b_idx에 해당되는 게시물 1건 얻어오기
-		WeightVo vo = diary_dao.selectOne_weight(w_idx);
-
-		model.addAttribute("vo", vo);
-
-		return "diary/diary_view_weight";
-	}
-
-
 	
 	// 상세보기. 하나로 통합
-	@RequestMapping(value = "/diary_view.do", method = RequestMethod.GET)
+	@RequestMapping(value = "diary_view.do", method = RequestMethod.GET)
 	public String diary_view(String table_name, int idx, Model model) {
 		
 		// idx에 해당되는 게시물 1건 얻어오기
@@ -178,6 +99,87 @@ public class DiaryController {
         
         return "diary/diary_view";
 	}
+	
+
+	// 새글쓰기 폼 띄우기
+	@RequestMapping("diary_insert_form.do")
+	public String diary_insert_form(Model model) {
+
+		String select_date = request.getParameter("select_date");
+	
+		model.addAttribute("select_date", select_date);
+		
+		return "diary/diary_insert_form__";
+	}
+	
+	
+	// 체중 기록 추가 
+	@RequestMapping("diary_insert_weight.do")
+	public String diary_insert_weight(WeightVo vo) {
+		// m_idx 처리!!!!!! 
+		
+		int res = diary_dao.diary_insert_weight(vo);
+
+		return "redirect:diary_list.do";
+	}
+	
+	// 산책 기록 추가 
+	@RequestMapping("diary_insert_stoll.do")
+	public String diary_insert_stoll(StollVo vo) {
+		
+		// m_idx 처리!!!!!!  
+		vo.setM_idx(999); 
+		System.out.println(vo);
+		int res = diary_dao.diary_insert_stoll(vo);
+
+		return "redirect:diary_list.do";
+	}
+	
+	// 사료 기록 추가 
+	@RequestMapping("diary_insert_feeding.do")
+	public String diary_insert_feeding(FeedingVo vo) {
+		// m_idx 처리!!!!!! 
+		
+		int res = diary_dao.diary_insert_feeding(vo);
+
+		return "redirect:diary_list.do";
+	}
+	
+	// 진료 기록 추가 
+	@RequestMapping("diary_insert_health.do")
+	public String diary_insert_health(HealthVo vo) {
+		// m_idx 처리!!!!!! 
+		
+		int res = diary_dao.diary_insert_health(vo);
+
+		return "redirect:diary_list.do";
+	}
+	
+	// 메모 추가
+	@RequestMapping("diary_insert_note.do")
+	public String diary_insert_note(NoteVo vo) {
+		// m_idx 처리!!!!!! 
+		
+		int res = diary_dao.diary_insert_note(vo);
+
+		return "redirect:diary_list.do";
+	}
+
+	
+	// 체중 상세보기
+	@RequestMapping("diary_view_weight.do")
+	public String diary_view_weight(int w_idx, Model model) {
+
+		// b_idx에 해당되는 게시물 1건 얻어오기
+		WeightVo vo = diary_dao.selectOne_weight(w_idx);
+
+		model.addAttribute("vo", vo);
+
+		return "diary/diary_view_weight";
+	}
+
+
+
 	
 	
 	
