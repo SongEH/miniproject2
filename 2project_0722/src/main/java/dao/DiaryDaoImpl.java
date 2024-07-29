@@ -101,10 +101,12 @@ public class DiaryDaoImpl implements DiaryDao {
 		return sqlSession.delete("diary.diary_delete_weight", w_idx);
 	} */
 	
+	// 삭제 통합 
 	@Override
-	public int diary_delete_weight(Map<String, Object> map ) {
-		return sqlSession.delete("diary.diary_delete_weight", map);
+	public int diary_delete(Map<String, Object> map ) {
+		return sqlSession.delete("diary.diary_delete", map);
 	}
+	
 
 	@Override
 	public List<StollVo> diary_select_stoll_date(String date) {

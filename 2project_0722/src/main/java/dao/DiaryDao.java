@@ -25,7 +25,7 @@ public interface DiaryDao {
 	int update_weight(WeightVo vo);
 
 	// int diary_delete_weight(int w_idx);
-	int diary_delete_weight(Map<String, Object> map);
+	int diary_delete(Map<String, Object> map);
 
 	int diary_insert_stoll(StollVo vo);
 

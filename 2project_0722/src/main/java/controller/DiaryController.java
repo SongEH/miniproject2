@@ -297,13 +297,9 @@ public class DiaryController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("table_name", table_name);
-		if (table_name.equals("weight")) {
-			map.put("table_idx_name", "w_idx");
-		}
 		map.put("idx", idx);
 		
-		// 삭제처리 : b_use = 'n' 변경 
-		int res = diary_dao.diary_delete_weight(map);
+		int res = diary_dao.diary_delete(map);
 		
 		return "redirect:diary_list.do";
 	}

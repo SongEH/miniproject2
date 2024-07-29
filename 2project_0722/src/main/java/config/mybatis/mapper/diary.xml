@@ -216,7 +216,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	<!-- 삭제처리 통합-->
   	<!-- 테이블 이름이나 칼럼 이름에는 #{}를 사용할 수 없음
   	직접 문자열로 삽입되거나 동적 SQL로 처리해야 한다 -->
-  	<delete id="diary_delete_weight" parameterType="map">
+  	<delete id="diary_delete" parameterType="map">
   		delete from
 	    <choose>
 	        <when test="table_name == 'weight'">weight</when>
@@ -227,11 +227,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    </choose>
 	    where
 	    <choose>
-	        <when test="table_idx_name == 'w_idx'">w_idx = #{idx}</when>
-	        <when test="table_idx_name == 'h_idx'">h_idx = #{idx}</when>
-	        <when test="table_idx_name == 'n_idx'">n_idx = #{idx}</when>
-	        <when test="table_idx_name == 's_idx'">s_idx = #{idx}</when>
-	        <when test="table_idx_name == 'f_idx'">f_idx = #{idx}</when>
+	        <when test="table_name == 'weight'">w_idx = #{idx}</when>
+	        <when test="table_name == 'health'">h_idx = #{idx}</when>
+	        <when test="table_name == 'note'">o_idx = #{idx}</when>
+	        <when test="table_name == 'stoll'">s_idx = #{idx}</when>
+	        <when test="table_name == 'feeding'">f_idx = #{idx}</when>
     	</choose>		
   	</delete>
 </mapper>

@@ -86,11 +86,11 @@ margin-top:150px;
 </style>
 
 <script type="text/javascript">
-/* 	function del(){
+
+	function del(table_name, idx){
 		if(confirm("정말 삭제하시겠습니까?") == false) return;
-		location.href = "delete.do?b_idx=${ vo.w_idx }";
-		
-	} */
+		location.href = "diary_delete.do?table_name=" + table_name + "&idx=" + idx;
+	}
 
 </script>
 
@@ -111,17 +111,17 @@ margin-top:150px;
 						<th>날짜</th>
 						<td>
 							<fmt:formatDate value="${map.W_RDATE}" pattern="yyyy-MM-dd" var="formattedDate" />
-    						<input class="form-control form-control-lg" type="text" name="w_rdate" value="${formattedDate}" /></td>
+    						<input class="form-control form-control-lg" type="text" name="w_rdate" value="${formattedDate}" readonly /></td>
 					</tr>
 					<tr>
 						<th>반려동물</th>
 						<td><input class="form-control form-control-lg"
-							type="number" name="p_idx" value="${map.P_IDX}"></td>
+							type="number" name="p_idx" value="${map.P_IDX}" readonly></td>
 					</tr>
 					<tr>
 						<th>체중(kg)</th>
 						<td><input class="form-control form-control-lg"
-							type="number" name="w_weight" step="0.01" value="${map.W_WEIGHT}"></td>
+							type="number" name="w_weight" step="0.01" value="${map.W_WEIGHT}" readonly></td>
 					</tr>
 				</table><br>
 				<div>
@@ -130,7 +130,7 @@ margin-top:150px;
 						href="diary_modify_form.do?table_name=weight&idx=${map.W_IDX}"> <input
 						class="btn btn-info" type="button" value="수정하기">
 					</a> <input class="btn btn-danger" type="button" value="삭제하기"
-						onclick="del();">
+						onclick="del('${table_name}', ${map.W_IDX});">
 				</div>
 				</c:when>
 				
@@ -140,33 +140,33 @@ margin-top:150px;
 			            <th>날짜</th>
 			            <td>
 			                <fmt:formatDate value="${map.S_RDATE}" pattern="yyyy-MM-dd" var="formattedDate" />
-			                <input class="form-control form-control-lg" type="text" name="s_rdate" value="${formattedDate}" />
+			                <input class="form-control form-control-lg" type="text" name="s_rdate" value="${formattedDate}" readonly />
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>시작 시간</th>
 			            <td>
 			                <fmt:formatDate value="${map.S_STIME}" pattern="HH:mm" var="formattedTime" />
-							<input class="form-control form-control-lg" type="time" name="s_time" value="${formattedTime}" />
+							<input class="form-control form-control-lg" type="time" name="s_time" value="${formattedTime}" readonly />
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>종료 시간</th>
 			            <td>
 			                <fmt:formatDate value="${map.S_ETIME}" pattern="HH:mm" var="formattedTime" />
-							<input class="form-control form-control-lg" type="time" name="e_time" value="${formattedTime}" />
+							<input class="form-control form-control-lg" type="time" name="e_time" value="${formattedTime}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>거리 (m)</th>
 			            <td>
-			                <input class="form-control form-control-lg" type="number" name="s_distance" value="${map.S_DISTANCE}" />
+			                <input class="form-control form-control-lg" type="number" name="s_distance" value="${map.S_DISTANCE}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>메모</th>
 			            <td>
-			                <textarea class="form-control form-control-lg" name="s_memo" rows="3">${map.S_MEMO}</textarea>
+			                <textarea class="form-control form-control-lg" name="s_memo" rows="3" readonly>${map.S_MEMO}</textarea>
 			            </td>
 			        </tr>
 			    </table>
@@ -185,26 +185,26 @@ margin-top:150px;
 			            <th>날짜</th>
 			            <td>
 			                <fmt:formatDate value="${map.F_RDATE}" pattern="yyyy-MM-dd" var="formattedDate" />
-			                <input class="form-control form-control-lg" type="text" name="f_rdate" value="${formattedDate}" />
+			                <input class="form-control form-control-lg" type="text" name="f_rdate" value="${formattedDate}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>시간</th>
 			            <td>
 			                <fmt:formatDate value="${map.F_TIME}" pattern="HH:mm" var="formattedTime" />
-							<input class="form-control form-control-lg" type="time" name="f_time" value="${formattedTime}" />
+							<input class="form-control form-control-lg" type="time" name="f_time" value="${formattedTime}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>종류</th>
 			            <td>
-			                <input class="form-control form-control-lg" type="text" name="f_type" value="${map.F_TYPE}" />
+			                <input class="form-control form-control-lg" type="text" name="f_type" value="${map.F_TYPE}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>사료명</th>
 			            <td>
-			                <input class="form-control form-control-lg" type="text" name="f_pname" value="${map.F_PNAME}" />
+			                <input class="form-control form-control-lg" type="text" name="f_pname" value="${map.F_PNAME}" readonly/>
 			            </td>
 			        </tr>
 			    </table>
@@ -224,45 +224,45 @@ margin-top:150px;
 			            <th>날짜</th>
 			            <td>
 			                <fmt:formatDate value="${map.H_RDATE}" pattern="yyyy-MM-dd" var="formattedDate" />
-			                <input class="form-control form-control-lg" type="text" name="h_rdate" value="${formattedDate}" />
+			                <input class="form-control form-control-lg" type="text" name="h_rdate" value="${formattedDate}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>시간</th>
 			            <td>
 			                <fmt:formatDate value="${map.H_TIME}" pattern="HH:mm" var="formattedTime" />
-							<input class="form-control form-control-lg" type="time" name="h_time" value="${formattedTime}" />
+							<input class="form-control form-control-lg" type="time" name="h_time" value="${formattedTime}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>비용</th>
 			            <td>
-			                <input class="form-control form-control-lg" type="number" name="h_cost" step="0.01" value="${map.H_COST}" />
+			                <input class="form-control form-control-lg" type="number" name="h_cost" step="0.01" value="${map.H_COST}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>종류</th>
 			            <td>
-			                <input class="form-control form-control-lg" type="text" name="h_type" value="${map.H_TYPE}" />
+			                <input class="form-control form-control-lg" type="text" name="h_type" value="${map.H_TYPE}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>내용</th>
 			            <td>
-			                <textarea class="form-control form-control-lg" name="h_content" rows="3">${map.H_CONTENT}</textarea>
+			                <textarea class="form-control form-control-lg" name="h_content" rows="3" readonly>${map.H_CONTENT}</textarea>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>진단명</th>
 			            <td>
-			                <input class="form-control form-control-lg" type="text" name="h_hname" value="${map.H_HNAME}" />
+			                <input class="form-control form-control-lg" type="text" name="h_hname" value="${map.H_HNAME}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>다음 진료일</th>
 			            <td>
 			                <fmt:formatDate value="${map.H_NDATE}" pattern="yyyy-MM-dd" var="formattedDate" />
-			                <input class="form-control form-control-lg" type="text" name="h_ndate" value="${formattedDate}" />
+			                <input class="form-control form-control-lg" type="text" name="h_ndate" value="${formattedDate}" readonly/>
 			            </td>
 			        </tr>
 			    </table>
@@ -282,20 +282,20 @@ margin-top:150px;
 			            <th>날짜</th>
 			            <td>
 			                <fmt:formatDate value="${map.O_RDATE}" pattern="yyyy-MM-dd" var="formattedDate" />
-			                <input class="form-control form-control-lg" type="text" name="o_rdate" value="${formattedDate}" />
+			                <input class="form-control form-control-lg" type="text" name="o_rdate" value="${formattedDate}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>시간</th>
 			            <td>
 			                <fmt:formatDate value="${map.O_TIME}" pattern="HH:mm" var="formattedTime" />
-							<input class="form-control form-control-lg" type="time" name="o_time" value="${formattedTime}" />
+							<input class="form-control form-control-lg" type="time" name="o_time" value="${formattedTime}" readonly/>
 			            </td>
 			        </tr>
 			        <tr>
 			            <th>내용</th>
 			            <td>
-			                <textarea class="form-control form-control-lg" name="o_content" rows="3">${map.O_CONTENT}</textarea>
+			                <textarea class="form-control form-control-lg" name="o_content" rows="3" readonly>${map.O_CONTENT}</textarea>
 			            </td>
 			        </tr>
 			    </table>
