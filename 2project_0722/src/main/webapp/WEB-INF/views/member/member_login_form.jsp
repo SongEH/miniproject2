@@ -100,7 +100,7 @@
 			        <tr>
 			            <td colspan="2" align="center">
 			               <input class="btn btn-success"  type="button"  value="회원가입"
-			                      onclick="location.href='../member/member_insert_form.do'" >
+			                      onclick="location.href='insert_form.do'" >
 			               <input class="btn btn-primary"  type="button"  value="로그인"
 			                      onclick="send(this.form);">
 			            </td>
