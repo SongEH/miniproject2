@@ -10,7 +10,7 @@
 	
 	
 	<typeAliases>
-		<!-- <typeAlias type="vo.WalksVo" alias="walks"/> -->
+		<typeAlias type="vo.WeightVo" alias="weight"/>
 	</typeAliases>
 	
 	<mappers>
