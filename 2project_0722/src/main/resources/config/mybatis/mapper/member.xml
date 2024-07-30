@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </delete>
    
    <!-- 수정  -->
-   <update id="member_update" parameterType="member">
+   <update id="member_update" parameterType="vo.MemberVo">
       update member 
              set m_name=#{ m_name },
                  m_pwd=#{ m_pwd },

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<%
+String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
+System.out.print(ctx);
+%>
 <!DOCTYPE html>
 <html>
 
@@ -10,6 +15,10 @@
 <title>반려동물종합관리플랫폼</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
+
+
+
+
 <!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -40,10 +49,10 @@
 
 <!-- Vendor CSS Files -->
 <link
-	href="${pageContext.request.contextPath}resources/assets/vendor/bootstrap/css/bootstrap.min.css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	href="${pageContext.request.contextPath}/resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
 	rel="stylesheet">
 <link
 	href="${pageContext.request.contextPath}/resources/assets/vendor/aos/aos.css"
@@ -201,26 +210,25 @@ article p {
 	display: block;
 }
 
-
 /*  댓글영역 CSS  */
-#re_content, #reply_display{
-
+#re_content, #reply_display {
 	width: 100%;
 }
 
+/* 답변 공간 CSS */
+.answer {
+	margin-top: 30px;
+}
 </style>
 
 <!-- ------------------------삭제버튼 클릭 시 동작-------------------------  -->
 <script type="text/javascript">
 	function del() {
 
-		if (confirm("정말 삭제하시겠습니까?") == false){
+		if (confirm("정말 삭제하시겠습니까?") == false)
 			return;
-		}
-			
 
-		location.href = "delete.do?b_idx=${vo.b_idx}";
-		return;
+		location.href = "delete.do?b_idx=${ vo.b_idx}";
 
 	}
 </script>
@@ -231,140 +239,217 @@ article p {
 
 <!-- ------------------------댓글 작성 ------------------------------------  -->
 <script type="text/javascript">
+	function send(f) {
 
-		function reply_insert(){
-			
-			if("${ empty user }" == "true"){
-				   
-				   if(confirm("로그인후 댓글쓰기가 가능합니다\n로그인 하시겠습니까?")==false) return;
-				   
-				   location.href="../member/login_form.do?url=" + encodeURIComponent(location.href) ;
-				   
-				   return;
-			   }
-			
-			let re_content = $("#re_content").val().trim();
-			
-			 
-			if(re_content==''){
-			   alert("댓글내용을 입력하세요!!");
-			   
-			   $("#re_content").val("");
-			   $("#re_content").focus();
-			   return;
-			   }
-			   
-			   //Ajax통해서 댓글 등록
-			   $.ajax({
-				   url		:	"../reply/insert.do",
-				   data		:	{
-					              "re_content": re_content,
-					              "b_idx":"${ vo.b_idx }",
-					              "m_idx":"${user.m_idx}",
-					              "m_name":"${user.m_name}"
-					            },
-				   dataType	:	"json",
-				   success	:	function(res_data){
-					   // res_data = {"result": true }
-					   
-					   //작성했던 댓글 입력창에서 지우기
-					   $("#re_content").val("");
-					   
-					   
-					   if(res_data.result==false){
-						   alert("댓글등록 실패!!");
-						   return;
-					   }
-					   
-					   reply_list(1);
-					   
-				   },
-				   error	:	function(err){
-					   alert(err.responseText);
-				   }
-			   });
-			   
-		   }//end:reply_insert()
-		   
-		   
-		   
-		   
-		var g_page=1;
-   //댓글목록 요청
-   function reply_list(page){
-	 
-	   g_page = page;
-	   
-	   $.ajax({
-		   
-		   url		:	"../reply/list.do",
-		   data		:	{"b_idx":"${ vo.b_idx}", "page": page },
-		   success	:	function(res_data){
-			   
-			   $("#reply_display").html(res_data);
-			   
-		   },
-		   error	:	function(err){
-			   alert(err.responseText);
-		   }
+		let a_idx = f.a_idx.value;
+		let a_content = f.a_content.value;
+		let b_idx = f.b_idx.value;
+		
+		alert(a_idx);
+		alert(a_content);
+		alert(b_idx);
+		
+		
+		
+		if ("${ empty user }" == "true") {
+			if (confirm("의학전문가 아이디로 로그인후 댓글쓰기가 가능합니다\n로그인 하시겠습니까?") == false)
+				return;
 
-	   });
-	   
-   }//end:reply_list()	
-   
-   
-   //초기화 : 시작시
-   
+			location.href = "../member/login_form.do?url="
+					+ encodeURIComponent(location.href);
+			return;
+		}
 
-   $(document).ready(function(){
-       
-	   //현재 게시물에 달린 댓글목록 출력
-	   reply_list(1);
-   });
-    
-
-<!-- ------------------------댓글 작성 ------------------------------------  -->
-
-
+		
+		f.action = "modify.do";
+		f.submit();
+	}
 </script>
 
 
 
+<script type="text/javascript">
+	/* ------------------------ANSWER_MODIFY----------------------------------- */
+	/* alert("여기까지는 오케이")
+	$.ajax({
+		url 				: 				"../answer/modify.do",
+		data 				: 			{
+											"a_content" : a_content,
+											"b_idx" : "${ vo.b_idx }",
+											"m_idx" : "${user.m_idx}",
+											"m_name" : "${user.m_name}"
+										},
+		dataType : "json",
+		success : function(res_data) {
+			// res_data = {"result": true }
+
+			if (res_data.result == false) {
+				alert("답변 수정 실패!!");
+				return;
+			}
+
+			answer_list();
+
+		},
+		error : function(err) {
+			alert(err.responseText);
+		}
+	});
+
+	} // save_answer */
+	/* ------------------------ANSWER_MODIFY----------------------------------- */
+	/* ------------------------ANSWER_LIST----------------------------------- */
+
+	//댓글목록 요청
+	function answer_list() {
+
+		$.ajax({
+
+			url : "../answer/list.do",
+			data : {
+				"b_idx" : "${ vo.b_idx}"
+			},
+			success : function(res_data) {
+
+				$("#answer_display").html(res_data);
+
+			},
+			error : function(err) {
+				alert(err.responseText);
+			}
+
+		});
+
+	}//end:reply_list()	
+	/* ------------------------ANSWER_LIST----------------------------------- */
+
+	/* ------------------------REPLY_INSERT----------------------------------- */
+	function reply_insert() {
+
+		if ("${ empty user }" == "true") {
+
+			if (confirm("로그인후 댓글쓰기가 가능합니다\n로그인 하시겠습니까?") == false)
+				return;
+
+			location.href = "../member/login_form.do?url="
+					+ encodeURIComponent(location.href);
+
+			return;
+		}
+
+		let re_content = $("#re_content").val().trim();
+
+		if (re_content == '') {
+			alert("댓글내용을 입력하세요!!");
+
+			$("#re_content").val("");
+			$("#re_content").focus();
+			return;
+		}
+
+		//Ajax통해서 댓글 등록
+		$.ajax({
+			url : "../reply/insert.do",
+			data : {
+				"re_content" : re_content,
+				"b_idx" : "${ vo.b_idx }",
+				"m_idx" : "${user.m_idx}",
+				"m_name" : "${user.m_name}"
+			},
+			dataType : "json",
+			success : function(res_data) {
+				// res_data = {"result": true }
+
+				//작성했던 댓글 입력창에서 지우기
+				$("#re_content").val("");
+
+				if (res_data.result == false) {
+					alert("댓글등록 실패!!");
+					return;
+				}
+
+				reply_list(1);
+
+			},
+			error : function(err) {
+				alert(err.responseText);
+			}
+		});
+
+	}//end:reply_insert()
+	/* ------------------------REPLY_INSERT----------------------------------- */
+
+	/* ------------------------REPLY_LIST----------------------------------- */
+	var g_page = 1;
+	//댓글목록 요청
+	function reply_list(page) {
+
+		g_page = page;
+
+		$.ajax({
+
+			url : "../reply/list.do",
+			data : {
+				"b_idx" : "${ vo.b_idx}",
+				"page" : page
+			},
+			success : function(res_data) {
+
+				$("#reply_display").html(res_data);
+
+			},
+			error : function(err) {
+				alert(err.responseText);
+			}
+
+		});
+
+	}//end:reply_list()	
+
+	/* ------------------------REPLY_LIST----------------------------------- */
+
+	/* //초기화 : 시작시
+	$(document).ready(function() {
+
+		//현재 게시물에 달린 댓글목록 출력
+		 reply_list(1);
+		answer_list();
+		
+		modify();
+	}); */
+</script>
+<!-- ------------------------댓글 작성 ------------------------------------  -->
+
+
 <body class="index-page">
 	<%@ include file="/WEB-INF/views/top.jsp"%>
-<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
+
+	<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
 	<main class="main mt-300">
 		<form method="post" enctype="multipart/form-data">
-
-			<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
-			<input type="hidden" name="b_idx" value="${vo.b_idx }"> <input
-				type="hidden" name="b_cate" value="${vo.b_cate }">
-			<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
-
-
-			<!-- -----------------메인 헤더 출력 공간  ---------------------------- -->
+			<input type="hidden" name="a_idx" value="${vo.a_idx }">
+			<input type="hidden" name="b_idx" value="${vo.b_idx }">
+			
+			
+			
+			<!-- ------------------------------메인 헤더 출력 공간  --------------------------------------------------- -->
 			<div class="container">
+
 				<div>
 					<h1>${vo.b_title }</h1>
-					<p class="author-date">${vo.m_name}|Date:${vo.b_rdate  }</p>
+					<p class="author-date">${vo.m_name}|Date:${vo.b_rdate}</p>
 				</div>
 
 				<div>
 					<!-- 유저 본인만 삭제 및 수정 가능  -->
 
 					<div>
-						<c:if test="${ user.m_idx eq vo.m_idx }">
-							<input class="btn btn-info" type="button" value="수정"
-								onclick="location.href='modify_form.do?b_idx=${vo.b_idx}'">
-							<input class="btn btn-danger" type="button" value="삭제"
-								onclick="del();">
-						</c:if>
 						<input class="btn btn-success" type="button" value="목록으로"
 							onclick="location.href='list.do?b_cate=${vo.b_cate }'">
 					</div>
-					<!-- -----------------메인 헤더 출력 공간 ---------------------------- -->
+					<!-- ------------------------------메인 헤더 출력 공간  ---------------------------------------------- -->
 
-					<!-- -----------------첨부 파일 이미지 출력 공간 ---------------------------- -->
+					<!-- ------------------------------첨부 파일 이미지 출력 공간  ---------------------------------------- -->
 					<div>
 						<div class="post-images">
 							<c:forEach var="image" items="${image_list }">
@@ -375,41 +460,56 @@ article p {
 							</c:forEach>
 						</div>
 					</div>
-					<!-- -----------------첨부 파일 이미지 출력 공간 ---------------------------- -->
+					<!-- ------------------------------첨부 파일 이미지 출력 공간  ---------------------------------------- -->
 
 
-					<!-- -----------------메인 내용 출력 공간 ---------------------------- -->
+					<!-- ------------------------------메인 내용 출력 공간  ---------------------------------------- -->
 					<article>
 						<div class="post-description">${vo.b_content }</div>
 					</article>
-					<!-- -----------------메인 내용 출력 공간 ---------------------------- -->
+					<!-- ------------------------------메인 내용 출력 공간  ---------------------------------------- -->
+				</div>
+			</div>
+
+
+
+			<!-- ------------------------------답변 공간  ---------------------------------------- -->
+
+
+
+			<input type="hidden" value="${vo.a_idx }">
+			<div class="container" class="answer">
+				<div class="row">
+					<div class="col-md-10">
+						<textarea rows="8" cols="30" id="a_content" name="a_content" style="width: 100%; height: 300px;">${vo.a_content }</textarea>
+					</div>
+					<div class="col-md-2">
+	
+						<input type="button" value="답변 수정"
+							onclick="send(this.form);">
+					</div>
+
+
+					<div>
+						<input name="photo" type="file" multiple="multiple">
+					</div>
 				</div>
 			</div>
 		</form>
 
-		<!-- ----------------댓글 공간-------------------------------------->
+		<!-- ----------------답변 공간 -------------------------------------->
 
 
-		<div class="container">
-			<hr>
-			<div class="row">
-				<div class="col-sm-10">
-					<textarea rows="3" id="re_content" name="re_content"
-						placeholder="로그인후에 댓글쓰기가 가능합니다"></textarea>
-				</div>
-				<div class="col-sm-2">
-					<input id="btn_re_register" type="button" value="댓글쓰기"
-						onclick="reply_insert();">
-				</div>
-			</div>
-		</div>
+
+
+
+
+		<!-- ----------------댓글 디스플레이 공간-------------------------------------->
 		<hr>
-
-		
 		<div>
-				<div id="reply_display"></div>
-			
+			<div id="reply_display"></div>
 		</div>
+		<!-- ----------------댓글 디스플레이 공간-------------------------------------->
 
 
 

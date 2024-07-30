@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -17,6 +19,15 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <!-- Favicons -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
@@ -212,71 +223,205 @@ main.main {
 }
 
 .img-thumbnail {
-    cursor: pointer; /* Changes cursor to a hand (click) shape */
+	cursor: pointer; /* Changes cursor to a hand (click) shape */
 }
 
+/* 페이지 메뉴 CSS  */
+.pagination {
+	text-align: center !important;
+	margin: auto;
+}
+
+/* 카드 CSS */
+.equal-card {
+	width: 300px;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.card-text {
+	line-height: 1.5em;
+	max-height: 7.5em;
+	overlfow: hidden;
+	text-overflow: ellipsis;
+}
+
+.card-body {
+	width: 300px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.equal-reply-content {
+	display: none;
+	margin-top: 10px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	height: 150px;
+	overflow-y: auto;
+}
+
+/* Adjusting button style */
+.close-btn {
+	float: right;
+	margin-bottom: 10px;
+}
+
+.col-sm-4 {
+	margin-bottom: 20px;
+}
+
+/*  갤러리 형식의 이미지 */
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 10px;
+	padding: 10px;
+}
+
+.gallery-item {
+	/* border: 1px solid #ddd; */
+	border-radius: 4px;
+}
+
+.gallery-image {
+	width: 200px;
+	height: 200px;
+	display: block;
+	object-fit: cover;
+	margin: auto;
+}
 </style>
 
 
-<body class="index-page">
-	
-<%@ include file="/WEB-INF/views/top.jsp" %>
+<script>
+function toggleReply(idx) {
+    // Hide all reply contents
+    document.querySelectorAll('.reply-content').forEach(function(element) {
+        element.style.display = 'none';
+    });
 
-	<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
-	<main class="main mt-300">
+    // Toggle the visibility of the specific reply content
+    var replyContent = document.getElementById('replyContent_' + idx);
+    if (replyContent) {
+        if (replyContent.style.display === 'none') {
+            replyContent.style.display = 'block';
+        } else {
+            replyContent.style.display = 'none';
+        }
+    }
+}
+
+function closeReply(idx) {
+    var replyContent = document.getElementById('replyContent_' + idx);
+    if (replyContent) {
+        replyContent.style.display = 'none';
+    }
+}
+</script>
+
+
+<script type="text/javascript">
+	function insert_form() {
+
+		if ("${ empty user}" == "true") {
+
+			if (confirm("글쓰기는 로그인 후 이용가능합니다\n로그인 하시겠습니까?") == false) {
+				return;
+			} else {
+				location.href = "../member/login_form.do?url=" 	+ encodeURIComponent(location.href);
+				return;
+				alert(encodeURIComponent(location.href));
+			}
+		}
+
+		location.href = "insert_form.do"
+
+	}
+</script>
+
+<script type="text/javascript">
+
+	function send_view(f){
+		
+		
+		let b_title = f.b_title.val().trim()
+		alert(b_title)
+		
+		
+		f.action = "board/view.do";
+		f.submit();
+	}
+
+
+</script>
+
+
+
+<body class="index-page">
+
+ 	<%@ include file="/WEB-INF/views/top.jsp"%> 
+
+	<main class="main">
+
 		<div class="container d-flex justify-content-end">
 			<input class="btn btn-success" type="button" value="글쓰기"
-				onclick="location.href='insert_form.do'">
+				onclick="insert_form();">
 		</div>
 
-
-		<section id="blog-posts-2" class="blog-posts-2 section">
+		<form method="post" enctype="multipart/form-data">
 			<div class="container">
-				<div class="row gy-5">
-					<c:forEach var="item" items="${vo}">
-						<div class="container-fluid">
-							<article class="blog-post">
-								<div>
-									${item.m_name } ${item.b_rdate }        
-								</div>
-								<h3 class="post-title mt-1">
-									<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
-								</h3>
-								<div class="post-description">${item.b_content }</div>
-
-								<div class="post-description">
-									<a href="view.do?b_idx=${item.b_idx}" >
-									<c:out value="${item.b_content}" escapeXml="false" />
-									</a>
-								</div>
-								<div class="image-container">
-								<div class="post-images">
-									<c:forEach var="image" items="${item.image_list}" varStatus="status">
-										<c:if test="${status.count < 6}">
-										<div class="post-img">
-											<img src="../resources/images/${image.b_filename}" alt=""
-												class="img-thumbnail" onclick="location.href='view.do?b_idx=${item.b_idx}'">
+				<c:forEach var="item" items="${list}">
+					<div class="col-sm-4">
+						<div class="card equal-card">
+							<div class="card-body">
+								<div class="gallery">
+									<c:forEach var="image" items="${item.image_list }">
+										<div class="gallery-item">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
+												alt="Image" class="gallery-image"
+												onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">
 										</div>
-										</c:if>
 									</c:forEach>
 								</div>
+								<div class="card-title" name="b_title">
+									<a
+										onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">${item.b_title}</a>
 								</div>
-							</article>
+								<div class="card-text" name="b_content">${item.b_content}</div>
+
+								<button class="btn btn-primary"
+									onclick="toggleReply(${item.b_idx})">답변보기</button>
+								<div class="reply-content equal-reply-content"
+									id="replyContent_${item.b_idx}">
+									<button class="btn btn-secondary close-btn"
+										onclick="closeReply(${item.b_idx})">닫기</button>
+									<hr>
+									<p class="card-text">
+										<strong>Reply:</strong>
+										<textarea name="a_content"></textarea>
+										<input type="button" value="답변등록" onclick="">
+									</p>
+								</div>
+							</div>
 						</div>
-					</c:forEach>
-				</div>
+					</div>
+				</c:forEach>
 			</div>
-		</section>
-
-		<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
+		</form>
 
 
-
-
-		<!-- Pagination menu -->
-		<div class="pagination">${pageMenu}</div>
+		<hr>
+		<hr>
 
 	</main>
+
 
 </body>
 </html>

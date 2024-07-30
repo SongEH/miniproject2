@@ -50,6 +50,38 @@
 <link rel="stylesheet" href="resources/css/common.css">
 
 	
+<style>
+@font-face {
+    font-family: 'RixInooAriDuriR';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 500;
+	src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
+		format('woff2'),
+		url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff)
+		format('woff'),
+		url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf)
+		format('opentype');
+}
+
+body {
+	/* font-family: 'RixInooAriDuriR'; */
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+input {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.icon-box {
+	border-radius: 20px !important;
+}
+</style>
 
 </head>
 
@@ -100,8 +132,68 @@
 
 
 <body class="index-page">
-	
-<%@ include file="/WEB-INF/views/top.jsp" %>
+	<header id="header" class="header fixed-top">
+
+		<div class="topbar d-flex align-items-center">
+			<div
+				class="container d-flex justify-content-center justify-content-md-between">
+				<div class="contact-info d-flex align-items-center">
+					<i class="bi bi-envelope d-flex align-items-center"><a
+						href="mailto:contact@example.com">contact@example.com</a></i> <i
+						class="bi bi-phone d-flex align-items-center ms-4"><span>+1
+							5589 55488 55</span></i>
+				</div>
+				<div class="social-links d-none d-md-flex align-items-center">
+					<div>
+						<input type="button" value="로그인" onclick="login_check();">
+					</div>
+					
+					<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a> 
+					<a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+					<a href="#" class="instagram"><i class="bi bi-instagram"></i></a> 
+					<a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- End Top Bar -->
+
+		<div class="branding d-flex align-items-cente">
+
+			<div
+				class="container position-relative d-flex align-items-center justify-content-between">
+				<a href="${pageContext.request.contextPath}/index.jsp" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+					<img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="">
+					<h1 class="sitename"></h1>
+				</a>
+				<nav id="navmenu" class="navmenu">
+					<ul>
+						<li><a href="${pageContext.request.contextPath}/diary/diary_list.do">다이어리<br></a></li>
+						<li class="dropdown"><a><span>커뮤니티</span>
+								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
+							<ul>
+								<li><a href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
+							</ul></li>
+						<li><a href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
+						<li><a href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
+						<li><a href="#team">쇼핑몰</a></li>
+
+						<li><a href="#">문의</a></li>
+					</ul>
+					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+				</nav>
+
+			</div>
+
+		</div>
+
+	</header>
+
+
+
+
+
 
 
 	<main class="main">

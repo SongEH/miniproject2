@@ -31,6 +31,8 @@
 	   
 	   let m_id   = f.m_id.value.trim();
 	   let m_pwd  = f.m_pwd.value.trim();
+	   let url = f.url.value;
+
 	   
 	   if(m_id==''){
 		   alert("아이디를 입력하세요!!");
@@ -98,7 +100,12 @@
 			<div class="panel-heading"><h3>로그인</h3></div>
 			<div class="panel-body">
 			    <table class="table">
-			        <tr>
+			    <input type="hidden" name="url" value="${param.url }">
+
+
+				
+
+		        <tr>
 			            <th>아이디</th>
 			            <td><input class="form-control"  name="m_id"  value="${ param.m_id }"></td>
 			        </tr>

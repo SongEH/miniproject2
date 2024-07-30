@@ -1,116 +1,219 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="vo.*"%><%-- 
-<%@page import="util.Util"%> --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>반려동물종합관리플랫폼</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="../resources/assets/img/favicon.png" rel="icon">
+<link href="../resources/assets/img/apple-touch-icon.png"
+	rel="apple-touch-icon">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect">
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Vendor CSS Files -->
+<link href="../resources/assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="../resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link href="../resources/assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="../resources/assets/vendor/glightbox/css/glightbox.min.css"
+	rel="stylesheet">
+<link href="../resources/assets/vendor/swiper/swiper-bundle.min.css"
+	rel="stylesheet">
+
+<!-- Main CSS File -->
+<link href="../resources/assets/css/main.css" rel="stylesheet">
+
+<!-- =======================================================
+  * Template Name: Impact
+  * Template URL: https://bootstrapmade.com/impact-bootstrap-business-website-template/
+  * Updated: Jun 29 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 
 
-<!-- 공통 css 부분 링크 -->
-<link rel="stylesheet" href="resources/css/common.css">
+<!-- 공통 css -->
+<link rel="stylesheet" href="../resources/css/common.css">
 
-
-<script type="text/javascript">
-	function post_insert() {
-		// 로그인 체크 (안되어 있으면)
-		if ("${empty member}" == "true") {
-
-			if (confirm("글쓰기는 로그인 후 가능합니다.\n로그인 하시겠습니까?") == false) {
-				return;
-			}
-
-			// 로그인 폼으로 이동 
-			location.href = "login.jsp"; //현재 경로는 photo니까
-			return;
-		}
-
-		// context Path를 구하는 방법 
-		let hostIndex = location.href.indexOf(location.host)
-				+ location.host.length;
-		let contextPath = location.href.substring(hostIndex, location.href
-				.indexOf('/', hostIndex + 1));
-
-		// 로그인이 된 경우 => 사진 등록 폼으로 이동 
-		location.href = contextPath + "/post/insert_form.do";
-	}//end:photo_insert()
-</script>
-
-
+<!--  부트스트랩 스타일 수정  -->
 <style>
-header {
-	background-color: #FBE297;
-	height:60px !important;
+.accent-background {
+	background-color: white !important;
+	color: black;
 }
-.d-flex
+
+.accent-background p {
+	color: black;
+}
+
+.topbar {
+	background-color: #FADA5A !important;
+}
+
+#navmenu a {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.branding, .branding a, .branding h1 {
+	background-color: #F2EFE5 !important; /*  C7C8CC */
+	color: #3C4043 !important;
+}
+
+.branding a:hover, .branding a:focus, .branding a:active {
+	color: #3C4043 !important;
+}
+
+.icon-box {
+	background-color: #FADA5A !important;
+}
+
+#footer {
+	background-color: gray !important;
+}
+
+@font-face {
+	font-family: 'RixInooAriDuriR';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/RixInooAriDuriR.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Noto Sans KR';
+	font-style: normal;
+	font-weight: 500;
+	src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2)
+		format('woff2'),
+		url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff)
+		format('woff'),
+		url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf)
+		format('opentype');
+}
+
+body, header {
+	/* font-family: 'RixInooAriDuriR'; */
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+input {
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.icon-box {
+	border-radius: 20px !important;
+}
 </style>
 
+<script type="text/javascript">
+	function login_check() {
 
-</head>
-<body>
+		location.href = "${pageContext.request.contextPath}/member/login_form.do?url="
+				+ encodeURIComponent(location.href);
+		return;
 
-	<!--화면 메인 네비게이션바 -->
-	<header class="">
-		<nav class="navbar navbar-expand-sm">
-			<div class="container-fluid">
-				<a class="navbar-brand" href=""><img src="test.png"
-					width="100px"></img>로고이미지/로고명</a>
+	}
+</script>
+<body class="index-page">
+	<header id="header" class="header fixed-top">
 
-				<div class="collapse navbar-collapse" id="mynavbar">
+		<div class="topbar d-flex align-items-center">
+			<div
+				class="container d-flex justify-content-center justify-content-md-between">
+				<div class="contact-info d-flex align-items-center">
+					<i class="bi bi-envelope d-flex align-items-center"><a
+						href="mailto:contact@example.com">contact@example.com</a></i> <i
+						class="bi bi-phone d-flex align-items-center ms-4"><span>+1
+							5589 55488 55</span></i>
+				</div>
+				<div class="social-links d-none d-md-flex align-items-center">
+					<!-- <div>
+						<input type="button" value="로그인" onclick="login_check();">
+					</div> -->
 
-					<ul class="navbar-nav ms-auto">
-						<%-- <% 
-						MemberVo mv = (MemberVo) session.getAttribute("member");
-						if (mv != null && mv.getM_type() == 1){	%> <!-- 일반회원이 로그인한 경우 -->
-		
-						<li class="nav-item"><div class="nav-link">${ sessionScope.member.m_name }님 환영합니다.</div></li>
-						<li class="nav-item"><a class="nav-link" id="nav-link-admin" href="${pageContext.request.contextPath}/JSP/mypage/mypage.do">마이페이지</a></li>
-						<li class="nav-item"><a class="nav-link" id="link1" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
-						
-					<% } else if (mv != null && mv.getM_type() == 2){ %> <!-- 관리자가 로그인한 경우 -->
-						<li class="nav-item"><div class="nav-link">${ sessionScope.member.m_name }님 환영합니다.</div></li>
-						<li class="nav-item"><a class="nav-link" id="nav-link-admin" href="${pageContext.request.contextPath}/admin/memberlist.do">관리자페이지</a></li>
-						<li class="nav-item"><a class="nav-link" id="link1" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
-
-					<%	} else { %> --%>
-						<!-- 로그인 안 한 경우 -->
-						<li class="nav-item">
-							<form class="d-flex" style="margin-right: 50px;">
-								<input class="form-control me-2" type="search"
-									placeholder="검색어를 입력하세요." aria-label="Search"
-									style="background-color: #FBE297; border-color: white;">
-								<button class="btn" type="submit"
-									style="background-color: #FBE297; border-color: white; width: 100px;">Search</button>
-							</form> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						</li>
-						<li class="nav-item"><a class="nav-link" id="link1" href="">로그인</a></li>
-
-						<li class="nav-item"><a class="nav-link" id="link2" href="">회원가입</a></li>
-
-
-						<%-- <% } 
-						
-						
-						%> --%>
-						<!-- <li class="nav-item">
-							<button type="button" class="button1" onclick="post_insert();">블로그
-								글쓰기</button>
-						</li> -->
-					</ul>
-
+					<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a> <a
+						href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
+						href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
+						href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+				</div>
+				<div class="text-end">
+					<!-- 로그인이 안되어 있는 경우  -->
+					<c:if test="${ empty sessionScope.user }">
+						<input class="btn btn-default" type="button" value="로그인"
+							onclick="location.href='${pageContext.request.contextPath}/member/login_form.do'">
+						<input class="btn btn-default" type="button" value="회원가입"
+							onclick="location.href='${pageContext.request.contextPath}/member/insert_form.do'">
+					</c:if>
+					<!-- 로그인이 되어 있는 경우  -->
+					<c:if test="${ not empty sessionScope.user }">
+						<input class="btn btn-default" type="button" value="로그아웃"
+							onclick="location.href='${pageContext.request.contextPath}/member/logout.do'">
+						<input class="btn btn-default" type="button" value="마이페이지">
+						<!-- 로그인이 되어 있고 관리자인 경우  -->
+						<c:if test="${ sessionScope.user.m_grade == '관리자'}">
+							<input class="btn btn-info" type="button" value="관리자페이지">
+						</c:if>
+					</c:if>
 				</div>
 			</div>
-		</nav>
+		</div>
+		<!-- End Top Bar -->
+
+		<div class="branding d-flex align-items-cente">
+
+			<div
+				class="container position-relative d-flex align-items-center justify-content-between">
+				<a href="${pageContext.request.contextPath}/index.jsp"
+					class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+					<img
+					src="${pageContext.request.contextPath}/resources/images/logo.png"
+					alt="">
+					<h1 class="sitename"></h1>
+				</a>
+				<nav id="navmenu" class="navmenu">
+					<ul>
+						<li><a
+							href="${pageContext.request.contextPath}/diary/diary_list.do">다이어리<br></a></li>
+						<li class="dropdown"><a><span>커뮤니티</span> <i
+								class="bi bi-chevron-down toggle-dropdown"></i></a>
+							<ul>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
+							</ul></li>
+						<li><a
+							href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
+						<li><a
+							href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
+						<li><a href="#team">쇼핑몰</a></li>
+
+						<li><a href="#">문의</a></li>
+					</ul>
+					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+				</nav>
+
+			</div>
+
+		</div>
 
 	</header>
-
-</body>
-</html>
