@@ -144,21 +144,19 @@ input {
 
 			<div
 				class="container position-relative d-flex align-items-center justify-content-between">
-				<a href="index.html" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+				<a href="${pageContext.request.contextPath}/index.jsp" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
 					<!-- <img src="resources/assets/img/logo.png" alt=""> -->
 					<h1 class="sitename">LOGO</h1>
 				</a>
-
 				<nav id="navmenu" class="navmenu">
 					<ul>
 						<li><a href="#" class="active">다이어리<br></a></li>
-						<li class="dropdown"><a href="blog.html"><span>커뮤니티</span>
+						<li class="dropdown"><a><span>커뮤니티</span>
 								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
-								<li><a href="#">Dropdown 1</a></li>
-								<li><a href="#">Dropdown 2</a></li>
-								<li><a href="#">Dropdown 3</a></li>
-								<li><a href="#">Dropdown 4</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
 							</ul></li>
 						<li><a href="#">플레이스</a></li>
 						<li><a href="#portfolio">뉴스</a></li>
