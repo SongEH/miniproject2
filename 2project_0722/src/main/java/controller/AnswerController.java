@@ -118,6 +118,7 @@ public class AnswerController {
 				
 		return "/board/board_answer_modify_form";
 	}
+	
 		
 /*--------------------------------ANSWER MODIFY_FORM----------------------------------*/
 
