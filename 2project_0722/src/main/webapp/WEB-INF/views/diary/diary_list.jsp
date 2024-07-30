@@ -183,7 +183,7 @@
 	 
 
 	 $(document).ready(function(){
-	     
+	     let json_calendar_all_data;
 	     let today = new Date();   
 
 	     let year = today.getFullYear(); // 년도
