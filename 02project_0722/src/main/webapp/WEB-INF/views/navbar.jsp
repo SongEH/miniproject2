@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +49,9 @@ body {
 			<li class="nav-item catefont"><a class="nav-link" href="">플레이스</a></li>
 			<li class="nav-item catefont"><a class="nav-link" href="">뉴스</a></li>
 			<li class="nav-item catefont"><a class="nav-link" href="">쇼핑몰</a></li>
+			<c:if test="${sessionScope.m_grade == '관리자'}">
+            	<li class="nav-item catefont"><a class="nav-link" href="${pageContext.request.contextPath}/admin/menu">관리자 메뉴</a></li>
+           	</c:if>
 
 		</ul>
 	</div>

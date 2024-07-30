@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<nav class="bg-white shadow" x-data="{ open: false }">
+<nav class="bg-white shadow mt-12" x-data="{ open: false }">
     <div class="container mx-auto px-6 py-3 flex justify-between items-center">
         <div class="flex items-center space-x-4">
             <button @click="open = !open" class="text-gray-600 hover:text-gray-800 md:hidden">
@@ -71,7 +71,7 @@
             <button @click="open = !open" class="w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100">댓글 관리메뉴</button>
             <div x-show="open" class="pl-4">
                 <a href="${pageContext.request.contextPath}/comment/list.do" class="block py-2 text-gray-600 hover:bg-gray-100">댓글 목록</a>
-                <a href="${pageContext.request.contextPath}/comment/detail.do" class="block py-2 text-gray-600 hover:bg-gray-100">댓글 추가</a>
+                <a href="#" class="block py-2 text-gray-600 hover:bg-gray-100">댓글 추가</a>
             </div>
         </div>
         <div x-data="{ open: false }" class="relative">

@@ -15,7 +15,7 @@
     <div class="container mx-auto p-6">
         <nav class="flex justify-between items-center bg-white p-4 shadow-md rounded-lg mb-6">
             <div>
-                <a href="${pageContext.request.contextPath}/member/mypage.do?m_idx=1" class="text-xl font-bold text-gray-700">마이페이지</a>
+                <span class="text-4xl font-bold">마이페이지</span>
             </div>
             <div>
                 <a href="${pageContext.request.contextPath}/pet/register.do?m_idx=${member.m_idx}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">반려동물 등록</a>

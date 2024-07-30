@@ -131,6 +131,7 @@ input {
 
 	}
 </script>
+</head>
 <body class="index-page">
 	<header id="header" class="header fixed-top">
 
@@ -165,7 +166,7 @@ input {
 					<c:if test="${ not empty sessionScope.user }">
 						<input class="btn btn-default" type="button" value="로그아웃"
 							onclick="location.href='${pageContext.request.contextPath}/member/logout.do'">
-						<input class="btn btn-default" type="button" value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/member/mypage.do'">
+						<input class="btn btn-default" type="button" value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/member/mypage.do?m_idx=${sessionScope.user.m_idx}'">
 						<!-- 로그인이 되어 있고 관리자인 경우  -->
 						<c:if test="${ sessionScope.user.m_grade == '관리자'}">
 							<input class="btn btn-info" type="button" value="관리자페이지" onclick="location.href='${pageContext.request.contextPath}/admin/menu'">
@@ -175,45 +176,6 @@ input {
 			</div>
 		</div>
 		<!-- End Top Bar -->
-
-		<div class="branding d-flex align-items-cente">
-
-			<div
-				class="container position-relative d-flex align-items-center justify-content-between">
-				<a href="${pageContext.request.contextPath}/index.jsp"
-					class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
-					<img
-					src="${pageContext.request.contextPath}/resources/images/logo.png"
-					alt="">
-					<h1 class="sitename"></h1>
-				</a>
-				<nav id="navmenu" class="navmenu">
-					<ul>
-						<li><a
-							href="${pageContext.request.contextPath}/diary/diary_list.do">다이어리<br></a></li>
-						<li class="dropdown"><a><span>커뮤니티</span> <i
-								class="bi bi-chevron-down toggle-dropdown"></i></a>
-							<ul>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
-							</ul></li>
-						<li><a
-							href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
-						<li><a
-							href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
-						<li><a href="#team">쇼핑몰</a></li>
-
-						<li><a href="#">문의</a></li>
-					</ul>
-					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-				</nav>
-
-			</div>
-
-		</div>
-
 	</header>
+</body>
+</html>

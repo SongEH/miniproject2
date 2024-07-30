@@ -84,4 +84,18 @@
         INSERT INTO Member (m_idx, m_name, m_nickname, m_email, m_pwd, m_zipcode, m_addr, m_grade)
         VALUES (member_seq.nextval, #{m_name}, #{m_nickname}, #{m_email}, #{m_pwd}, #{m_zipcode}, #{m_addr}, #{m_grade})
     </insert>
+    
+    <insert id="member_insert" parameterType="vo.MemberVO"> 
+    	insert into member 
+    	values(member_seq.nextval, #{ m_name }, #{m_nickname}, #{ m_email }, #{ m_pwd }, #{ m_zipcode }, #{ m_addr }, sysdate, default) 
+    </insert>
+    
+    <select id="member_one_nickname" parameterType="String" resultType="vo.MemberVO"> 
+    	select * from member where m_nickname=#{m_nickname} 
+    </select>
+    
+    <select id="member_one_email" parameterType="String" resultType="vo.MemberVO"> 
+    	select * from member where m_email=#{m_email} 
+    </select>
+    
 </mapper>

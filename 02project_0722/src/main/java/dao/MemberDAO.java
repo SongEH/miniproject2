@@ -66,4 +66,16 @@ public class MemberDAO {
     public void insertMember(MemberVO member) {
         sqlSession.insert("member.insertMember", member);
     }
+    
+	public int insert(MemberVO vo) {
+		return sqlSession.insert("member.member_insert", vo);
+	}
+	
+	public MemberVO selectName(String m_nickname) {
+		return sqlSession.selectOne("member.member_one_nickname", m_nickname);
+	}
+	
+	public MemberVO selectOne(String m_email) {
+		return sqlSession.selectOne("member.member_one_email", m_email);
+	}
 }
