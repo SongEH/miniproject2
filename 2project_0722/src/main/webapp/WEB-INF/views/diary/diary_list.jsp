@@ -30,6 +30,13 @@
 		location.href = "diary_delete.do?table_name=" + table_name + "&idx=" + idx;
 	}
 
+	function formatTime(timeString) {
+	    if (!timeString) return '';
+	    // ' '로 문자열을 나누고 두 번째 부분(시간)을 가져온 후, ':'로 나누어 시간과 분만 추출
+	    return timeString.split(' ')[1].substr(0, 5);
+	}
+
+	
 	function generate_html(response) {
 		   
 	    let formHtml = '';
@@ -53,11 +60,30 @@
 	    if (response.stoll_list.length > 0) {
 	        formHtml += '산책<br>';
 	        response.stoll_list.forEach(function(StollVo) {
-	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	        	
+	        	 let formattedStartTime = formatTime(StollVo.s_stime);
+	             let formattedEndTime = formatTime(StollVo.s_etime);
+	             
+	             formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	             formHtml += '<tr><th>반려동물</th>';
+	             formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (StollVo.p_idx || '') + '"></td></tr>';
+	             formHtml += '<tr><th>시작시간</th>';
+	             formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_stime" value="' + formattedStartTime + '" readonly /></td></tr>';
+	             formHtml += '<tr><th>종료시간</th>';
+	             formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_etime" value="' + formattedEndTime + '" readonly /></td></tr>';
+	             formHtml += '<tr><th>거리(m)</th>';
+	             formHtml += '<td><input class="form-control form-control-lg" type="text" name="s_distance" value="' + (StollVo.s_distance || '') + '"></td></tr>';
+	             formHtml += '</tbody></table></form></div>';
+	             formHtml += '<a href="diary_view.do?table_name=stoll&idx=' + (StollVo.s_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
+	             formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'stoll\',' + (StollVo.s_idx || '') + ');"><br>';
+	        
+	        	
+	            /* formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
 	            formHtml += '<tr><th>반려동물</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (StollVo.p_idx || '') + '"></td></tr>';
 	            formHtml += '<tr><th>시작시간</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_stime" value="' + (StollVo.s_stime || '') + '"></td></tr>';
+	          
 	            formHtml += '<tr><th>종료시간</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_etime" value="' + (StollVo.s_etime || '') + '"></td></tr>';
 	            formHtml += '<tr><th>거리(m)</th>';
@@ -65,18 +91,22 @@
 	            formHtml += '</tbody></table></form></div>';
 	            formHtml += '<a href="diary_view.do?table_name=stoll&idx=' + (StollVo.s_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
 	            formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'stoll\',' + (StollVo.s_idx || '') + ');"><br>';
-	        });
+	         */});
 	    }
 
 	    // 사료/간식/영양제
 	    if (response.feeding_list.length > 0) {
 	        formHtml += '사료/간식/영양제<br>';
 	        response.feeding_list.forEach(function(FeedingVo) {
+	        	
+	        	let formattedTime = formatTime(FeedingVo.f_time);
+	             
+	             
 	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
 	            formHtml += '<tr><th>반려동물</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (FeedingVo.p_idx || '') + '"></td></tr>';
 	            formHtml += '<tr><th>시간</th>';
-	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="f_time" value="' + (FeedingVo.f_time || '') + '"></td></tr>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="f_time" value="' + formattedTime + '"></td></tr>';
 	            formHtml += '<tr><th>종류</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="f_type" value="' + (FeedingVo.f_type || '') + '"></td></tr>';
 	            formHtml += '<tr><th>사료명</th>';
@@ -91,11 +121,13 @@
 	    if (response.health_list.length > 0) {
 	        formHtml += '건강<br>';
 	        response.health_list.forEach(function(HealthVo) {
+	        	let formattedTime = formatTime(HealthVo.h_time);
+	        	
 	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
 	            formHtml += '<tr><th>반려동물</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_p_idx" value="' + (HealthVo.p_idx || '') + '"></td></tr>';
 	            formHtml += '<tr><th>시간</th>';
-	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="h_time" value="' + HealthVo.h_time.substring(0, 5) + '"></td></tr>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="h_time" value="' + formattedTime + '"></td></tr>';
 	            formHtml += '<tr><th>종류</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_type" value="' + (HealthVo.h_type || '') + '"></td></tr>';
 	            formHtml += '<tr><th>진단명</th>';
@@ -110,12 +142,14 @@
 	    if (response.note_list.length > 0) {
 	        formHtml += '메모<br>';
 	        response.note_list.forEach(function(NoteVo) {
+	        	let formattedTime = formatTime(NoteVo.o_time);
+	        	
 	            formHtml += '<table class="table">';
 	            formHtml += '<tbody>';
 	            formHtml += '<tr><th>반려동물</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (NoteVo.p_idx || '') + '"></td></tr>';
 	            formHtml += '<tr><th>시간</th>';
-	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="o_time" value="' + (NoteVo.o_time || '') + '"></td></tr>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="o_time" value="' + formattedTime + '"></td></tr>';
 	            formHtml += '<tr><th>메모</th>';
 	            formHtml += '<td><textarea class="form-control form-control-lg" name="o_content" rows="3" placeholder="내용을 입력해주세요." oninput="this.style.height=\'\' , this.style.height= this.scrollHeight + \'px\'">' + (NoteVo.o_content || '') + '</textarea></td></tr>';
 	            formHtml += '</tbody></table>';

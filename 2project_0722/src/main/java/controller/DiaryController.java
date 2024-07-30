@@ -78,7 +78,7 @@ public class DiaryController {
 	
 	
 	// 선택한 날짜 기록
-	@RequestMapping(value = "diary_select_date.do", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "diary_select_date.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
     @ResponseBody
 	public String diary_select_date(String date) {
 		System.out.println("컨트롤러 : " + date);
