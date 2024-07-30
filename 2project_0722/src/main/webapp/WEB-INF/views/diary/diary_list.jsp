@@ -29,10 +29,139 @@
 		if(confirm("정말 삭제하시겠습니까?") == false) return;
 		location.href = "diary_delete.do?table_name=" + table_name + "&idx=" + idx;
 	}
-	
+
+	function generate_html(response) {
+		   
+	    let formHtml = '';
+
+	    // 체중
+	    if (response.weight_list.length > 0) {
+	        formHtml += '체중<br>';
+	        response.weight_list.forEach(function(WeightVo) {
+	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	            formHtml += '<tr><th>반려동물</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="w_rdate" value="' + (WeightVo.p_idx || '') + '"></td></tr>';
+	            formHtml += '<tr><th>체중(kg)</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (WeightVo.w_weight || '') + '"></td></tr>';
+	            formHtml += '</tbody></table></form></div>';
+	            formHtml += '<a href="diary_view.do?table_name=weight&idx=' + (WeightVo.w_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
+	            formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'weight\',' + (WeightVo.w_idx || '') + ');"><br>';
+	        });
+	    }
+
+	    // 산책
+	    if (response.stoll_list.length > 0) {
+	        formHtml += '산책<br>';
+	        response.stoll_list.forEach(function(StollVo) {
+	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	            formHtml += '<tr><th>반려동물</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (StollVo.p_idx || '') + '"></td></tr>';
+	            formHtml += '<tr><th>시작시간</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_stime" value="' + (StollVo.s_stime || '') + '"></td></tr>';
+	            formHtml += '<tr><th>종료시간</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_etime" value="' + (StollVo.s_etime || '') + '"></td></tr>';
+	            formHtml += '<tr><th>거리(m)</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="s_distance" value="' + (StollVo.s_distance || '') + '"></td></tr>';
+	            formHtml += '</tbody></table></form></div>';
+	            formHtml += '<a href="diary_view.do?table_name=stoll&idx=' + (StollVo.s_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
+	            formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'stoll\',' + (StollVo.s_idx || '') + ');"><br>';
+	        });
+	    }
+
+	    // 사료/간식/영양제
+	    if (response.feeding_list.length > 0) {
+	        formHtml += '사료/간식/영양제<br>';
+	        response.feeding_list.forEach(function(FeedingVo) {
+	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	            formHtml += '<tr><th>반려동물</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (FeedingVo.p_idx || '') + '"></td></tr>';
+	            formHtml += '<tr><th>시간</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="f_time" value="' + (FeedingVo.f_time || '') + '"></td></tr>';
+	            formHtml += '<tr><th>종류</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="f_type" value="' + (FeedingVo.f_type || '') + '"></td></tr>';
+	            formHtml += '<tr><th>사료명</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="f_pname" value="' + (FeedingVo.f_pname || '') + '"></td></tr>';
+	            formHtml += '</tbody></table></form></div>';
+	            formHtml += '<a href="diary_view.do?table_name=feeding&idx=' + (FeedingVo.f_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
+	            formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'feeding\',' + (FeedingVo.f_idx || '') + ');"><br>';
+	        });
+	    }
+
+	    // 건강
+	    if (response.health_list.length > 0) {
+	        formHtml += '건강<br>';
+	        response.health_list.forEach(function(HealthVo) {
+	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	            formHtml += '<tr><th>반려동물</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_p_idx" value="' + (HealthVo.p_idx || '') + '"></td></tr>';
+	            formHtml += '<tr><th>시간</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="h_time" value="' + HealthVo.h_time.substring(0, 5) + '"></td></tr>';
+	            formHtml += '<tr><th>종류</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_type" value="' + (HealthVo.h_type || '') + '"></td></tr>';
+	            formHtml += '<tr><th>진단명</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_hname" value="' + (HealthVo.h_hname || '') + '"></td></tr>';
+	            formHtml += '</tbody></table></form></div>';
+	            formHtml += '<a href="diary_view.do?table_name=health&idx=' + (HealthVo.h_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
+	            formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'health\',' + (HealthVo.h_idx || '') + ');"><br>';
+	        });
+	    }
+
+	    // 메모
+	    if (response.note_list.length > 0) {
+	        formHtml += '메모<br>';
+	        response.note_list.forEach(function(NoteVo) {
+	            formHtml += '<table class="table">';
+	            formHtml += '<tbody>';
+	            formHtml += '<tr><th>반려동물</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (NoteVo.p_idx || '') + '"></td></tr>';
+	            formHtml += '<tr><th>시간</th>';
+	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="o_time" value="' + (NoteVo.o_time || '') + '"></td></tr>';
+	            formHtml += '<tr><th>메모</th>';
+	            formHtml += '<td><textarea class="form-control form-control-lg" name="o_content" rows="3" placeholder="내용을 입력해주세요." oninput="this.style.height=\'\' , this.style.height= this.scrollHeight + \'px\'">' + (NoteVo.o_content || '') + '</textarea></td></tr>';
+	            formHtml += '</tbody></table>';
+	            formHtml += '<a href="diary_view.do?table_name=note&idx=' + (NoteVo.o_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
+	            formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'note\',' + (NoteVo.o_idx || '') + ');"><br>';
+	        });
+	    }
+
+	    formHtml += '<br><br>';
+	    return formHtml;
+	}
 </script>
+
+
 <script type="text/javascript">
 
+$(document).ready(function(){
+    
+    let today = new Date();   
+
+    let year = today.getFullYear(); // 년도
+    let month = ('0' + (today.getMonth() + 1)).slice(-2);
+    let day = ('0' + today.getDate()).slice(-2);
+
+    let today_full = (year + '-' + month + '-' + day);
+    
+    $.ajax({
+        url: 'diary_select_date.do',
+        type: 'GET',
+        data: { date: today_full },
+        success: function(response) {
+            // 체중 데이터를 처리하여 HTML 생성
+            let test = generate_html(response);
+            
+            // HTML을 페이지에 삽입
+            $('#diary_select_date').html(test);
+        },
+        error: function(error) {
+            console.error('Error fetching data:', error);
+        }
+    });
+});
+
+
+
+// 캘린더 표시 
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
 
@@ -54,165 +183,21 @@ document.addEventListener('DOMContentLoaded', function() {
 	      
 	      // 선택한 날짜에 대한 데이터 조회 
 	      
-          $.ajax({
-              url: 'diary_select_date.do',
-              type: 'GET',
-              data: { date: info.dateStr },
-              success: function(response) {
-                  // 서버에서 받은 데이터 처리
-
-                  var data = response.weight_list; // 이미 JSON 형태로 반환되므로 별도의 파싱 필요 없음
-                  
-                  // 서버에서 반환된 데이터를 HTML에 뿌려줍니다.
-                  var formHtml = '체중<br>';
-                  // 여러 개의 체중 기록을 처리
-                  data.forEach(function(WeightVo) {
-                      formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
-                      formHtml += '<tr><th>반려동물</th>';
-                      formHtml += '<td><input class="form-control form-control-lg" type="text" name="w_rdate" value="' + (WeightVo.p_idx || '') + '"></td></tr><br>';
-                      formHtml += '<tr><th>체중(kg)</th>';
-                      formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (WeightVo.w_weight || '') + '"></td></tr><br>';
-                      
-                      formHtml += '</table></form></div>';
-                      // formHtml += '<a href="diary_view_weight.do?w_idx=' + (WeightVo.w_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기"></a>';
-                      formHtml += '<a href="diary_view.do?table_name=weight&idx=' + (WeightVo.w_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
-                      formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'weight\',' + (WeightVo.w_idx || '') + ');"><br>';
-   
-                  });
-                  
-                  
-                  var data2 = response.stoll_list; // 이미 JSON 형태로 반환되므로 별도의 파싱 필요 없음
-                  formHtml += '산책<br>';
-                  data2.forEach(function(StollVo) {
-                	    formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
-                	    formHtml += '<tr><th>반려동물</th>';
-                	    formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (StollVo.p_idx || '') + '"></td></tr><br>';
-                	    formHtml += '<tr><th>시작시간</th>';
-                	    formHtml += '<td>';
-                	    formHtml += '<fmt:formatDate value="' + (StollVo.s_stime || '') + '" pattern="HH:mm" var="formattedStartTime" />';
-                	    formHtml += '<input class="form-control form-control-lg" type="time" name="s_stime" value="${formattedStartTime}" />';
-                	    formHtml += '</td></tr><br>';
-                	    formHtml += '<tr><th>종료시간</th>';
-                	    formHtml += '<td>';
-                	    formHtml += '<fmt:formatDate value="' + (StollVo.s_etime || '') + '" pattern="HH:mm" var="formattedEndTime" />';
-                	    formHtml += '<input class="form-control form-control-lg" type="time" name="s_etime" value="${formattedEndTime}" />';
-                	    formHtml += '</td></tr><br>';
-                	    formHtml += '<tr><th>거리(m)</th>';
-                	    formHtml += '<td><input class="form-control form-control-lg" type="text" name="s_distance" value="' + (StollVo.s_distance || '') + '"></td></tr><br>';
-                	    formHtml += '</table></form></div>';
-                	    formHtml += '<a href="diary_view.do?table_name=stoll&idx=' + (StollVo.s_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
-                	    formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'stoll\',' + (StollVo.s_idx || '') + ');"><br>';
-                	});
-                  
-                  
-                  
-                  var data3 = response.feeding_list; // 이미 JSON 형태로 반환되므로 별도의 파싱 필요 없음
-                  formHtml += '사료/간식/영양제<br>';
-                  data3.forEach(function(FeedingVo) {
-                	  formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
-                	  formHtml += '<tr><th>반려동물</th>';
-                	  formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (FeedingVo.p_idx || '') + '"></td></tr><br>';
-                	  formHtml += '<tr><th>시간</th>';
-                	  formHtml += '<td>';
-                	  formHtml += '<fmt:formatDate value="${FeedingVo.f_time}" pattern="HH:mm" var="formattedStartTime" />';
-                	  formHtml += '<input class="form-control form-control-lg" type="time" name="f_time" value="${formattedStartTime}" />';
-                	  formHtml += '</td></tr><br>';
-                	  formHtml += '<tr><th>종류</th>';
-                	  formHtml += '<td>';         
-                	  formHtml += '<input class="form-control form-control-lg" type="text" name="f_type" value="' + (FeedingVo.f_type || '') + '">';
-                	  formHtml += '</td></tr><br>';
-                	  formHtml += '<tr><th>사료명</th>';
-                	  formHtml += '<td><input class="form-control form-control-lg" type="text" name="f_pname" value="' + (FeedingVo.f_pname || '') + '"></td></tr><br>';
-                	  formHtml += '</table></form></div>';
-                	  formHtml += '<a href="diary_view.do?table_name=feeding&idx=' + (FeedingVo.f_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
-                	  formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'feeding\',' + (FeedingVo.f_idx || '') + ');"><br>';
-                  });
-
-                  
-                  
-                  var data4 = response.health_list; // 이미 JSON 형태로 반환되므로 별도의 파싱 필요 없음
-                  formHtml += '건강<br>';
-                  data4.forEach(function(HealthVo) {
-                	  formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
-
-                	// 반려동물 입력란
-                	formHtml += '<tr><th>반려동물</th>';
-                	formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_p_idx" value="' + (HealthVo.p_idx || '') + '"></td></tr><br>';
-
-/*                 	// 날짜 입력란
-                	formHtml += '<tr><th>날짜</th>';
-                	formHtml += '<td>';
-                	var formattedDate = new Date(HealthVo.h_rdate);
-                	var year = formattedDate.getFullYear();
-                	var month = (formattedDate.getMonth() + 1).toString().padStart(2, '0');
-                	var day = formattedDate.getDate().toString().padStart(2, '0');
-                	var formattedDateString = year + '-' + month + '-' + day;
-                	formHtml += '<input class="form-control form-control-lg" type="text" name="h_rdate" value="' + formattedDateString + '">';
-                	formHtml += '</td></tr><br>'; */
-
-                	// 시간 입력란
-                	formHtml += '<tr><th>시간</th>';
-                	formHtml += '<td>';
-                	var formattedTime = HealthVo.h_time.substring(0, 5); // HH:mm 형식으로 자르기
-                	formHtml += '<input class="form-control form-control-lg" type="time" name="h_time" value="' + formattedTime + '">';
-                	formHtml += '</td></tr><br>';
-
-                	// 종류 입력란
-                	formHtml += '<tr><th>종류</th>';
-                	formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_type" value="' + (HealthVo.h_type || '') + '"></td></tr><br>';
-
-                	// 진단명 입력란
-                	formHtml += '<tr><th>진단명</th>';
-                	formHtml += '<td><input class="form-control form-control-lg" type="text" name="h_hname" value="' + (HealthVo.h_hname || '') + '"></td></tr><br>';
-
-                	formHtml += '</td></tr><br>';
-
-                	formHtml += '</tbody></table></form></div>';
-                	formHtml += '<a href="diary_view.do?table_name=health&idx=' + (HealthVo.h_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
-              	  formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'health\',' + (HealthVo.h_idx || '') + ');"><br>';
-                	    });
-
-                  
-                  
-                  
-                  var data5 = response.note_list; // 이미 JSON 형태로 반환되므로 별도의 파싱 필요 없음
-                  formHtml += '메모<br>';
-                  data5.forEach(function(NoteVo) {
-                		    formHtml += '<table class="table">';
-                		    formHtml += '<tbody>';
-                		    formHtml += '<tr>';
-                		    formHtml += '<th>반려동물</th>';
-                		    formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (NoteVo.p_idx || '') + '"></td>';
-                		    formHtml += '</tr>';
-                		    formHtml += '<tr>';
-                		    formHtml += '<th>시간</th>';
-                		    formHtml += '<td><input class="form-control form-control-lg" type="time" name="o_time" value="' + (NoteVo.o_time || '') + '"></td>';
-                		    formHtml += '</tr>';
-                		    formHtml += '<tr>';
-                		    formHtml += '<th>메모</th>';
-                		    formHtml += '<td>';
-                		    formHtml += '<div class="">';
-                		    formHtml += '<textarea class="form-control form-control-lg" name="o_content" rows="3" placeholder="내용을 입력해주세요." oninput="this.style.height=&quot;&quot;, this.style.height= this.scrollHeight + &quot;px&quot;">';
-                		    formHtml += (NoteVo.o_content || '');
-                		    formHtml += '</textarea>';
-                		    formHtml += '</div>';
-                		    formHtml += '</td>';
-                		    formHtml += '</tr>';
-                		    formHtml += '</tbody></table>';
-                		    formHtml += '<a href="diary_view.do?table_name=note&idx=' + (NoteVo.o_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
-                      	  formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'note\',' + (NoteVo.o_idx || '') + ');"><br>';
-                	    });
-                  
-                  
-                  formHtml += '<br>';
-                  formHtml += '<br>';
-
-                  $('#diary_select_date').html(formHtml); 
-              }
-             /*  error: function(error) {
-                  console.error('Error fetching data:', error);
-              } */
-          });   
+	      $.ajax({
+	          url: 'diary_select_date.do',
+	          type: 'GET',
+	          data: { date: info.dateStr },
+	          success: function(response) {
+	              // 컨트롤러에서 받아온 데이터를 html로 변환
+	              let test = generate_html(response);
+	              
+	              // HTML을 페이지에 삽입
+	              $('#diary_select_date').html(test);
+	          },
+	          error: function(error) {
+	              console.error('Error fetching data:', error);
+	          }
+	      }); 
 	    
     },
     navLinks: true, // can click day/week names to navigate views

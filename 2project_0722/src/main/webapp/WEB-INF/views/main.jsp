@@ -12,8 +12,8 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="resources/assets/img/favicon.png" rel="icon">
-<link href="resources/assets/img/apple-touch-icon.png"
+<link href="../resources/assets/img/favicon.png" rel="icon">
+<link href="../resources/assets/img/apple-touch-icon.png"
 	rel="apple-touch-icon">
 
 <!-- Fonts -->
@@ -24,18 +24,18 @@
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="resources/assets/vendor/bootstrap/css/bootstrap.min.css"
+<link href="../resources/assets/vendor/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
+<link href="../resources/assets/vendor/bootstrap-icons/bootstrap-icons.css"
 	rel="stylesheet">
-<link href="resources/assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="resources/assets/vendor/glightbox/css/glightbox.min.css"
+<link href="../resources/assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="../resources/assets/vendor/glightbox/css/glightbox.min.css"
 	rel="stylesheet">
-<link href="resources/assets/vendor/swiper/swiper-bundle.min.css"
+<link href="../resources/assets/vendor/swiper/swiper-bundle.min.css"
 	rel="stylesheet">
 
 <!-- Main CSS File -->
-<link href="resources/assets/css/main.css" rel="stylesheet">
+<link href="../resources/assets/css/main.css" rel="stylesheet">
 
 <!-- =======================================================
   * Template Name: Impact
@@ -47,7 +47,7 @@
 
  
 <!-- 공통 css -->
-<link rel="stylesheet" href="resources/css/common.css">
+<link rel="stylesheet" href="../resources/css/common.css">
 
 	
 <style>
@@ -200,7 +200,7 @@ input {
 						<p>사람과 반려동물이 함께 더불어 행복한 세상을 만들어갑니다.</p>
 					</div>
 					<div class="col-lg-5 order-1 order-lg-2">
-						<img src="resources/assets/img/hero-img.png" class="img-fluid"
+						<img src="../resources/assets/img/hero-img.png" class="img-fluid"
 							alt="" style="border-radius: 20px;">
 					</div>
 				</div>
@@ -413,7 +413,7 @@ input {
 						<article>
 
 							<div class="post-img">
-								<img src="resources/assets/img/blog/blog-1.jpg" alt=""
+								<img src="../resources/assets/img/blog/blog-1.jpg" alt=""
 									class="img-fluid">
 							</div>
 
@@ -425,7 +425,7 @@ input {
 							</h2>
 
 							<div class="d-flex align-items-center">
-								<img src="resources/assets/img/blog/blog-author.jpg" alt=""
+								<img src="../resources/assets/img/blog/blog-author.jpg" alt=""
 									class="img-fluid post-author-img flex-shrink-0">
 								<div class="post-meta">
 									<p class="post-author">Maria Doe</p>
@@ -444,7 +444,7 @@ input {
 						<article>
 
 							<div class="post-img">
-								<img src="resources/assets/img/blog/blog-2.jpg" alt=""
+								<img src="../resources/assets/img/blog/blog-2.jpg" alt=""
 									class="img-fluid">
 							</div>
 
@@ -456,7 +456,7 @@ input {
 							</h2>
 
 							<div class="d-flex align-items-center">
-								<img src="resources/assets/img/blog/blog-author-2.jpg" alt=""
+								<img src="../resources/assets/img/blog/blog-author-2.jpg" alt=""
 									class="img-fluid post-author-img flex-shrink-0">
 								<div class="post-meta">
 									<p class="post-author">Allisa Mayer</p>
@@ -475,7 +475,7 @@ input {
 						<article>
 
 							<div class="post-img">
-								<img src="resources/assets/img/blog/blog-3.jpg" alt=""
+								<img src="../resources/assets/img/blog/blog-3.jpg" alt=""
 									class="img-fluid">
 							</div>
 
@@ -487,7 +487,7 @@ input {
 							</h2>
 
 							<div class="d-flex align-items-center">
-								<img src="resources/assets/img/blog/blog-author-3.jpg" alt=""
+								<img src="../resources/assets/img/blog/blog-author-3.jpg" alt=""
 									class="img-fluid post-author-img flex-shrink-0">
 								<div class="post-meta">
 									<p class="post-author">Mark Dower</p>
@@ -600,21 +600,21 @@ input {
 
 <!-- Vendor JS Files -->
 	<script
-		src="resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="resources/assets/vendor/php-email-form/validate.js"></script>
-	<script src="resources/assets/vendor/aos/aos.js"></script>
-	<script src="resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	<script src="resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
+		src="../resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../resources/assets/vendor/php-email-form/validate.js"></script>
+	<script src="../resources/assets/vendor/aos/aos.js"></script>
+	<script src="../resources/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="../resources/assets/vendor/swiper/swiper-bundle.min.js"></script>
 	<script
-		src="resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+		src="../resources/assets/vendor/purecounter/purecounter_vanilla.js"></script>
 	<script
-		src="resources/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+		src="../resources/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
 	<script
-		src="resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script> 
+		src="../resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script> 
 
 
 <!-- Main JS File -->
-<script src="resources/assets/js/main.js"></script>
+<script src="../resources/assets/js/main.js"></script>
 
 </body>
 

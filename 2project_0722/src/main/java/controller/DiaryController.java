@@ -1,6 +1,8 @@
 package controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +10,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.ognl.ParseException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,16 +43,35 @@ public class DiaryController {
 	HttpSession session;
 
 	@Autowired
-	DiaryDao diary_dao; // 인젝션 받아야 한다.
+	DiaryDao diary_dao; // 인젝션
 
 	
 	// 다이어리 메인에 표시할 내용. 오늘날짜기준 데이터 표시  
 	@RequestMapping("diary_list.do")
 	public String diary_list(Model model) {
-
-		List<WeightVo> weight_list = diary_dao.selectList_weight(); 
-		// 체중말고도 더하기 
-		model.addAttribute("weight_list", weight_list);
+		
+		/*
+		 * // 현재 날짜 구하기 LocalDate now = LocalDate.now();
+		 * 
+		 * // 포맷 정의 DateTimeFormatter formatter =
+		 * DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		 * 
+		 * // 포맷 적용 String date = now.format(formatter);
+		 * 
+		 * // 결과 출력 System.out.println(date);
+		 * 
+		 * 
+		 * 
+		 * List<WeightVo> weight_list = diary_dao.diary_select_weight_date(date);
+		 * List<StollVo> stoll_list = diary_dao.diary_select_stoll_date(date);
+		 * List<FeedingVo> feeding_list = diary_dao.diary_select_feeding_date(date);
+		 * List<HealthVo> health_list = diary_dao.diary_select_health_date(date);
+		 * List<NoteVo> note_list = diary_dao.diary_select_note_date(date);
+		 * 
+		 * JSONObject json = new JSONObject(); json.put("weight_list", weight_list);
+		 * json.put("stoll_list", stoll_list); json.put("feeding_list", feeding_list);
+		 * json.put("health_list", health_list); json.put("note_list", note_list);
+		 */
 		
 		return "/diary/diary_list";
 	}
@@ -68,7 +88,7 @@ public class DiaryController {
 		List<FeedingVo> feeding_list = diary_dao.diary_select_feeding_date(date); 
 		List<HealthVo> health_list = diary_dao.diary_select_health_date(date); 
 		List<NoteVo> note_list = diary_dao.diary_select_note_date(date); 
-		// 체중말고도 더하기
+		
 		
 		JSONObject json = new JSONObject();
 		json.put("weight_list", weight_list);
@@ -78,7 +98,6 @@ public class DiaryController {
 		json.put("note_list", note_list);
 		
 		
-		System.out.println(stoll_list);
 		
 		return json.toString();
 	}
