@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.BoardDao;
 import dao.HealthDAO;
 import dao.MemberDAO;
 import dao.PetDAO;
+import vo.BoardVo;
 import vo.HealthVO;
 import vo.MemberVO;
 import vo.PetVO;
@@ -37,6 +39,9 @@ public class AdminController {
     
     @Autowired
     private HealthDAO healthDAO;
+    
+    @Autowired
+    private BoardDao boardDao;
     
 	@Autowired
 	ServletContext application;
@@ -226,6 +231,36 @@ public class AdminController {
     public String petDelete(@RequestParam("p_idx") int p_idx) {
         petDAO.deletePet(p_idx);
         return "redirect:memberListForPets.do";
+    }
+    
+    @RequestMapping("boardList.do")
+    public String boardList(Model model, 
+                            @RequestParam(required = false) String searchKeyword,
+                            @RequestParam(required = false) String b_cate,
+                            @RequestParam(required = false) Integer page) {
+        if (page == null) {
+            page = 1;
+        }
+        int limit = 10;
+        int offset = (page - 1) * limit;
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("start", offset);
+        params.put("end", offset + limit);
+        params.put("searchKeyword", searchKeyword);
+        params.put("b_cate", b_cate);
+
+        List<BoardVo> boards = boardDao.selectAdminList(params);
+        int totalBoards = boardDao.selectAdminRowTotal(params);
+        int totalPages = (int) Math.ceil(totalBoards / (double) limit);
+
+        model.addAttribute("boards", boards);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("searchKeyword", searchKeyword);
+        model.addAttribute("b_cate", b_cate);
+
+        return "admin/boardList";
     }
     
 }

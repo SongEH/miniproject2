@@ -41,8 +41,7 @@
                 </template>
                 <template x-if="showContent">
                     <div>
-                        <a href="${pageContext.request.contextPath}/board/list.do" class="block py-2 text-gray-600 hover:bg-gray-100">게시글 목록</a>
-                        <a href="${pageContext.request.contextPath}/board/detail.do" class="block py-2 text-gray-600 hover:bg-gray-100">게시글 추가</a>
+                        <a href="${pageContext.request.contextPath}/admin/boardList.do" class="block py-2 text-gray-600 hover:bg-gray-100">게시글 목록</a>
                     </div>
                 </template>
             </div>

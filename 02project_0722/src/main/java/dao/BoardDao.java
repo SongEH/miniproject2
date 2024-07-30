@@ -83,32 +83,15 @@ public class BoardDao {
 		return sqlSession.delete("board.board_delete", b_idx);
 	}
 
+    public List<BoardVo> selectAdminList(Map<String, Object> map) {
+        return sqlSession.selectList("board.admin_board_list_page", map);
+    }
+	
+    public int selectAdminRowTotal(Map<String, Object> map) {
+        return sqlSession.selectOne("board.admin_board_row_total", map);
+    }
 
 	
 
 
 }
-
-
-	
-
-
-
-
-	
-
-
-	
-
-	
-
-	
-
-
-
-
-
-	
-
-	
-
