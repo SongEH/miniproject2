@@ -10,10 +10,10 @@
     
     <typeAliases>
         <typeAlias type="vo.MemberVO" alias="member"/>
-        <typeAlias type="vo.BoardVO" alias="board"/>
         <typeAlias type="vo.PetVO" alias="pet"/>
         <typeAlias type="vo.StatisticsVO" alias="statistics"/>
         <typeAlias type="vo.HealthVO" alias="helath"/>
+        <typeAlias type="vo.BoardVo" alias="board"/>
     </typeAliases>
     
     <mappers>
@@ -22,5 +22,8 @@
         <mapper resource="config/mybatis/mapper/pet.xml"/>
         <mapper resource="config/mybatis/mapper/statistics.xml"/>
         <mapper resource="config/mybatis/mapper/health.xml"/>
+        <mapper resource="config/mybatis/mapper/diary.xml"/>
+		<mapper resource="config/mybatis/mapper/board.xml"/>
+		<mapper resource="config/mybatis/mapper/reply.xml"/>
     </mappers>
 </configuration>
