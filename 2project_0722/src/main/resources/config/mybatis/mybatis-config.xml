@@ -20,7 +20,10 @@
 		<mapper resource="config/mybatis/mapper/board.xml"/>
 		<mapper resource="config/mybatis/mapper/member.xml"/>
 		<mapper resource="config/mybatis/mapper/reply.xml"/>
+<<<<<<< HEAD
 		<mapper resource="config/mybatis/mapper/answer.xml"/>
+=======
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	</mappers>
 	
 	

@@ -103,8 +103,11 @@
 			    <input type="hidden" name="url" value="${param.url }">
 
 
+<<<<<<< HEAD
 				
 
+=======
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 		        <tr>
 			            <th>아이디</th>
 			            <td><input class="form-control"  name="m_id"  value="${ param.m_id }"></td>

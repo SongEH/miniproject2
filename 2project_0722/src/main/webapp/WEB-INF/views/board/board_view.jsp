@@ -214,6 +214,7 @@ article p {
 <script type="text/javascript">
 	function del() {
 
+<<<<<<< HEAD
 		if (confirm("정말 삭제하시겠습니까?") == false){
 			return;
 		}
@@ -221,6 +222,12 @@ article p {
 
 		location.href = "delete.do?b_idx=${vo.b_idx}";
 		return;
+=======
+		if (confirm("정말 삭제하시겠습니까?") == false)
+			return;
+
+		location.href = "delete.do?b_idx=${ vo.b_idx}";
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 
 	}
 </script>
@@ -292,7 +299,11 @@ article p {
 		var g_page=1;
    //댓글목록 요청
    function reply_list(page){
+<<<<<<< HEAD
 	 
+=======
+	   alert(page)
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	   g_page = page;
 	   
 	   $.ajax({
@@ -331,7 +342,69 @@ article p {
 
 
 <body class="index-page">
+<<<<<<< HEAD
 	<%@ include file="/WEB-INF/views/top.jsp"%>
+=======
+	<header id="header" class="header fixed-top">
+
+		<div class="topbar d-flex align-items-center">
+			<div
+				class="container d-flex justify-content-center justify-content-md-between">
+				<div class="contact-info d-flex align-items-center">
+					<i class="bi bi-envelope d-flex align-items-center"><a
+						href="mailto:contact@example.com">contact@example.com</a></i> <i
+						class="bi bi-phone d-flex align-items-center ms-4"><span>+1
+							5589 55488 55</span></i>
+				</div>
+				<div class="social-links d-none d-md-flex align-items-center">
+					<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a> <a
+						href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
+						href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
+						href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- End Top Bar -->
+
+
+		<div class="branding d-flex align-items-cente">
+
+			<div
+				class="container position-relative d-flex align-items-center justify-content-between">
+				<a href="${pageContext.request.contextPath}/index.jsp" class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+					<!-- <img src="resources/assets/img/logo.png" alt=""> -->
+					<h1 class="sitename">LOGO</h1>
+				</a>
+
+				<nav id="navmenu" class="navmenu">
+					<ul>
+						<li><a href="#" class="active">다이어리<br></a></li>
+						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
+								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
+							<ul>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
+							</ul></li>
+						<li><a href="#">플레이스</a></li>
+						<li><a href="#portfolio">뉴스</a></li>
+						<li><a href="#team">쇼핑몰</a></li>
+
+						<li><a href="#">문의</a></li>
+					</ul>
+					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+				</nav>
+
+			</div>
+
+		</div>
+
+	</header>
+
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 <!-- ---------------------------------------본문내용-------------------------------------------------------  -->
 	<main class="main mt-300">
 		<form method="post" enctype="multipart/form-data">

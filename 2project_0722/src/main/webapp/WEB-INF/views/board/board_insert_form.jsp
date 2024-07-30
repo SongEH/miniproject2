@@ -46,10 +46,17 @@ $(function(){
 					fCreator : "createSEditor2"
 				});
 
+<<<<<<< HEAD
 		 //저장버튼 클릭시 form 전송
 		 $("#save").click(function() {
 			oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
+=======
+		//저장버튼 클릭시 form 전송
+		/* $("#save").click(function() {
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 			$("#frm").submit();
+<<<<<<< HEAD
 		}); 
 		
 		
@@ -60,6 +67,18 @@ $(function(){
 			f.action = "insert.do";
 			f.submit();
 		} */
+=======
+		}); */
+		
+		
+		function save(f){
+			
+			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+			
+			f.action = "insert.do";
+			f.submit();
+		}
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 
 	});
 </script>

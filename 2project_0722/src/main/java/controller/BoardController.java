@@ -55,10 +55,25 @@ public class BoardController {
 
 	
 	
+<<<<<<< HEAD
 //--------------------------------------------board_list-------------------------------------
+=======
+//--------------------------------------------iboard_list-------------------------------------
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	@RequestMapping("list.do")
 	public String list(String b_cate,
 			@RequestParam(name="page", defaultValue = "1") int nowPage,Model model) throws Exception, IOException {
+<<<<<<< HEAD
+=======
+
+			
+	
+//		List<BoardVo> vo = board_dao.selectList();
+			
+//		List<BoardVo> vo = board_dao.selectList_b_cate(b_cate);	
+			
+			
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 			
 		// 게시물 표현 범위 
 				
@@ -67,11 +82,18 @@ public class BoardController {
 				Map<String, Object> map = new HashMap<String, Object>();
 				
 				int start	 	= (nowPage-1) * Mycommon.board.BLOCK_LIST+ 1; 
+<<<<<<< HEAD
 				/* System.out.println("start:" + start); */
 				int end		 = start + Mycommon.board.BLOCK_LIST -1;
 				/*
 				 * System.out.println("end:" + end); System.out.println("b_cate: " + b_cate);
 				 */
+=======
+				System.out.println("start:" + start);
+				int end		 = start + Mycommon.board.BLOCK_LIST -1;
+				System.out.println("end:" + end);
+				System.out.println("b_cate: " + b_cate);
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 				map.put("start",start);
 				map.put("end",end);
 				map.put("b_cate", b_cate);
@@ -79,7 +101,11 @@ public class BoardController {
 				//게시판 목록 가지고 오기 
 				List<BoardVo> list = board_dao.selectList(map);
 				
+<<<<<<< HEAD
 				/* System.out.println("list_size():" + list.size()); */
+=======
+				System.out.println("list_size():" + list.size());
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 					
 				//전체 게시물 수 
 				int rowTotal = board_dao.selectRowTotal(b_cate);
@@ -87,9 +113,14 @@ public class BoardController {
 				/* System.out.println(rowTotal); */
 				
 				String baseurl = "list.do?b_cate=" + b_cate;
+<<<<<<< HEAD
 				/*
 				 * System.out.println(baseurl);
 				 */
+=======
+				System.out.println(baseurl);
+				
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 				//pageMenu만들기
 				String pageMenu = Paging.getPaging(baseurl,
 																		nowPage,
@@ -104,7 +135,11 @@ public class BoardController {
 				for(BoardVo vo: list) {
 					b_cate = vo.getB_cate();
 					b_idx = vo.getB_idx();
+<<<<<<< HEAD
 					/* System.out.println("b_cate" + b_cate); */
+=======
+					System.out.println("b_cate" + b_cate);
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 				}
 				
 				
@@ -120,7 +155,11 @@ public class BoardController {
 				if(post_list != null) {
 					
 					for (BoardImagesVo image : post_list) {
+<<<<<<< HEAD
 						/* System.out.println(image.getB_filename()); */
+=======
+						System.out.println(image.getB_filename());
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 						
 						image_file.add(image.getB_filename());
 
@@ -174,14 +213,26 @@ public class BoardController {
 	 return "/board/board_insert_form";
 	}
 	
+<<<<<<< HEAD
 //--------------------------------------------insert_form end -------------------------------------------
+=======
+//--------------------------------------------iinsert_form end -------------------------------------------
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 
 	
 	
 	
+<<<<<<< HEAD
 //--------------------------------------------insert start ------------------------------------------------------
+=======
+//--------------------------------------------i insert start ------------------------------------------------------
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	@RequestMapping("insert.do")
+<<<<<<< HEAD
 	public String insert(String b_content,String b_cate ,BoardVo vo, @RequestParam(name="photo") List<MultipartFile> photo_list ,Model model, RedirectAttributes ra ) throws Exception, IOException{
+=======
+	public String insert(String b_cate ,BoardVo vo, @RequestParam(name="photo") List<MultipartFile> photo_list ,Model model, RedirectAttributes ra ) throws Exception, IOException{
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 		
 //Session check
 	
@@ -278,7 +329,11 @@ public class BoardController {
 		
 		return "redirect:list.do";
 	}
+<<<<<<< HEAD
 //--------------------------------------------insert_form end ------------------------------------------	
+=======
+//--------------------------------------------i insert_form end ------------------------------------------	
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	
 	
 //--------------------------------------------상세보기 --------------------------------------------------
@@ -305,7 +360,11 @@ public class BoardController {
 //			session.setAttribute("show", true);
 //		
 		}
+<<<<<<< HEAD
 		/* System.out.println("vo.getB_cate())" + vo.getB_cate()); */
+=======
+		System.out.println("vo.getB_cate())" + vo.getB_cate()); 
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 		
 		
 		//결과적으로 request binding
@@ -322,8 +381,22 @@ public class BoardController {
 		
 		
 	}
+<<<<<<< HEAD
 //--------------------------------------------상세보기 --------------------------------------------------
+=======
+//--------------------------------------------i상세보기 --------------------------------------------------
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	 
+
+	
+<<<<<<< HEAD
+	@RequestMapping("reply_form.do")
+	public String reply_form() {
+		
+		return "board/board_reply_form";
+	}
+=======
+	
 
 	
 	@RequestMapping("reply_form.do")
@@ -331,6 +404,101 @@ public class BoardController {
 		
 		return "board/board_reply_form";
 	}
+	
+//--------------------------------------------imodify.do--------------------------------------수정대기 
+	
+	/*
+	  @RequestMapping("modify.do") public String modify(BoardVo vo,
+	  
+	  @RequestParam("updateImage") List<String> update_file_list,
+	  
+	  @RequestParam(name="photo") List<MultipartFile> photo_list , Model model,
+	  RedirectAttributes ra ) throws Exception, IOException {
+	  
+	  //Session check
+	  
+	  MemberVo user = (MemberVo) session.getAttribute("user");
+	  
+	  if(user == null) {
+	  
+	  ra.addAttribute("reason", "session_timeout");
+	  
+	  return "redirect:../member/login_form.do"; }
+	  
+	  
+	  //이미지 저장 경로
+	  
+	  String absPath = application.getRealPath("/resources/images/");
+	  System.out.println("absPath:" + absPath);
+	  
+	  File dir = new File(absPath); //등록된 파일 목록 확인 String[] filenamesList =
+	  dir.list();
+	  
+	  // 서버에 저장된 파일명과 수정된 파일명이 일치하지 않으면 for(String filename : filenamesList) {
+	  if(!absPath.contains(filename)) { // 서버에 저장된 파일명과 수정된 파일명이 일치하지 않으면
+	  System.out.println("delete files : " + filename);
+	  
+	  File file = new File(absPath + "/" + filename); file.delete(); // 해당 파일 삭제 }
+	  }
+	  
+	  
+	  List<String> filename_list = new ArrayList<String>();
+	  
+	  String b_filename ="no_file";
+	  
+	  for(MultipartFile photo : photo_list) {
+	  
+	  if(!photo.isEmpty()) { //업로드 된 파일명을 구합니다. b_filename =
+	  photo.getOriginalFilename(); System.out.println("b_filename : " +
+	  b_filename); //저장 경로 파일 File f = new File(absPath, b_filename);
+	  
+	  if(f.exists()) { // 시간_파일명 이름변경 long tm = System.currentTimeMillis();
+	  b_filename = String.format("%d_%s", tm, b_filename);
+	  
+	  f = new File(absPath, b_filename); System.out.println(f); }
+	  
+	  //spring이 저장해놓은 임시 파일을 복사 photo.transferTo(f); System.out.println(photo);
+	  filename_list.add(b_filename);
+	  
+	  } } //end:for
+	  
+	  
+	  
+	  
+	  //DB에 insert board int res = board_dao.insert(vo);
+	  
+	  int b_idx = board_dao.select_get_b_idx();
+	  
+	  
+	  // 게시글 번호 얻기 // int b_idx = board_dao.select_get_b_idx();
+	  
+	  System.out.println("b_idx: " + b_idx);
+	  
+	  
+	  //DB에 insert post_images
+	  
+	  Map<String, Object> map = new HashMap<String, Object>(); BoardImagesVo ivo =
+	  new BoardImagesVo();
+	  
+	  for (String filename : filename_list) {
+	  
+	  System.out.println(filename); ivo.setB_idx(b_idx); b_filename= filename;
+	  ivo.setB_filename(b_filename); System.out.println("b_idx:" + ivo.getB_idx());
+	  System.out.println("b_filename:" + ivo.getB_filename()); int res2 =
+	  board_images_dao.insert_board_images(ivo); }
+	  
+	  
+	  System.out.println("filename_list" + filename_list); {
+	  
+	  
+	  
+	  
+	  }
+	  
+	  return "board_view"; }
+	 */
+//--------------------------------------------imodify.do--------------------------------------
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	
 	
 //--------------------------------------------modify_form.do--------------------------------------	
@@ -365,12 +533,20 @@ public class BoardController {
 		return "board/board_modify_form";
 	}
 	
+<<<<<<< HEAD
 //--------------------------------------------modify_form.do--------------------------------------	
+=======
+//--------------------------------------------imodify_form.do--------------------------------------	
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	
 	
 	
 	
+<<<<<<< HEAD
 //--------------------------------------------modify.do--------------------------------------
+=======
+//--------------------------------------------imodify.do--------------------------------------
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	@RequestMapping("modify.do")
 	public String modify(int b_idx, BoardVo vo, RedirectAttributes ra) {
 	

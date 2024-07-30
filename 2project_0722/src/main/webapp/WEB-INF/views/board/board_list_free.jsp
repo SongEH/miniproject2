@@ -253,6 +253,7 @@ main.main {
 
 
 <body class="index-page">
+<<<<<<< HEAD
 	
 <%@ include file="/WEB-INF/views/top.jsp" %>
 
@@ -291,6 +292,116 @@ main.main {
 																onclick="location.href='view.do?b_idx=${item.b_idx}'">
 														</div>
 													
+=======
+	<header id="header" class="header fixed-top">
+
+		<div class="topbar d-flex align-items-center">
+			<div
+				class="container d-flex justify-content-center justify-content-md-between">
+				<div class="contact-info d-flex align-items-center">
+					<i class="bi bi-envelope d-flex align-items-center"><a
+						href="mailto:contact@example.com">contact@example.com</a></i> <i
+						class="bi bi-phone d-flex align-items-center ms-4"><span>+1
+							5589 55488 55</span></i>
+				</div>
+				<div class="social-links d-none d-md-flex align-items-center">
+					<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a> <a
+						href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
+						href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
+						href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- End Top Bar -->
+
+
+		<div class="branding d-flex align-items-cente">
+
+			<div
+				class="container position-relative d-flex align-items-center justify-content-between">
+				<a href="${pageContext.request.contextPath}/index.jsp"
+					class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+					<!-- <img src="resources/assets/img/logo.png" alt=""> -->
+					<h1 class="sitename">LOGO</h1>
+				</a>
+
+				<nav id="navmenu" class="navmenu">
+					<ul>
+						<li><a href="#" class="active">다이어리<br></a></li>
+						<li><a href="../member/login_form.do" class="active">로그인<br></a></li>
+						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
+								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
+							<ul>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+								<li><a
+									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
+							</ul></li>
+						<li><a href="#">플레이스</a></li>
+						<li><a href="#portfolio">뉴스</a></li>
+						<li><a href="#team">쇼핑몰</a></li>
+
+						<li><a href="#">문의</a></li>
+					</ul>
+					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+				</nav>
+
+			</div>
+
+		</div>
+
+	</header>
+
+
+	<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
+
+	<main class="main mt-300">
+		<!-- form으로 보내고 싶은 데이터  -->
+
+		<div class="container d-flex justify-content-end">
+			<input class="btn btn-success" type="button" value="글쓰기"
+				onclick="insert_form();">
+		</div>
+		<c:forEach var="item" items="${list}">
+			<c:if test="${item.b_cate eq 'free' }">
+				<form>
+
+					<section id="blog-posts-2" class="blog-posts-2 section">
+						<div class="container">
+							<div class="row gy-5">
+
+
+
+
+
+
+								<div class="container-fluid">
+									<article class="blog-post">
+										<div>${item.m_name }${item.b_rdate }</div>
+										<h3 class="post-title mt-1">
+											<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
+										</h3>
+										<%-- <div class="post-description">${item.b_content }</div> --%>
+
+										<div class="post-description">
+											<a href="view.do?b_idx=${item.b_idx}"> <c:out
+													value="${item.b_content}" escapeXml="false" />
+											</a>
+										</div>
+										<div class="image-container">
+											<div class="post-images">
+												<c:forEach var="image" items="${item.image_list}"
+													varStatus="status">
+													<c:if test="${status.count < 6}">
+														<div class="post-img">
+															<img src="../resources/images/${image.b_filename}" alt=""
+																class="img-thumbnail"
+																onclick="location.href='view.do?b_idx=${item.b_idx}'">
+														</div>
+													</c:if>
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 												</c:forEach>
 											</div>
 										</div>

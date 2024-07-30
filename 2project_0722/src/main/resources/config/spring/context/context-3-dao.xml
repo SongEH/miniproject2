@@ -29,9 +29,12 @@
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
 	
+<<<<<<< HEAD
 	<bean id="answer_dao" class="dao.AnswerDao">
 		<property name="sqlSession" ref="sqlSession" />
 	</bean>
+=======
+>>>>>>> refs/remotes/origin/CheonTk's-Branch
 	
 </beans>
 
