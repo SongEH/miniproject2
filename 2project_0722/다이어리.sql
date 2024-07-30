@@ -16,7 +16,7 @@ select * from health
 delete from health where p_idx = 201
 
 select * from note
-
+delete from note where o_idx = 1
 
 
  -- 테이블 + 제약조건까지 삭제 (필요시)

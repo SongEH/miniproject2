@@ -17,7 +17,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 
-<title>카테고리 입력폼 변경</title>
+<title>추가</title>
 <style type="text/css">
    .input-container {
        margin-top: 20px;
@@ -108,7 +108,7 @@ body {
 	        	<table class="table">
 				<tbody><tr>
 					<th>날짜</th>
-					<td><input class="form-control form-control-lg" type="text" name="w_rdate" value=${ select_date }></td>
+					<td><input class="form-control form-control-lg" type="date" name="w_rdate" value=${ select_date }></td>
 				</tr>
 				<tr>
 					<th>회원</th>
@@ -137,7 +137,7 @@ body {
 				<table class="table">
 					<tbody><tr>
 						<th>날짜</th>
-						<td><input class="form-control form-control-lg" type="text" name="s_rdate" value=${ select_date }></td>
+						<td><input class="form-control form-control-lg" type="date" name="s_rdate" value=${ select_date }></td>
 					</tr>
 					<tr>
 						<th>반려동물</th>
@@ -178,7 +178,7 @@ body {
 				<table class="table">
 					<tbody><tr>
 						<th>날짜</th>
-						<td><input class="form-control form-control-lg" type="text" name="f_rdate" value=${ select_date }></td>
+						<td><input class="form-control form-control-lg" type="date" name="f_rdate" value=${ select_date }></td>
 					</tr>
 					<tr>
 						<th>반려동물</th>
@@ -216,16 +216,16 @@ body {
 				<table class="table">
 					<tbody><tr>
 						<th>날짜</th>
-						<td><input class="form-control form-control-lg" type="text" name="h_rdate" value=${ select_date }></td>
+						<td><input class="form-control form-control-lg" type="date" name="h_rdate" value=${ select_date }></td>
 					</tr>
 					<tr>
 						<th>반려동물</th>
 						<td><input class="form-control form-control-lg" type="number" name="p_idx"></td>
 					</tr>
 					<tr>
-						<th>카테고리</th>
+						<th>종류</th>
 						<td><select class="form-control  form-control-lg" id="h_type" name="h_type" required="">
-								<option value="">카테고리 선택</option>
+								<option value="">종류 선택</option>
 								<option value="진료">진료</option>
 								<option value="접종">접종</option>
 						</select></td>
@@ -264,7 +264,7 @@ body {
 				<table class="table">
 					<tbody><tr>
 						<th>날짜</th>
-						<td><input class="form-control form-control-lg" type="text" name="o_rdate" value=${ select_date }></td>
+						<td><input class="form-control form-control-lg" type="date" name="o_rdate" value=${ select_date }></td>
 					</tr>
 					<tr>
 						<th>반려동물</th>

@@ -117,7 +117,7 @@ margin-top:150px;
 								<th>날짜</th>
 								<td><fmt:formatDate value="${map.W_RDATE}"
 										pattern="yyyy-MM-dd" var="formattedDate" /> <input
-									class="form-control form-control-lg" type="text" name="w_rdate"
+									class="form-control form-control-lg" type="date" name="w_rdate"
 									value="${formattedDate}" /></td>
 							</tr>
 							<tr>
@@ -136,7 +136,7 @@ margin-top:150px;
 
 						<div style="margin-top: 10px;">
 							<input class="btn btn-info" type="button" value="목록보기"
-								onclick="location.href='list.do'"> <input
+								onclick="location.href='diary_list.do'"> <input
 								class="btn btn-primary" type="button" value="수정하기"
 								onclick="send(this.form);">
 						</div>
@@ -157,7 +157,7 @@ margin-top:150px;
 						<th>날짜</th>
 						<td><fmt:formatDate value="${map.S_RDATE}"
 								pattern="yyyy-MM-dd" var="formattedDate" /> <input
-							class="form-control form-control-lg" type="text" name="s_rdate"
+							class="form-control form-control-lg" type="date" name="s_rdate"
 							value="${formattedDate}" /></td>
 					</tr>
 					<tr>
@@ -192,7 +192,7 @@ margin-top:150px;
 				</table>
 				<div style="margin-top: 10px;">
 				<input class="btn btn-info" type="button" value="목록보기"
-					onclick="location.href='list.do'"> <input
+					onclick="location.href='diary_list.do'"> <input
 					class="btn btn-primary" type="button" value="수정하기"
 					onclick="send_s(this.form);">
 			</div>
@@ -209,7 +209,7 @@ margin-top:150px;
 						<th>날짜</th>
 						<td><fmt:formatDate value="${map.F_RDATE}"
 								pattern="yyyy-MM-dd" var="formattedDate" /> <input
-							class="form-control form-control-lg" type="text" name="f_rdate"
+							class="form-control form-control-lg" type="date" name="f_rdate"
 							value="${formattedDate}" /></td>
 					</tr>
 					<tr>
@@ -219,17 +219,22 @@ margin-top:150px;
 					</tr>
 					<tr>
 						<th>시간</th>
-						<!--<td><fmt:formatDate value="${map.F_TIME}" pattern="HH:mm"
+						<td><fmt:formatDate value="${map.F_TIME}" pattern="HH:mm"
 								var="formattedTime" /> <input
 							class="form-control form-control-lg" type="time" name="f_time"
-							value="${formattedTime}" /></td> -->
-							<td><input class="form-control form-control-lg" type="time" name="f_time" value="${map.F_TIME}" /></td>
+							value="${formattedTime}" /></td>
 					</tr>
 					<tr>
 						<th>종류</th>
-						<td><input class="form-control form-control-lg" type="text"
-							name="f_type" value="${map.F_TYPE}" /></td>
-					</tr>
+							<td><select class="form-control form-control-lg" id="f_type"
+								name="f_type">
+									<option value="">카테고리 선택</option>
+									<option value="사료" ${map.F_TYPE == '사료' ? 'selected' : ''}>사료</option>
+									<option value="간식" ${map.F_TYPE == '간식' ? 'selected' : ''}>간식</option>
+									<option value="영양제" ${map.F_TYPE == '영양제' ? 'selected' : ''}>영양제</option>
+							</select></td>
+
+						</tr>
 					<tr>
 						<th>사료명</th>
 						<td><input class="form-control form-control-lg" type="text"
@@ -239,7 +244,7 @@ margin-top:150px;
 
 				<div style="margin-top: 10px;">
 					<input class="btn btn-info" type="button" value="목록보기"
-						onclick="location.href='list.do'"> <input
+						onclick="location.href='diary_list.do'"> <input
 						class="btn btn-primary" type="button" value="수정하기"
 						onclick="send_f(this.form);">
 				</div>
@@ -257,7 +262,7 @@ margin-top:150px;
 						<th>날짜</th>
 						<td><fmt:formatDate value="${map.H_RDATE}"
 								pattern="yyyy-MM-dd" var="formattedDate" /> <input
-							class="form-control form-control-lg" type="text" name="h_rdate"
+							class="form-control form-control-lg" type="date" name="h_rdate"
 							value="${formattedDate}" /></td>
 					</tr>
 					<tr>
@@ -279,9 +284,15 @@ margin-top:150px;
 					</tr>
 					<tr>
 						<th>종류</th>
-						<td><input class="form-control form-control-lg" type="text"
-							name="h_type" value="${map.H_TYPE}" /></td>
-					</tr>
+							<td><select class="form-control form-control-lg" id="h_type"
+								name="h_type" required="">
+									<option value="">종류 선택</option>
+									<option value="진료"
+										<c:if test="${map.H_TYPE == '진료'}">selected</c:if>>진료</option>
+									<option value="접종"
+										<c:if test="${map.H_TYPE == '접종'}">selected</c:if>>접종</option>
+							</select></td>
+						</tr>
 					<tr>
 						<th>내용</th>
 						<td><textarea class="form-control form-control-lg"
@@ -296,13 +307,13 @@ margin-top:150px;
 						<th>다음 진료일</th>
 						<td><fmt:formatDate value="${map.H_NDATE}"
 								pattern="yyyy-MM-dd" var="formattedDate" /> <input
-							class="form-control form-control-lg" type="text" name="h_ndate"
+							class="form-control form-control-lg" type="date" name="h_ndate"
 							value="${formattedDate}" /></td>
 					</tr>
 				</table>
 				<div style="margin-top: 10px;">
 				<input class="btn btn-info" type="button" value="목록보기"
-					onclick="location.href='list.do'"> <input
+					onclick="location.href='diary_list.do'"> <input
 					class="btn btn-primary" type="button" value="수정하기"
 					onclick="send_h(this.form);">
 				</div>
@@ -321,7 +332,7 @@ margin-top:150px;
 						<th>날짜</th>
 						<td><fmt:formatDate value="${map.O_RDATE}"
 								pattern="yyyy-MM-dd" var="formattedDate" /> <input
-							class="form-control form-control-lg" type="text" name="o_rdate"
+							class="form-control form-control-lg" type="date" name="o_rdate"
 							value="${formattedDate}" /></td>
 					</tr>
 					<tr>
@@ -344,7 +355,7 @@ margin-top:150px;
 				</table>
 				<div style="margin-top: 10px;">
 				<input class="btn btn-info" type="button" value="목록보기"
-					onclick="location.href='list.do'"> <input
+					onclick="location.href='diary_list.do'"> <input
 					class="btn btn-primary" type="button" value="수정하기"
 					onclick="send_o(this.form);">
 				</div>

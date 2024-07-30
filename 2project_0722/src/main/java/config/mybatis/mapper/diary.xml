@@ -161,12 +161,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        m_idx = #{m_idx},
 	        p_idx = #{p_idx},
 	        h_type = #{h_type},
-	        h_rdate = TO_DATE(#{h_rdate}, 'YYYY-MM-DD'),
+	        h_rdate = #{h_rdate},
 	        h_time = #{h_time},
 	        h_cost = #{h_cost},
 	        h_content = #{h_content},
 	        h_hname = #{h_hname},
-	        h_ndate = TO_DATE(#{h_ndate}, 'YYYY-MM-DD')
+	        h_ndate = #{h_ndate}
 	    WHERE h_idx = #{h_idx}
 	</update>
 	
@@ -175,7 +175,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    UPDATE note SET
 	        m_idx = #{m_idx},
 	        p_idx = #{p_idx},
-	        o_rdate = TO_DATE(#{o_rdate}, 'YYYY-MM-DD'),
+	        o_rdate = #{o_rdate},
 	        o_time = #{o_time},
 	        o_content = #{o_content}
 	    WHERE o_idx = #{o_idx}
@@ -198,7 +198,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    UPDATE stoll SET
 	        m_idx = #{m_idx},
 	        p_idx = #{p_idx},
-	        s_rdate = TO_DATE(#{s_rdate}, 'YYYY-MM-DD'),
+	        s_rdate = #{s_rdate},
 	        s_stime = #{s_stime},
 	        s_etime = #{s_etime},
 	        s_distance = #{s_distance},

@@ -144,6 +144,11 @@ margin-top:150px;
 			            </td>
 			        </tr>
 			        <tr>
+						<th>반려동물</th>
+						<td><input class="form-control form-control-lg"
+							type="number" name="p_idx" value="${map.P_IDX}" readonly></td>
+					</tr>
+			        <tr>
 			            <th>시작 시간</th>
 			            <td>
 			                <fmt:formatDate value="${map.S_STIME}" pattern="HH:mm" var="formattedTime" />
@@ -189,6 +194,11 @@ margin-top:150px;
 			            </td>
 			        </tr>
 			        <tr>
+						<th>반려동물</th>
+						<td><input class="form-control form-control-lg"
+							type="number" name="p_idx" value="${map.P_IDX}" readonly></td>
+					</tr>
+			        <tr>
 			            <th>시간</th>
 			            <td>
 			                <fmt:formatDate value="${map.F_TIME}" pattern="HH:mm" var="formattedTime" />
@@ -227,6 +237,11 @@ margin-top:150px;
 			                <input class="form-control form-control-lg" type="text" name="h_rdate" value="${formattedDate}" readonly/>
 			            </td>
 			        </tr>
+			        <tr>
+						<th>반려동물</th>
+						<td><input class="form-control form-control-lg"
+							type="number" name="p_idx" value="${map.P_IDX}" readonly></td>
+					</tr>
 			        <tr>
 			            <th>시간</th>
 			            <td>
@@ -285,6 +300,11 @@ margin-top:150px;
 			                <input class="form-control form-control-lg" type="text" name="o_rdate" value="${formattedDate}" readonly/>
 			            </td>
 			        </tr>
+			        <tr>
+						<th>반려동물</th>
+						<td><input class="form-control form-control-lg"
+							type="number" name="p_idx" value="${map.P_IDX}" readonly></td>
+					</tr>
 			        <tr>
 			            <th>시간</th>
 			            <td>
