@@ -21,8 +21,9 @@
 	rel="stylesheet">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
+	
+<!-- <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/googlecalendar@6.1.8/index.global.min.js"></script>
+ -->
 <script type="text/javascript">
 
 	function del(table_name, idx){
@@ -166,150 +167,180 @@
 
 <script type="text/javascript">
 
-$(document).ready(function(){
-    
-    let today = new Date();   
-
-    let year = today.getFullYear(); // 년도
-    let month = ('0' + (today.getMonth() + 1)).slice(-2);
-    let day = ('0' + today.getDate()).slice(-2);
-
-    let today_full = (year + '-' + month + '-' + day);
-    
-    $.ajax({
-        url: 'diary_select_date.do',
-        type: 'GET',
-        data: { date: today_full },
-        success: function(response) {
-            // 체중 데이터를 처리하여 HTML 생성
-            let test = generate_html(response);
-            
-            // HTML을 페이지에 삽입
-            $('#diary_select_date').html(test);
-        },
-        error: function(error) {
-            console.error('Error fetching data:', error);
-        }
-    });
-});
-
-
-
-// 캘린더 표시 
-document.addEventListener('DOMContentLoaded', function() {
-  var calendarEl = document.getElementById('calendar');
-
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    headerToolbar: {
-      left: 'prevYear,prev,next,nextYear today',
-      center: 'title',
-      right: 'dayGridMonth,dayGridWeek,dayGridDay'
-    },
-    initialDate: '2024-07-26',
-    dateClick: function(info) { // 날짜 클릭시 이벤트 
-	    // alert('Clicked on: ' + info.dateStr);
-    
-	      // 클릭한 날짜를 보여주는 div 업데이트
-	      document.getElementById('selected-date').innerText =  info.dateStr;
-	      
-	      // 선택한 날짜 select-date 의 value값을 info.dateStr로 설정  
-	      document.getElementById('select_date').value = info.dateStr;
-	      
-	      // 선택한 날짜에 대한 데이터 조회 
-	      
-	      $.ajax({
-	          url: 'diary_select_date.do',
-	          type: 'GET',
-	          data: { date: info.dateStr },
-	          success: function(response) {
-	              // 컨트롤러에서 받아온 데이터를 html로 변환
-	              let test = generate_html(response);
-	              
-	              // HTML을 페이지에 삽입
-	              $('#diary_select_date').html(test);
-	          },
-	          error: function(error) {
-	              console.error('Error fetching data:', error);
-	          }
-	      }); 
-	    
-    },
-    navLinks: true, // can click day/week names to navigate views
-    editable: true,
-    dayMaxEvents: true, // allow "more" link when too many events
-    events: [
-      {
-        title: 'All Day Event',
-        start: '2023-01-01'
-      },
-      {
-        title: 'Long Event',
-        start: '2023-01-07',
-        end: '2023-01-10'
-      },
-      {
-        groupId: 999,
-        title: 'Repeating Event',
-        start: '2023-01-09T16:00:00'
-      },
-      {
-        groupId: 999,
-        title: 'Repeating Event',
-        start: '2023-01-16T16:00:00'
-      },
-      {
-        title: 'Conference',
-        start: '2023-01-11',
-        end: '2023-01-13'
-      },
-      {
-        title: 'Meeting',
-        start: '2023-01-12T10:30:00',
-        end: '2023-01-12T12:30:00'
-      },
-      {
-        title: 'Lunch',
-        start: '2023-01-12T12:00:00'
-      },
-      {
-        title: 'Meeting',
-        start: '2023-01-12T14:30:00'
-      },
-      {
-        title: 'Happy Hour',
-        start: '2023-01-12T17:30:00'
-      },
-      {
-        title: 'Dinner',
-        start: '2023-01-12T20:00:00'
-      },
-      {
-        title: 'Birthday Party',
-        start: '2023-01-13T07:00:00'
-      },
-      {
-        title: 'Click for Google',
-        url: 'http://google.com/',
-        start: '2023-01-28'
-      }
-    ]
-  });
-
-  calendar.render();
-});
 
 /*
-let calendar = new Calendar(calendarEl, {
-	  plugins: [ interactionPlugin ],
-	  dateClick: function(info) {
-	    alert('Clicked on: ' + info.dateStr);
-	    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-	    alert('Current view: ' + info.view.type);
-	    // change the day's background color just for fun
-	    info.dayEl.style.backgroundColor = 'red';
-	  }
-	});*/
-	
+
+	let calendar = new Calendar(calendarEl, {
+	 plugins: [ interactionPlugin ],
+	 dateClick: function(info) {
+	 alert('Clicked on: ' + info.dateStr);
+	 alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+	 alert('Current view: ' + info.view.type);
+	 // change the day's background color just for fun
+	 info.dayEl.style.backgroundColor = 'red';
+	 }
+	 });*/
+	 
+
+	 $(document).ready(function(){
+	     
+	     let today = new Date();   
+
+	     let year = today.getFullYear(); // 년도
+	     let month = ('0' + (today.getMonth() + 1)).slice(-2);
+	     let day = ('0' + today.getDate()).slice(-2);
+
+	     let today_full = (year + '-' + month + '-' + day);
+	     
+	     $.ajax({
+	         url: 'diary_select_date.do',
+	         type: 'GET',
+	         data: { date: today_full },
+	         success: function(response) {
+	             // 체중 데이터를 처리하여 HTML 생성
+	             let test = generate_html(response);
+	             
+	             // HTML을 페이지에 삽입
+	             $('#diary_select_date').html(test);
+	         },
+	         error: function(error) {
+	             console.error('Error fetching data:', error);
+	         }
+	     });
+	     
+	     $.ajax({
+	     	  url: 'full_calendar_json_data.do', // 요청할 URL
+	     	  method: 'GET', // HTTP 메서드 (기본적으로 GET)
+	     	  dataType: 'json', // 응답 데이터 타입
+	     	  success: function(data) {
+	     	    // 요청 성공 시 처리
+	     	    console.log(data);
+
+	     		// FullCalendar 사용 예시
+	            /* $('#calendar').fullCalendar({
+	                events: data.map(function(item) {
+	                    return {
+	                        title: item.title,
+	                        start: item.start
+	                    };
+	                })
+	            }); */
+	     	  }
+	     	});
+	 });
+
+
+
+	 // 캘린더 표시 
+	 document.addEventListener('DOMContentLoaded', function() {
+	   var calendarEl = document.getElementById('calendar');
+
+	   var calendar = new FullCalendar.Calendar(calendarEl, {
+	     headerToolbar: {
+	       left: 'prevYear,prev,next,nextYear today',
+	       center: 'title',
+	       right: 'dayGridMonth,dayGridWeek,dayGridDay'
+	     },
+	     initialDate: '2024-07-26',
+	     dateClick: function(info) { // 날짜 클릭시 이벤트 
+	 	    // alert('Clicked on: ' + info.dateStr);
+	     
+	 	      // 클릭한 날짜를 보여주는 div 업데이트
+	 	      document.getElementById('selected-date').innerText =  info.dateStr;
+	 	      
+	 	      // 선택한 날짜 select-date 의 value값을 info.dateStr로 설정  
+	 	      document.getElementById('select_date').value = info.dateStr;
+	 	      
+	 	      // 선택한 날짜에 대한 데이터 조회 
+	 	      
+	 	      $.ajax({
+	 	          url: 'diary_select_date.do',
+	 	          type: 'GET',
+	 	          data: { date: info.dateStr },
+	 	          success: function(response) {
+	 	              // 컨트롤러에서 받아온 데이터를 html로 변환
+	 	              let test = generate_html(response);
+	 	              
+	 	              // HTML을 페이지에 삽입
+	 	              $('#diary_select_date').html(test);
+	 	          },
+	 	          error: function(error) {
+	 	              console.error('Error fetching data:', error);
+	 	          }
+	 	      }); 
+	 	    
+	     },
+	     navLinks: true, // can click day/week names to navigate views
+	     editable: true,
+	     dayMaxEvents: true, // allow "more" link when too many events
+	     /* googleCalendarApiKey: 'AIzaSyAUuo-Kz_4zD8A2oFrLmGPS9BKySc6BPVA',
+	     eventSources: [{
+	               googleCalendarId: 'ko.south_korea#holiday@group.v.calendar.google.com',
+	               className: '공휴일',
+	               color: 'yellow', //rgb,#ffffff 등의 형식으로 할 수 있어요.
+	               //textColor: 'black' 
+	     }], */
+	     events: [
+	       {
+	         title: 'All Day Event',
+	         start: '2023-01-01'
+	       },
+	       {
+	         title: 'Long Event',
+	         start: '2023-01-07',
+	         end: '2023-01-10'
+	       },
+	       {
+	         groupId: 999,
+	         title: 'Repeating Event',
+	         start: '2023-01-09T16:00:00'
+	       },
+	       {
+	         groupId: 999,
+	         title: 'Repeating Event',
+	         start: '2023-01-16T16:00:00'
+	       },
+	       {
+	         title: 'Conference',
+	         start: '2023-01-11',
+	         end: '2023-01-13'
+	       },
+	       {
+	         title: 'Meeting',
+	         start: '2023-01-12T10:30:00',
+	         end: '2023-01-12T12:30:00'
+	       },
+	       {
+	         title: 'Lunch',
+	         start: '2023-01-12T12:00:00'
+	       },
+	       {
+	         title: 'Meeting',
+	         start: '2023-01-12T14:30:00'
+	       },
+	       {
+	         title: 'Happy Hour',
+	         start: '2023-01-12T17:30:00'
+	       },
+	       {
+	         title: 'Dinner',
+	         start: '2023-01-12T20:00:00'
+	       },
+	       {
+	         title: 'Birthday Party',
+	         start: '2023-01-13T07:00:00'
+	       },
+	       {
+	         title: 'Click for Google',
+	         url: 'http://google.com/',
+	         start: '2023-01-28'
+	       }
+	     ] 
+	   }); // calendar
+
+	   calendar.render();
+	 }); // addEventListener
+	 
 </script>
 
 <style type="text/css">

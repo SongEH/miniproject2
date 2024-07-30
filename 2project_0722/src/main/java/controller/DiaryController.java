@@ -1,7 +1,7 @@
 package controller;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +9,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -297,9 +299,6 @@ public class DiaryController {
 	}
 
 	
-
-
-	
 	// 삭제 
 	@RequestMapping("diary_delete.do")
 	public String diary_delete(String table_name, int idx) {
@@ -313,4 +312,54 @@ public class DiaryController {
 		return "redirect:diary_list.do";
 	}
 	
+	
+	
+	// Full Calendar 샘플 
+	@RequestMapping(value = "full_calendar_json_data.do", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+    @ResponseBody
+	    public String getFullCalendarData() {
+		
+		// 일단 DB 저장된 데이터들 다 가져와서 
+		String date1 = "2024-07-30"; // 이따가 매퍼 다시 만들기 전체 조회하는거 
+		List<StollVo> stoll_list = diary_dao.diary_select_stoll_date(date1);
+		JSONObject json = new JSONObject();
+		json.put("stoll_list", stoll_list);
+
+        JSONArray stollList = json.getJSONArray("stoll_list");
+
+        // 이벤트 목록 생성
+        JSONArray eventList = new JSONArray();
+        // stoll_list에서 s_rdate를 가져와서 이벤트 생성
+        for (int i = 0; i < stollList.length(); i++) {
+            JSONObject item = stollList.getJSONObject(i);
+            String s_rdate = item.getString("s_rdate");
+            int s_idx = item.getInt("s_idx");
+
+            // 이벤트 JSON 객체 생성
+            JSONObject event = new JSONObject();
+            event.put("s_idx", s_idx); // start 값에 s_rdate를 설정
+            event.put("start", s_rdate); // start 값에 s_rdate를 설정
+            event.put("title", "산책"); // title 값에 '체중' 설정
+            eventList.put(event);
+
+        }
+
+        // 이벤트 목록 출력
+        System.out.println("Event List:");
+        System.out.println(eventList.toString(4)); // 들여쓰기 포함하여 출력
+        
+        return eventList.toString();
+	
+
+		/*
+		 * Map<String, Object> event = new HashMap<String, Object>(); List<Map<String,
+		 * Object>> eventList = new ArrayList<Map<String, Object>>(); event.put("start",
+		 * LocalDate.now()); event.put("title", "test");
+		 * event.put("end",LocalDate.now()); eventList.add(event); event = new
+		 * HashMap<String, Object>(); event.put("start", LocalDate.now().plusDays(3));
+		 * event.put("title", "test2"); event.put("end",LocalDate.now().plusDays(4));
+		 * eventList.add(event); System.out.println(eventList); return eventList;
+		 */
+		
+    }
 }
