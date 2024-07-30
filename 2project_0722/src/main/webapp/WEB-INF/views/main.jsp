@@ -143,12 +143,15 @@ input {
 				<div class="text-end">
 					<!-- 로그인이 안되어 있는 경우  -->
 					<c:if test="${ empty sessionScope.user }">
-						<input class="btn btn-default" type="button" value="로그인" onclick="location.href='member/login_form.do'">
-						<input class="btn btn-default" type="button" value="회원가입" onclick="location.href='member/insert_form.do'">
+						<input class="btn btn-default" type="button" value="로그인"
+							onclick="location.href='member/login_form.do'">
+						<input class="btn btn-default" type="button" value="회원가입"
+							onclick="location.href='member/insert_form.do'">
 					</c:if>
 					<!-- 로그인이 되어 있는 경우  -->
 					<c:if test="${ not empty sessionScope.user }">
-						<input class="btn btn-default" type="button" value="로그아웃" onclick="location.href='member/logout.do'">
+						<input class="btn btn-default" type="button" value="로그아웃"
+							onclick="location.href='member/logout.do'">
 						<input class="btn btn-default" type="button" value="마이페이지">
 						<!-- 로그인이 되어 있고 관리자인 경우  -->
 						<c:if test="${ sessionScope.user.m_grade == '관리자'}">
@@ -537,59 +540,48 @@ input {
 
 	</main>
 
+
+<!-- footer 부분 수정 -07/30 화 -->
 	<footer id="footer" class="footer accent-background">
 
 		<div class="container footer-top">
 			<div class="row gy-4">
 				<div class="col-lg-5 col-md-12 footer-about">
-					<a href="index.html" class="logo d-flex align-items-center"> <span
-						class="sitename">Impact</span>
-					</a>
-					<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo
-						eget nada terra videa magna derita valies darta donna mare
-						fermentum iaculis eu non diam phasellus.</p>
 					<div class="social-links d-flex mt-4">
-						<a href=""><i class="bi bi-twitter-x"></i></a> <a href=""><i
-							class="bi bi-facebook"></i></a> <a href=""><i
-							class="bi bi-instagram"></i></a> <a href=""><i
-							class="bi bi-linkedin"></i></a>
+						<a href=""><i class="bi bi-twitter-x"></i></a> 
+						<a href=""><i class="bi bi-facebook"></i></a>
+						<a href=""><i class="bi bi-instagram"></i></a>
+						<a href=""><i class="bi bi-linkedin"></i></a>
 					</div>
 				</div>
 
-				<div class="col-lg-2 col-6 footer-links">
-					<h4>Useful Links</h4>
-					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">About us</a></li>
-						<li><a href="#">Services</a></li>
-						<li><a href="#">Terms of service</a></li>
-						<li><a href="#">Privacy policy</a></li>
-					</ul>
-				</div>
-
-				<div class="col-lg-2 col-6 footer-links">
-					<h4>Our Services</h4>
-					<ul>
-						<li><a href="#">Web Design</a></li>
-						<li><a href="#">Web Development</a></li>
-						<li><a href="#">Product Management</a></li>
-						<li><a href="#">Marketing</a></li>
-						<li><a href="#">Graphic Design</a></li>
-					</ul>
-				</div>
-
+				
 				<div
 					class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-					<h4>Contact Us</h4>
-					<p>A108 Adam Street</p>
-					<p>New York, NY 535022</p>
-					<p>United States</p>
+					<h4>
+						<a href="main.do">Contact Us</a>
+					</h4>
+					<p>(주)동물의 친구</p>
+					<p>서울 관악구 남부순환대로 1820 에그엘로우 빌딩 7층</p>
 					<p class="mt-4">
-						<strong>Phone:</strong> <span>+1 5589 55488 55</span>
+						<strong>Phone:</strong> <span>010-1234-5678</span>
 					</p>
 					<p>
-						<strong>Email:</strong> <span>info@example.com</span>
+						<strong>Email:</strong> <span>furryfriends@example.com</span>
 					</p>
+				</div>
+
+				<div class="col-lg-2 col-6 footer-links">
+					<h4>동물학대신고 민간단체</h4>
+					<ul>
+						<li><a href="http://foranimal.or.kr/">서울동물학대방지연합&nbsp;&nbsp;☎&nbsp;02-488-5788</a></li>
+						<li><a href="https://fromcare.org/">동물권단체케어&nbsp;&nbsp;☎&nbsp;02-313-8886</a></li>
+						<li><a href="https://www.animals.or.kr/">동물자유연대&nbsp;&nbsp;☎&nbsp;02-2292-6337</a></li>
+						<li><a href="https://www.ekara.org/">동물권행동
+								카라&nbsp;&nbsp;☎&nbsp;02-3482-0999</a></li>
+						<li><a href="#">농림축산식품부
+								동물보호복지콜센터&nbsp;&nbsp;☎&nbsp;1577-0954</a></li>
+					</ul>
 				</div>
 
 			</div>
