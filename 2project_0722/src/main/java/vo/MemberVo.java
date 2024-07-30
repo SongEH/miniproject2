@@ -9,7 +9,7 @@ public class MemberVo {
 	String m_pwd; // 비밀번호
 	String m_zipcode; // 우편번호
 	String m_addr; // 주소
-	String m_regdate; // 가입일자
+	String m_rdate; // 가입일자
 	String m_grade; // 회원등급
 
 	public int getM_idx() {
@@ -68,12 +68,12 @@ public class MemberVo {
 		this.m_addr = m_addr;
 	}
 
-	public String getM_regdate() {
-		return m_regdate;
+	public String getM_rdate() {
+		return m_rdate;
 	}
 
-	public void setM_regdate(String m_regdate) {
-		this.m_regdate = m_regdate;
+	public void setM_rdate(String m_rdate) {
+		this.m_rdate = m_rdate;
 	}
 
 	public String getM_grade() {

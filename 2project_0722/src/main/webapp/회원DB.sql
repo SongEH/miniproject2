@@ -17,7 +17,7 @@ create table member
 	m_pwd varchar2(100) not null,		--비밀번호
 	m_zipcode char(5) not null,			--우편번호
 	m_addr varchar2(1000) not null,		--주소
-	m_regdate date default sysdate,		--가입일자
+	m_rdate date default sysdate,		--가입일자
 	m_grade varchar2(100) default'일반'	--회원등급
 )
 

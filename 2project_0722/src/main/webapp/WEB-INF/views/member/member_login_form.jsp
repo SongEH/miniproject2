@@ -80,13 +80,13 @@
 
 </head>
 <body>
-<form>  
+<form class="form-inline">  
 <input type="hidden" name="url" value="${param.url}">
    <div id="box">
-		<div class="panel panel-primary">
-			<div class="panel-heading"><h3>로그인</h3></div>
-			<div class="panel-body">
-			    <table class="table">
+		<div>
+			<div><h3 style="text-align:center;">로그인</h3></div>
+			<div>
+			    <table class="table"  style="position:absolute;">
 			        <tr>
 			            <th>이메일</th>
 			            <td><input class="form-control"  name="m_email"  value="${ param.m_email }"></td>

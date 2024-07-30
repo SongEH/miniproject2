@@ -116,7 +116,7 @@
 	              <td>${ vo.m_pwd }</td>
 	              <td>${ vo.m_zipcode }</td>
 	              <td>${ vo.m_addr }</td>
-	              <td>${ fn:substring(vo.m_regdate,0,10) }</td>
+	              <td>${ fn:substring(vo.m_rdate,0,10) }</td>
 	              <td>${ vo.m_grade }</td>
 	              <td>
 	                  <!--                  관리자                또는       로그인한 유저     -->

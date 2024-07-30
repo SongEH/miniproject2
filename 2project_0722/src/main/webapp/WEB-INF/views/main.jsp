@@ -152,10 +152,12 @@ input {
 					<c:if test="${ not empty sessionScope.user }">
 						<input class="btn btn-default" type="button" value="로그아웃"
 							onclick="location.href='member/logout.do'">
-						<input class="btn btn-default" type="button" value="마이페이지">
+						<input class="btn btn-default" type="button" value="마이페이지"
+						onclick="location.href='member/mypage.do'">
 						<!-- 로그인이 되어 있고 관리자인 경우  -->
 						<c:if test="${ sessionScope.user.m_grade == '관리자'}">
-							<input class="btn btn-info" type="button" value="관리자페이지">
+							<input class="btn btn-info" type="button" value="관리자페이지"
+							onclick="location.href='member/list.do'">
 						</c:if>
 					</c:if>
 				</div>

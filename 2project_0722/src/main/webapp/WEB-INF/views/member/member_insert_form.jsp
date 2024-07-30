@@ -16,7 +16,7 @@
 
 <style type="text/css">
 #box {
-	color: FCF8E8;
+	color: FFEBD4;
 }
 </style>
 
@@ -192,12 +192,12 @@
 	<form class="form-inline">
 		<input type="hidden" id="m_email" name="m_email">
 		<div id="box">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
+			<div>
+				<div>
 					<h4 style="text-align: center; font-size: 30px;">
 						회&nbsp;원&nbsp;가&nbsp;입</h4>
 				</div>
-				<div class="panel-body">
+				<div>
 					<table class="table">
 						<tr>
 							<th>이름</th>
