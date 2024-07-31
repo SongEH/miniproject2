@@ -1,21 +1,18 @@
 package vo;
 
-public class ReplyVo {
-
-	int re_idx;
-	int b_idx;
-	int m_idx;
-	
-	String re_content;
-	String re_rdate;
-	String m_name;
-	
-	
-	public int getRe_idx() {
-		return re_idx;
+public class ReplyVO {
+    private int r_idx;
+    private int b_idx;
+    private int m_idx;
+    private String r_content;
+    private String r_update;
+    private String r_date;
+    
+	public int getR_idx() {
+		return r_idx;
 	}
-	public void setRe_idx(int re_idx) {
-		this.re_idx = re_idx;
+	public void setR_idx(int r_idx) {
+		this.r_idx = r_idx;
 	}
 	public int getB_idx() {
 		return b_idx;
@@ -29,24 +26,23 @@ public class ReplyVo {
 	public void setM_idx(int m_idx) {
 		this.m_idx = m_idx;
 	}
-	public String getRe_content() {
-		return re_content;
+	public String getR_content() {
+		return r_content;
 	}
-	public void setRe_content(String re_content) {
-		this.re_content = re_content;
+	public void setR_content(String r_content) {
+		this.r_content = r_content;
 	}
-	public String getRe_rdate() {
-		return re_rdate;
+	public String getR_update() {
+		return r_update;
 	}
-	public void setRe_rdate(String re_rdate) {
-		this.re_rdate = re_rdate;
+	public void setR_update(String r_update) {
+		this.r_update = r_update;
 	}
-	public String getM_name() {
-		return m_name;
+	public String getR_date() {
+		return r_date;
 	}
-	public void setM_name(String m_name) {
-		this.m_name = m_name;
+	public void setR_date(String r_date) {
+		this.r_date = r_date;
 	}
-	
-	
+    
 }
