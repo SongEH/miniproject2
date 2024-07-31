@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+<<<<<<< HEAD
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -15,3 +16,37 @@
    
     
 </beans>
+=======
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+					http://www.springframework.org/schema/context
+					http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<context:annotation-config />
+
+
+	<!-- <bean id="diary_dao" class="dao.DiaryDao" autowire="default" /> -->
+
+	<bean id="board_dao" class="dao.BoardDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	<bean id="member_dao" class="dao.MemberDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	<bean id="board_images_dao" class="dao.BoardImagesDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<bean id="reply_dao" class="dao.ReplyDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<bean id="cmt_dao" class="dao.CommentDao">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	
+</beans>
+
+>>>>>>> main

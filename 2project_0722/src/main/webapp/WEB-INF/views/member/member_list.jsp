@@ -16,19 +16,62 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+<<<<<<< HEAD
 
+=======
+<style type="text/css">
+   #box{
+      width: 1200px;
+      margin: auto;
+      margin-top: 50px;
+   }
+   
+   #title{
+      text-align: center;
+      font-weight: bolod;
+      font-size: 32px;
+      color: green;
+      text-shadow: 1px 1px 1px black;
+   }
+   
+   #empty_msg{
+      text-align: center;
+      color: red;
+      margin-top: 150px;
+      font-size: 26px;
+   }
+   
+   th{
+      background: #333333 !important;
+      color: white;
+   }
+   
+   td{
+      vertical-align: middle !important;
+   }
+   
+</style>
+>>>>>>> main
 
 
 <script type="text/javascript">
 
+<<<<<<< HEAD
 	function del(m_idx){
+=======
+	function del(mem_idx){
+>>>>>>> main
 		
 		
 		//console.log(mem_idx,"삭제");
 		if(confirm("정말 삭제 하시겠습니까?")==false) return;
 		
 		//삭제요청
+<<<<<<< HEAD
 		location.href = "delete.do?m_idx=" + m_idx;   //MemberDeleteAction
+=======
+		location.href = "delete.do?mem_idx=" + mem_idx;   //MemberDeleteAction
+>>>>>>> main
 		
 		
 	}
@@ -77,7 +120,11 @@
 	         
 	         <!-- 로그인이 된경우 -->
 	         <c:if test="${ not empty sessionScope.user }">
+<<<<<<< HEAD
 	             <b>${ sessionScope.user.m_nickname }</b>님 환영합니다 
+=======
+	             <b>${ sessionScope.user.mem_name }</b>님 환영합니다 
+>>>>>>> main
 	             <input class="btn btn-primary" type="button"  value="로그아웃" 
 		                onclick="location.href='logout.do'">
 	         </c:if>     
@@ -95,11 +142,19 @@
 	        <tr>
 	           <th>번호</th>
 	           <th>회원명</th>
+<<<<<<< HEAD
 	           <th>닉네임</th>
 	           <th>이메일</th>
 	           <th>비밀번호</th>
 	           <th>우편번호</th>
 	           <th>주소</th>
+=======
+	           <th>아이디</th>
+	           <th>비밀번호</th>
+	           <th>우편번호</th>
+	           <th>주소</th>
+	           <th>아이피</th>
+>>>>>>> main
 	           <th>가입일자</th>
 	           <th>회원등급</th>
 	           <th>편집</th>
@@ -109,6 +164,7 @@
 	        <!-- for(MemberVo vo : list )  -->
 	        <c:forEach var="vo"  items="${ list }">
 	           <tr>
+<<<<<<< HEAD
 	              <td>${ vo.m_idx }</td>
 	              <td>${ vo.m_name }</td>
 	              <td>${ vo.m_nickname }</td>
@@ -125,6 +181,24 @@
 		                         onclick="location.href='modify_form.do?mem_idx=${ vo.m_idx }'">
 		                  <input class="btn  btn-danger"   type="button"  value="삭제"  
 		                         onclick="del('${ vo.m_idx }');">
+=======
+	              <td>${ vo.mem_idx }</td>
+	              <td>${ vo.mem_name }</td>
+	              <td>${ vo.mem_id }</td>
+	              <td>${ vo.mem_pwd }</td>
+	              <td>${ vo.mem_zipcode }</td>
+	              <td>${ vo.mem_addr }</td>
+	              <td>${ vo.mem_ip }</td>
+	              <td>${ fn:substring(vo.mem_regdate,0,10) }</td>
+	              <td>${ vo.mem_grade }</td>
+	              <td>
+	                  <!--                  관리자                또는       로그인한 유저     -->
+	                  <c:if test="${ (user.mem_grade eq '관리자') or ( user.mem_idx eq vo.mem_idx ) }">
+		                  <input class="btn  btn-success"  type="button"  value="수정"
+		                         onclick="location.href='modify_form.do?mem_idx=${ vo.mem_idx }'">
+		                  <input class="btn  btn-danger"   type="button"  value="삭제"  
+		                         onclick="del('${ vo.mem_idx }');">
+>>>>>>> main
 	                  </c:if>
 	                  
 	              </td>

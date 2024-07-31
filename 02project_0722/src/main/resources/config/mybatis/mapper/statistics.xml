@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statistics">
+    <select id="selectTotalMembers" resultType="int">
+        SELECT COUNT(*) FROM member
+    </select>
+
+    <select id="selectMembersByRegion" resultType="map">
+        SELECT
+            CASE
+                WHEN m_addr LIKE '서울%' THEN '서울'
+                WHEN m_addr LIKE '부산%' THEN '부산'
+                WHEN m_addr LIKE '대구%' THEN '대구'
+                WHEN m_addr LIKE '인천%' THEN '인천'
+                WHEN m_addr LIKE '광주%' THEN '광주'
+                WHEN m_addr LIKE '대전%' THEN '대전'
+                WHEN m_addr LIKE '울산%' THEN '울산'
+                WHEN m_addr LIKE '세종%' THEN '세종'
+                WHEN m_addr LIKE '경기도%' THEN '경기'
+                WHEN m_addr LIKE '강원도%' THEN '강원'
+                WHEN m_addr LIKE '충청북도%' THEN '충북'
+                WHEN m_addr LIKE '충청남도%' THEN '충남'
+                WHEN m_addr LIKE '전라북도%' THEN '전북'
+                WHEN m_addr LIKE '전라남도%' THEN '전남'
+                WHEN m_addr LIKE '경상북도%' THEN '경북'
+                WHEN m_addr LIKE '경상남도%' THEN '경남'
+                WHEN m_addr LIKE '제주%' THEN '제주'
+                ELSE '기타'
+            END AS region,
+            COUNT(*) AS count
+        FROM member
+        GROUP BY 
+            CASE
+                WHEN m_addr LIKE '서울%' THEN '서울'
+                WHEN m_addr LIKE '부산%' THEN '부산'
+                WHEN m_addr LIKE '대구%' THEN '대구'
+                WHEN m_addr LIKE '인천%' THEN '인천'
+                WHEN m_addr LIKE '광주%' THEN '광주'
+                WHEN m_addr LIKE '대전%' THEN '대전'
+                WHEN m_addr LIKE '울산%' THEN '울산'
+                WHEN m_addr LIKE '세종%' THEN '세종'
+                WHEN m_addr LIKE '경기도%' THEN '경기'
+                WHEN m_addr LIKE '강원도%' THEN '강원'
+                WHEN m_addr LIKE '충청북도%' THEN '충북'
+                WHEN m_addr LIKE '충청남도%' THEN '충남'
+                WHEN m_addr LIKE '전라북도%' THEN '전북'
+                WHEN m_addr LIKE '전라남도%' THEN '전남'
+                WHEN m_addr LIKE '경상북도%' THEN '경북'
+                WHEN m_addr LIKE '경상남도%' THEN '경남'
+                WHEN m_addr LIKE '제주%' THEN '제주'
+                ELSE '기타'
+            END
+    </select>
+
+    <select id="selectTotalPets" resultType="int">
+        SELECT COUNT(*) FROM pet
+    </select>
+
+    <select id="selectAveragePetsPerMember" resultType="double">
+        SELECT NVL(AVG(pet_count), 0) 
+        FROM (SELECT COUNT(*) AS pet_count FROM pet GROUP BY m_idx)
+    </select>
+
+    <select id="selectPetsByBreed" resultType="map">
+        SELECT p_breed AS breed, COUNT(*) AS count
+        FROM pet
+        GROUP BY p_breed
+    </select>
+
+	<select id="getPValueStatistics" resultType="map">
+        SELECT
+            p_value AS P_VALUE,
+            COUNT(*) AS COUNT
+        FROM
+            pet
+        GROUP BY
+            p_value
+    </select>
+</mapper>

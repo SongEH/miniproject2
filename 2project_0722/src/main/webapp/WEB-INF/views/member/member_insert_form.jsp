@@ -16,7 +16,11 @@
 
 <style type="text/css">
 #box {
+<<<<<<< HEAD
 	color: FFEBD4;
+=======
+	color: FCF8E8;
+>>>>>>> main
 }
 </style>
 
@@ -192,12 +196,21 @@
 	<form class="form-inline">
 		<input type="hidden" id="m_email" name="m_email">
 		<div id="box">
+<<<<<<< HEAD
 			<div>
 				<div>
 					<h4 style="text-align: center; font-size: 30px;">
 						회&nbsp;원&nbsp;가&nbsp;입</h4>
 				</div>
 				<div>
+=======
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 style="text-align: center; font-size: 30px;">
+						회&nbsp;원&nbsp;가&nbsp;입</h4>
+				</div>
+				<div class="panel-body">
+>>>>>>> main
 					<table class="table">
 						<tr>
 							<th>이름</th>
@@ -206,9 +219,13 @@
 
 						<tr>
 							<th>닉네임</th>
+<<<<<<< HEAD
 							<td><input class="form-control" name="m_nickname" id="m_nickname" onkeyup="check_nickname();">
 							<span id="nickname_msg"></span>
 							</td>
+=======
+							<td><input class="form-control" name="m_nickname"></td>
+>>>>>>> main
 						</tr>
 
 						<tr>

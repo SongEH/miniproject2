@@ -14,7 +14,7 @@ input {
 
 /* a 태그 */
 a {
-	text-decoration-line: none;
+	text-decoration-line: none !important ;
 }
 
 /* .a_undo { 

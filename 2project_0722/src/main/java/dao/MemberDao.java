@@ -1,24 +1,81 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import vo.MemberVo;
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
+import vo.MemberVO;
+import vo.PetVO;
 
-public interface MemberDao{
+@Repository
+public class MemberDAO {
 
-	List<MemberVo> selectList();	//회원 리스트 조회
+    private SqlSession sqlSession;
+
+    @Autowired
+    public void setSqlSession(SqlSession sqlSession) {
+        this.sqlSession = sqlSession;
+    }
+
+    public List<MemberVO> getAllMembers() {
+        return sqlSession.selectList("member.selectAll");
+    }
+
+    public MemberVO getMemberById(int m_idx) {
+        return sqlSession.selectOne("member.selectById", m_idx);
+    }
+    
+    public void updateMember(MemberVO member) {
+        sqlSession.update("member.updateMember", member);
+    }
+
+    public void deleteMember(int m_idx) {
+        sqlSession.delete("member.deleteById", m_idx);
+    }
+    
+    public List<MemberVO> getMembersWithPaging(int offset, int limit, String searchKeyword, String gradeFilter, String yearFilter) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("offset", offset);
+        params.put("limit", limit);
+        params.put("searchKeyword", searchKeyword);
+        params.put("gradeFilter", gradeFilter);
+        params.put("yearFilter", yearFilter);
+        return sqlSession.selectList("member.selectWithPagingAndFilters", params);
+    }
+    
+    public int getMemberCount(String searchKeyword, String gradeFilter, String yearFilter) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("searchKeyword", searchKeyword);
+        params.put("gradeFilter", gradeFilter);
+        params.put("yearFilter", yearFilter);
+        return sqlSession.selectOne("member.selectMemberCountWithFilters", params);
+    }
+    
+    public List<PetVO> getPetsByMemberId(int m_idx) {
+        return sqlSession.selectList("pet.selectByMemberId", m_idx);
+    }
+    
+    public void updateMemberForUser(MemberVO member) {
+        sqlSession.update("member.updateMemberForUser", member);
+    }
+    
+    public void insertMember(MemberVO member) {
+        sqlSession.insert("member.insertMember", member);
+    }
+    
+	public int insert(MemberVO vo) {
+		return sqlSession.insert("member.member_insert", vo);
+	}
 	
-	MemberVo selectOne(int m_idx);	//m_idx에 대한 1건의 정보 조회
+	public MemberVO selectName(String m_nickname) {
+		return sqlSession.selectOne("member.member_one_nickname", m_nickname);
+	}
 	
-	MemberVo selectName(String m_nickname);	//m_nickname에 대한 1건의 정보를 조회
-	
-	MemberVo selectOne(String m_email);		//m_email에 대한 1건의 정보 조회
-	
-	int insert (MemberVo vo);
-
-	int delete(int mem_idx);
-	
-	int update(MemberVo vo);
-
+	public MemberVO selectOne(String m_email) {
+		return sqlSession.selectOne("member.member_one_email", m_email);
+	}
 }

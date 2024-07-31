@@ -5,6 +5,11 @@
   <fixed facet="jst.web"/>
   <fixed facet="wst.jsdt.web"/>
   <installed facet="java" version="17"/>
+<<<<<<< HEAD
   <installed facet="wst.jsdt.web" version="1.0"/>
   <installed facet="jst.web" version="3.1"/>
+=======
+  <installed facet="jst.web" version="3.1"/>
+  <installed facet="wst.jsdt.web" version="1.0"/>
+>>>>>>> main
 </faceted-project>
