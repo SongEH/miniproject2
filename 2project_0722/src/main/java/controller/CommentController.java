@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CommentDao;
-import util.Mycommon;
+import util.MyCommon;
 import util.Paging;
 import vo.CommentVo;
 import vo.ReplyVo;
@@ -34,8 +34,8 @@ public class CommentController {
 				Model model) {
 
 		//댓글 보여질 갯수
-		int start = (nowPage-1) * Mycommon.reply.BLOCK_LIST + 1;
-		int end   = start + Mycommon.reply.BLOCK_LIST - 1;
+		int start = (nowPage-1) * MyCommon.reply.BLOCK_LIST + 1;
+		int end   = start + MyCommon.reply.BLOCK_LIST - 1;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("b_idx", b_idx);
@@ -52,8 +52,8 @@ public class CommentController {
 		
 		String pageMenu = Paging.getReplyPaging(nowPage, 
 			                                  rowTotal, 
-			                                  Mycommon.reply.BLOCK_LIST,
-			                                  Mycommon.reply.BLOCK_PAGE);
+			                                  MyCommon.reply.BLOCK_LIST,
+			                                  MyCommon.reply.BLOCK_PAGE);
 		
 		
 		

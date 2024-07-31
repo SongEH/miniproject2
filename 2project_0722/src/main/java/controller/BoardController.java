@@ -22,11 +22,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.BoardDao;
 import dao.BoardImagesDao;
-import util.Mycommon;
+import util.MyCommon;
 import util.Paging;
 import vo.BoardImagesVo;
 import vo.BoardVo;
-import vo.MemberVo;
+import vo.MemberVO;
 
 @Controller
 @RequestMapping("/board/")
@@ -74,9 +74,9 @@ public class BoardController {
 				
 				Map<String, Object> map = new HashMap<String, Object>();
 				
-				int start	 	= (nowPage-1) * Mycommon.board.BLOCK_LIST+ 1; 
+				int start	 	= (nowPage-1) * MyCommon.board.BLOCK_LIST+ 1; 
 				System.out.println("start:" + start);
-				int end		 = start + Mycommon.board.BLOCK_LIST -1;
+				int end		 = start + MyCommon.board.BLOCK_LIST -1;
 				System.out.println("end:" + end);
 				System.out.println("b_cate: " + b_cate);
 				map.put("start",start);
@@ -100,8 +100,8 @@ public class BoardController {
 				String pageMenu = Paging.getPaging(baseurl,
 																		nowPage,
 																		rowTotal,
-																		Mycommon.board.BLOCK_LIST,
-																		Mycommon.board.BLOCK_PAGE,
+																		MyCommon.board.BLOCK_LIST,
+																		MyCommon.board.BLOCK_PAGE,
 																		b_cate
 																	);
 				
@@ -168,7 +168,7 @@ public class BoardController {
 	@RequestMapping("insert_form.do")
 	public String insert_form(RedirectAttributes ra) {
 		
-			MemberVo user = (MemberVo) session.getAttribute("user");
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		
 			if(user == null) {
 			
@@ -191,7 +191,7 @@ public class BoardController {
 		
 //Session check
 	
-		MemberVo user = (MemberVo) session.getAttribute("user");
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		
 		if(user == null) {
 			
@@ -345,7 +345,7 @@ public class BoardController {
 	  
 	  //Session check
 	  
-	  MemberVo user = (MemberVo) session.getAttribute("user");
+	  MemberVO user = (MemberVO) session.getAttribute("user");
 	  
 	  if(user == null) {
 	  
@@ -436,7 +436,7 @@ public class BoardController {
 								RedirectAttributes ra) {
 		
 		
-		MemberVo user = (MemberVo) session.getAttribute("user");
+		MemberVO user = (MemberVO) session.getAttribute("user");
 		
 		if(user == null) {
 			

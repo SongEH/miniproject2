@@ -11,43 +11,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<style type="text/css">
-  #box{
-     width: 500px;
-     margin: auto;
-     margin-top: 200px;
-  }
-  
-  input[type='button']{
-     width: 100px;
-     /* background: pink; */
-  }
-</style>
 
 
 <script type="text/javascript">
    
    function send(f){
 	   
-	   let m_id   = f.m_id.value.trim();
+	   let m_email   = f.m_email.value.trim();
 	   let m_pwd  = f.m_pwd.value.trim();
 	   
-	   if(m_id==''){
-		   alert("아이디를 입력하세요!!");
-		   f.m_id.value="";
-		   f.m_id.focus();
+	   if(m_email==''){
+		   alert("이메일을 입력하시오");
+		   f.m_email.value="";
+		   f.m_email.focus();
 		   return;
 	   }
 	   
 	   if(m_pwd==''){
-		   alert("비밀번호를 입력하세요!!");
+		   alert("비밀번호를 입력하시오");
 		   f.m_pwd.value="";
 		   f.m_pwd.focus();
 		   return;
 	   }
 	   	   
 	   
-	   f.action="login.do";   // MemberLoginAction
+	   f.action="login.do";   
 	   f.submit();
 	   
    }//end:send()
@@ -69,18 +57,18 @@
   
   function showMessage(){
 	  // /member/login_form.do?reason=fail_id => "true"
-	  if("${ param.reason == 'fail_id'}" == "true"){
-		  alert("아이디가 틀립니다!!");
-	  }		
+	  if("${ param.reason == 'fail_email'}" == "true"){
+		  alert("이메일을 다시 입력해주십시오");
+	  }		 
 	  
 	  // /member/login_form.do?reason=fail_pwd => "true"
 	  if("${ param.reason == 'fail_pwd'}" == "true"){
-		  alert("비밀번호가 틀립니다!!");
+		  alert("비밀번호를 다시 입력해주십시오");
 	  }	
 	  
 	  // /member/login_form.do?reason=session_timeout
 	  if("${ param.reason == 'session_timeout'}" == "true"){
-		  alert("로그아웃되었습니다\n로그인 후 이용하세요!!");
+		  alert("로그아웃되었습니다\n로그인후 게시글을 등록하세요!!");
 	  }	
 	  
   }
@@ -93,28 +81,26 @@
 </head>
 <body>
 <form>  
+<input type="hidden" name="url" value="${param.url}">
    <div id="box">
 		<div class="panel panel-primary">
 			<div class="panel-heading"><h3>로그인</h3></div>
 			<div class="panel-body">
 			    <table class="table">
-			    <input type="hidden" name="url" value="${param.url }">
-
-
-		        <tr>
-			            <th>아이디</th>
-			            <td><input class="form-control"  name="m_id"  value="${ param.m_id }"></td>
+			        <tr>
+			            <th>이메일</th>
+			            <td><input class="form-control"  name="m_email"  value="${ param.m_email }"></td>
 			        </tr>
 			        
 			        <tr>
 			            <th>비밀번호</th>
-			            <td><input class="form-control" type="password" name="m_pwd"></td>
+			            <td><input class="form-control" type="password" name="m_pwd" value="${param.m_pwd }"></td>
 			        </tr>
 			        
 			        <tr>
 			            <td colspan="2" align="center">
-			               <input class="btn btn-success"  type="button"  value="메인화면"
-			                      onclick="location.href='../board/list.do'" >
+			               <input class="btn btn-success"  type="button"  value="회원가입"
+			                      onclick="location.href='insert_form.do'" >
 			               <input class="btn btn-primary"  type="button"  value="로그인"
 			                      onclick="send(this.form);">
 			            </td>

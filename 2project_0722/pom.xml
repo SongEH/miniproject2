@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.githrd</groupId>
-	<artifactId>fileupload</artifactId>
+	<artifactId>diary</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
@@ -110,7 +110,6 @@
 		</dependency>
 
 
-
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -124,10 +123,13 @@
 			<artifactId>json</artifactId>
 			<version>20240205</version>
 		</dependency>
-		
 
-
-		
+		<!-- List를 JSON으로 변환 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.15.1</version> <!-- 최신 버전으로 업데이트 -->
+		</dependency>
 	</dependencies>
 
 </project>
