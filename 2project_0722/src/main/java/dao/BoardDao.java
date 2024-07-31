@@ -20,11 +20,22 @@ public class BoardDao {
 	
 	
 /*-----------------------전체조회-----------------------   */
+	/*
 	public List<BoardVo> selectList(Map<String, Object> map){
 		
 		return sqlSession.selectList("board.board_list_page", map);
 	}
+	
 /*-----------------------전체조회-----------------------   */
+
+	
+/*-----------------------전체조회 + 검색 -----------------------   */
+	public List<BoardVo> selectList(Map<String, Object> map){
+		
+		return sqlSession.selectList("board.board_list_page_condition", map);
+	}
+/*-----------------------전체조회 + 검색 -----------------------   */	
+	
 	
 
 /*-----------------------전체조회-----------------------   */
@@ -81,6 +92,18 @@ public class BoardDao {
 	public int delete(int b_idx) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete("board.board_delete", b_idx);
+	}
+
+
+	public int update_readhit(int b_idx) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("board.board_update_readhit", b_idx);
+	}
+
+
+	public String select_get_content(int b_idx) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("board.board_select_content", b_idx);
 	}
 
 

@@ -11,22 +11,114 @@ String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
 
 <!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
 <script type="text/javascript"
-	src="<%=ctx%>/resources/smarteditor2/js/HuskyEZCreator.js"
+	src="${pageContext.request.contextPath}/resources/smarteditor2/js/HuskyEZCreator.js"
 	charset="utf-8"></script>
 <!-- jQuery를 사용하기위해 jQuery라이브러리 추가 -->
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 
+<style type="text/css">
+.main {
+	padding-top: 200px;
+}
+
+td {
+	width: 10px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+select {
+	display: inline-block;
+	width: 80%
+}
+</style>
+
+<!-- 메인 버튼 스타일 Design by_JH -->
+<style>
+/*  diary-btn-yellow  */
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-yellow-outline  */
+.diary-btn-yellow-outline {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-gray-outline  */
+.diary-btn-gray-outline {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-gray-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-gray-outline:active {
+	transform: scale(0.9);
+}
+
+</style>
+
+
+
+
 <script type="text/javascript">
-
-
-var oEditors = [];
-$(function(){
-      nhn.husky.EZCreator.createInIFrame({
-          oAppRef: oEditors,
-          elPlaceHolder: "b_content", //textarea에서 지정한 id와 일치해야 합니다. 
-          //SmartEditor2Skin.html 파일이 존재하는 경로
-          sSkinURI: "<%=ctx%>/resources/smarteditor2/SmartEditor2Skin.html",
+	var oEditors = [];
+	$(function() {
+		nhn.husky.EZCreator
+				.createInIFrame({
+					oAppRef : oEditors,
+					elPlaceHolder : "b_content", //textarea에서 지정한 id와 일치해야 합니다. 
+					//SmartEditor2Skin.html 파일이 존재하는 경로
+					sSkinURI : "${pageContext.request.contextPath}/resources/smarteditor2/SmartEditor2Skin.html",
 					htParams : {
 						// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
 						bUseToolbar : true,
@@ -46,20 +138,12 @@ $(function(){
 					fCreator : "createSEditor2"
 				});
 
-<<<<<<< HEAD
-		 //저장버튼 클릭시 form 전송
-		 $("#save").click(function() {
-			oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
-=======
 		//저장버튼 클릭시 form 전송
-		/* $("#save").click(function() {
-			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
->>>>>>> refs/remotes/origin/CheonTk's-Branch
+		$("#save").click(function() {
+			oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
 			$("#frm").submit();
-<<<<<<< HEAD
-		}); 
-		
-		
+		});
+
 		/* function save(f){
 			
 			oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
@@ -67,60 +151,60 @@ $(function(){
 			f.action = "insert.do";
 			f.submit();
 		} */
-=======
-		}); */
-		
-		
-		function save(f){
-			
-			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-			
-			f.action = "insert.do";
-			f.submit();
-		}
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 
 	});
 </script>
 
 </head>
 <body>
-	<form id="frm" action="insert.do" method="post" enctype="multipart/form-data">
-		<table width="100%">
-			<tr>
-				<td>제목</td>
-				<td><input type="text" id="title" name="b_title"
-					style="width: 650px" /></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea rows="10" cols="30" id="b_content" name="b_content" style="width: 650px; height: 350px;"></textarea></td>
-			</tr>
-			<tr>
-				<td>카테고리</td>
-				<td><select id="" name="b_cate">
-						<option value="free">자유게시판</option>
-						<option value="medical">의학상담</option>
-						<option value="mate">산책메이트</option>
-				</select></td>
-			</tr>
-
-			<tr>
-				<td>사진</td>
-				<td><input name="photo" type="file" multiple="multiple">
-				</td>
-			</tr>
+	<%@ include file="/WEB-INF/views/top.jsp"%>
 
 
-			<tr>
-				<td colspan="2">
-					<!-- <input type="button" id="save" value="저장" onclick="location.href='insert.do'"/> -->
-					<input type="submit" id="save" value="저장" onclick="save(this.form);"/>
-					 <input type="button"	value="취소" />
-				</td>
-			</tr>
-		</table>
-	</form>
+	<div class="container">
+		<div class="main">
+			<form id="frm" action="insert.do" method="post"
+				enctype="multipart/form-data">
+				<table class="table" width="100%">
+					<tr>
+						<td>제목</td>
+						<td>
+							<input type="text" id="title" name="b_title" style="width: 100%" placeholder="제목을 입력하세요"/></td>
+					</tr>
+					<tr>
+						<td>내용</td>
+						<td>
+						<textarea rows="10" cols="30" id="b_content" name="b_content" style="width: 100%; height: 500px;" placeholder="내용을 입력해주세요" ></textarea></td>
+					</tr>
+					<tr>
+						<td>카테고리</td>
+						<td><select id="category" name="b_cate">
+								<option value="free">자유게시판</option>
+								<option value="medical">의학상담</option>
+								<option value="mate">산책메이트</option>
+						</select></td>
+					</tr>
+
+					<tr>
+						<td>사진</td>
+						<td>
+						<label for="diary-btn-yellow-outline" class="diary-btn-yellow-outline">사진</label>
+						<input id="diary-btn-yellow-outline" name="photo" type="file" multiple="multiple" style="display:none;">
+						</td>
+					</tr>
+
+
+					<tr style="border-bottom: none;">
+						<td>
+						<td>
+							<input type="submit" class="diary-btn-yellow"id="save" value="저장" onclick="save(this.form);" /> 
+							<input type="button" class="diary-btn-gray-outline" value="취소" />
+						</td>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
 
 </body>
 </html>

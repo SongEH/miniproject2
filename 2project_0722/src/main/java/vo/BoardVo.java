@@ -7,15 +7,24 @@ public class BoardVo {
 
 	int b_idx;
 	int m_idx;
+	int b_readhit;
 	
 	String b_cate;
 	String b_title;
 	String b_content;
+	
 	Date b_rdate;
 	Date b_udate;
 	Date b_ddate;
 	String m_name;
 
+	public int getB_readhit() {
+		return b_readhit;
+	}
+	public void setB_readhit(int b_readhit) {
+		this.b_readhit = b_readhit;
+	}
+	
 	List<BoardImagesVo> image_list;
 	
 	

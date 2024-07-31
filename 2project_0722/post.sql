@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ----------------BOARD------------------------------
 create table board (
 	b_idx	int		NOT NULL,
@@ -9,9 +8,11 @@ create table board (
 	b_rdate	date		NULL,
 	b_udate	date		NULL,
 	b_ddate	date		NULL,
-	m_name	VARCHAR2(50)		NULL
+	m_name	VARCHAR2(50)		NULL,
+	b_readhit int null
 )
 ----------------BOARD-------------------------------
+
 
 ----------------BOARD_IMAGES-----------------------
 create table board_images 
@@ -22,20 +23,7 @@ b_filename varchar2(100)		not null
 )
 ----------------BOARD_IMAGES------------------------
 
-----------------MEMBER------------------------------
-create table member
-(
-m_idx 		int,
-m_name 	varchar2(100),
-m_id 			varchar2(100),
-m_pwd 		varchar2(100),
-m_zipcode	 varchar2(100),
-m_addr		 varchar2(100),
-m_ip			 varchar2(100),
-m_regdate	 date,
-m_grade	 varchar2(100)
-)
-----------------MEMBER------------------------------
+
 
 ----------------REPLY--------------------------------
 create table reply
@@ -63,27 +51,25 @@ a_udate date,
 m_name varchar2(50) not null
 )
 
-----------------Answer--------------------------------
+----------------Answer-------------------------------
 
-----------------cmt test용-----------------------------------
-create table cmt_db
+
+----------------MEMBER------------------------------
+create table member
 (
-cmt_idx 				int 					not null,
-cmt_content		varchar2(2000) 	not null,
-cmt_rdate			date 		default sysdate,
-cmt_cmt_idx		int					null,
-b_idx					int					not null,
-m_idx				int					not null,
-m_name				varchar2(50)		not null,
-cmt_status		   char(1)			default  'n'
+m_idx 		int,
+m_name 	varchar2(100),
+m_id 			varchar2(100),
+m_pwd 		varchar2(100),
+m_zipcode	 varchar2(100),
+m_addr		 varchar2(100),
+m_ip			 varchar2(100),
+m_regdate	 date,
+m_grade	 varchar2(100)
 )
------------------cmt test용-----------------------------------
+----------------MEMBER------------------------------
 
 
-
-insert into member (m_idx, m_name, m_id, m_pwd, m_zipcode, m_addr, m_ip, m_regdate, m_grade)
---values (1, '관리자', 'admin', 'admin', '123-456', '서울특별시 강남구', '192.168.1.1', SYSDATE, '관리자');
-values (2, '테스트', 'test', 'test', '123-456', '서울특별시 강남구', '192.168.1.1', SYSDATE, '관리자');
 
 ------------------DB 데이터 확인용----------------
 select * from member
@@ -156,12 +142,7 @@ add constraint fk_reply_b_idx foreign key (b_idx) references board (b_idx)
 alter table reply
 add constraint fk_reply_m_idx foreign key (m_idx) references member(m_idx)
 												on delete cascade 
-												
-
-alter table cmt_db
-add constraint fk_cmt_db_b_idx foreign key (b_idx) references board (b_idx)
-												on delete cascade
-												
+											
 alter table answer
 add constraint fk_answer_b_idx foreign key (b_idx) references board (b_idx)
 												on delete cascade
@@ -173,7 +154,7 @@ add constraint fk_answer_m_idx foreign key (m_idx) references member(m_idx)
 -----------------------FOREIGN KEY  설정-------------------------------
 												  
 												  
-												  
+--------------- 아래는 신경 안쓰셔도 됩니다 -------------------------												  
 
 
 drop table board cascade constraints
@@ -544,4 +525,10 @@ WHERE b_idx NOT IN (SELECT b_idx FROM board)
 			
 			
 select * from board where b_idx = 1
->>>>>>> refs/remotes/origin/CheonTk's-Branch
+
+
+
+insert into member (m_idx, m_name, m_id, m_pwd, m_zipcode, m_addr, m_ip, m_regdate, m_grade)
+--values (1, '관리자', 'admin', 'admin', '123-456', '서울특별시 강남구', '192.168.1.1', SYSDATE, '관리자');
+values (2, '테스트', 'test', 'test', '123-456', '서울특별시 강남구', '192.168.1.1', SYSDATE, '관리자');
+

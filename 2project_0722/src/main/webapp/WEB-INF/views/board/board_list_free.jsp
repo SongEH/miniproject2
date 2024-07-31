@@ -1,6 +1,13 @@
+<%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%
+pageContext.setAttribute("replaceChar", "\n");
+%>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -174,28 +181,33 @@ main.main {
 }
 
 .post-description {
+	width: 50%;
 	font-size: 1em;
-	margin-bottom: 16px;
+	margin-top: 2px;
 	color: #555;
+	display: inline-block;
 	display: -webkit-box;
 	-webkit-line-clamp: 3;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: pre-line; /* Preserve white spaces and line breaks */
+	white-space: pre-line;
+	display: -webkit-box;
 }
 
 .post-images {
-	display: flex;
+	width: 150px; display : flex;
 	gap: 8px;
 	margin-bottom: 16px;
+	display: flex;
 }
 
 .post-img {
 	flex: 1;
-	width: 150px; /* Fixed width for the square */
-	height: 150px; /* Fixed height for the square */
+	width: 400px;
+	height: 200px;
 	overflow: hidden;
+	object-fit: cover;
 }
 
 .post-img img {
@@ -209,7 +221,7 @@ main.main {
 	font-size: 0.875em;
 	color: #999;
 }
-
+`
 .meta-top ul {
 	list-style: none;
 	padding: 0;
@@ -221,7 +233,9 @@ main.main {
 }
 
 .img-thumbnail {
-	cursor: pointer; /* Changes cursor to a hand (click) shape */
+	cursor: pointer;
+	width: 300px;
+	height: 150px;
 }
 
 /* 페이지 메뉴 CSS  */
@@ -229,7 +243,168 @@ main.main {
 	text-align: center !important;
 	margin: auto;
 }
+
+section {
+	height: 200px;
+}
+
+/* 이미지 보여주는 CSS*/
+.image-container {
+    position: relative;
+    width: 300px; /* Adjust size as needed */
+    height: 200px; /* Adjust size as needed */
+}
+
+.main-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.overlay-image {
+    width: 20%;
+    height: 20%;
+    object-fit: cover;
+    display: block;
+}
+
+.image-container:hover .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#search {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	/* padding: 15px 30px; */
+	border-radius: 15px;
+	text-decoration: none;
+	/* font-weight: 600;  */
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+#search:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+#search:active {
+	transform: scale(0.9);
+}
+
+#search_text {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+#search_text:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+#search_text:active {
+	transform: scale(0.9);
+}
 </style>
+
+
+<!-- 메인 버튼 스타일 Design by_JH -->
+<style>
+/*  diary-btn-yellow  */
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-yellow-outline  */
+.diary-btn-yellow-outline {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-gray-outline  */
+.diary-btn-gray-outline {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-gray-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-gray-outline:active {
+	transform: scale(0.9);
+}
+</style>
+<!-- 메인 버튼 스타일 Design by_JH -->
+
 
 <script type="text/javascript">
 	function insert_form() {
@@ -245,191 +420,152 @@ main.main {
 				alert(encodeURIComponent(location.href));
 			}
 		}
-
 		location.href = "insert_form.do"
+	}
+
+	function find() {
+
+		let search = $("#search").val();
+		let search_text = $("#search_text").val().trim();
+		let b_cate = $("#b_cate").val();
+
+		//전체검색이 아닌데 검색어가 비어있으면
+		if (search != "all" && search_text == "") {
+			alert("검색어를 입력하세요!!");
+			$("#search_text").val(""); //지우기
+			$("#search_text").focus(); //포커스
+			return;
+		}
+
+		//자바스크립트 이용해서 호출
+		location.href = "list.do?search=" + search + "&search_text="
+				+ encodeURIComponent(search_text, "utf-8") + "&b_cate="
+				+ b_cate;
 
 	}
 </script>
 
+<script type="text/javascript">
+	/* 초기화  */
+	/*
+	$(document).ready(function() {
+
+		 if ("${ not empty param.search }" == "true") {
+			$("#search").val("${ param.search }");
+		}
+
+		//전체보기면 입력창 지우기
+		if ("${ param.search eq 'all'}" == "true") {
+			$("#search_text").val("");
+		} 
+
+	}); 
+	 */
+</script>
+
+
+
 
 <body class="index-page">
-<<<<<<< HEAD
-	
-<%@ include file="/WEB-INF/views/top.jsp" %>
+
+	<%@ include file="/WEB-INF/views/top.jsp"%>
 
 	<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
 
 	<main class="main mt-300">
 		<!-- form으로 보내고 싶은 데이터  -->
-
-		<div class="container d-flex justify-content-end">
-			<input class="btn btn-success" type="button" value="글쓰기"
-				onclick="insert_form();">
-		</div>
-		<c:forEach var="item" items="${list}">
-			<c:if test="${item.b_cate eq 'free' }">
-				<form>
-
-					<section id="blog-posts-2" class="blog-posts-2 section">
-						<div class="container">
-							<div class="row gy-5">
-								<div class="container-fluid">
-									<article class="blog-post">
-										<div>${item.m_name }${item.b_rdate }</div>
-										<h3 class="post-title mt-1">
-											<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
-										</h3>
-										 <div class="post-description">${item.b_content }</div>
-
-										<div class="image-container">
-											<div class="post-images">
-												<c:forEach var="image" items="${item.image_list}"
-													varStatus="status">
-													
-														<div class="post-img">
-															<img src="../resources/images/${image.b_filename}" alt=""
-																class="img-thumbnail"
-																onclick="location.href='view.do?b_idx=${item.b_idx}'">
-														</div>
-													
-=======
-	<header id="header" class="header fixed-top">
-
-		<div class="topbar d-flex align-items-center">
-			<div
-				class="container d-flex justify-content-center justify-content-md-between">
-				<div class="contact-info d-flex align-items-center">
-					<i class="bi bi-envelope d-flex align-items-center"><a
-						href="mailto:contact@example.com">contact@example.com</a></i> <i
-						class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-							5589 55488 55</span></i>
-				</div>
-				<div class="social-links d-none d-md-flex align-items-center">
-					<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a> <a
-						href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-						href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-						href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-				</div>
+		<div class="container">
+			<div style="text-align: right; margin-bottom: 5px;">
+				<input class="diary-btn-yellow" type="button" value="글쓰기"
+					onclick="insert_form();">
 			</div>
-		</div>
-		<!-- End Top Bar -->
-
-
-		<div class="branding d-flex align-items-cente">
-
-			<div
-				class="container position-relative d-flex align-items-center justify-content-between">
-				<a href="${pageContext.request.contextPath}/index.jsp"
-					class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
-					<!-- <img src="resources/assets/img/logo.png" alt=""> -->
-					<h1 class="sitename">LOGO</h1>
-				</a>
-
-				<nav id="navmenu" class="navmenu">
-					<ul>
-						<li><a href="#" class="active">다이어리<br></a></li>
-						<li><a href="../member/login_form.do" class="active">로그인<br></a></li>
-						<li class="dropdown"><a href="board/list.do"><span>커뮤니티</span>
-								<i class="bi bi-chevron-down toggle-dropdown"></i></a>
-							<ul>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
-							</ul></li>
-						<li><a href="#">플레이스</a></li>
-						<li><a href="#portfolio">뉴스</a></li>
-						<li><a href="#team">쇼핑몰</a></li>
-
-						<li><a href="#">문의</a></li>
-					</ul>
-					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-				</nav>
-
-			</div>
-
-		</div>
-
-	</header>
-
-
-	<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
-
-	<main class="main mt-300">
-		<!-- form으로 보내고 싶은 데이터  -->
-
-		<div class="container d-flex justify-content-end">
-			<input class="btn btn-success" type="button" value="글쓰기"
-				onclick="insert_form();">
-		</div>
-		<c:forEach var="item" items="${list}">
-			<c:if test="${item.b_cate eq 'free' }">
-				<form>
-
-					<section id="blog-posts-2" class="blog-posts-2 section">
-						<div class="container">
-							<div class="row gy-5">
-
-
-
-
-
-
-								<div class="container-fluid">
-									<article class="blog-post">
-										<div>${item.m_name }${item.b_rdate }</div>
-										<h3 class="post-title mt-1">
-											<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
-										</h3>
-										<%-- <div class="post-description">${item.b_content }</div> --%>
-
-										<div class="post-description">
-											<a href="view.do?b_idx=${item.b_idx}"> <c:out
-													value="${item.b_content}" escapeXml="false" />
-											</a>
-										</div>
-										<div class="image-container">
-											<div class="post-images">
-												<c:forEach var="image" items="${item.image_list}"
-													varStatus="status">
-													<c:if test="${status.count < 6}">
-														<div class="post-img">
-															<img src="../resources/images/${image.b_filename}" alt=""
-																class="img-thumbnail"
-																onclick="location.href='view.do?b_idx=${item.b_idx}'">
-														</div>
-													</c:if>
->>>>>>> refs/remotes/origin/CheonTk's-Branch
-												</c:forEach>
-											</div>
-										</div>
-									</article>
-								</div>
-
-							</div>
-						</div>
-					</section>
+			<div style="text-align: right; margin-bottom: 5px;">
+				<form class="form-inline">
+					<label for="search" class="form-label"></label> <select id="search"
+						class="form-control form-control-lg" value="#FADA5A">
+						<option value="all">전체보기</option>
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="title_content">제목+내용</option>
+					</select> <label for="search_text" class="form-label"></label> <input
+						id="search_text" class="form-control form-control-color"
+						value="${ param.search_text }"> <input type="button"
+						class="diary-btn-yellow-outline" value="검색" onclick="find();">
 				</form>
-			</c:if>
-		</c:forEach>
+			</div>
+		</div>
 
+		<div class="container">
+			<c:forEach var="item" items="${list}">
+
+				<c:if test="${item.b_cate eq 'free' }">
+					<form style="height: 10%;">
+						<input type="hidden" id="b_cate" name="b_cate"
+							value=${item.b_cate }>
+						<section id="blog-posts-2" class="blog-posts-2 section">
+							<div class="container">
+								<div class="row gy-5">
+									<div class="container">
+										<article class="blog-post">
+											<div>${item.m_name }${item.b_rdate }</div>
+											<h3 class="post-title mt-2">
+												<a href="view.do?b_idx=${item.b_idx}"
+													class="post-title-link">${item.b_title} </a>(${item.b_readhit })
+											</h3>
+											<%-- <div class="post-description" data-content="${item.b_content}" id="content-${item.b_idx}">${item.b_content}</div> --%>
+											<div class="row mt-0">
+												<div class="col-md-8 post-description">
+													<h5>
+														<c:out
+															value='${item.b_content.replaceAll("\\\<.*?\\\>","")}' />
+													</h5>
+
+												</div>
+
+
+												<div class="col-md-4 image-container">
+													<div class="post-images">
+															<img src="${pageContext.request.contextPath}/resources/images/${item.image_list[0].b_filename}" alt="Main Image" class="main-image">
+															<div class="overlay">
+																 <c:forEach var="image" items="${item.image_list}">
+               														 <img src="${pageContext.request.contextPath}/resources/images/${image.b_filename}" alt="Overlay Image" class="overlay-image"
+																	onclick="location.href='view.do?b_idx=${item.b_idx}'">
+																</c:forEach>
+															</div>
+
+														
+													</div>
+												</div>
+											</div>
+										</article>
+									</div>
+
+								</div>
+							</div>
+						</section>
+					</form>
+				</c:if>
+			</c:forEach>
+		</div>
 
 		<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
 
 
-
-		<!-- Pagination menu -->
-		<div class="container" style="text-align: center;">
-			<div class="pagination">${pageMenu}</div>
+		<div class="container">
+			<!-- Pagination menu -->
+			<div class="container" style="text-align: center;">
+				<div class="pagination">${pageMenu}</div>
+			</div>
 		</div>
-
 		<!--  페이지 메뉴 부트스트랩 -->
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 		<script
 			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 	</main>
 </body>
 </html>
+
+
+

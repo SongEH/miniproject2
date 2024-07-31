@@ -1,10 +1,5 @@
 package util;
 
-<<<<<<< HEAD
-=======
-import org.apache.taglibs.standard.tag.rt.sql.SetDataSourceTag;
-
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 /*
         nowPage:현재페이지
         rowTotal:전체데이터갯수
@@ -13,17 +8,7 @@ import org.apache.taglibs.standard.tag.rt.sql.SetDataSourceTag;
  */
 public class Paging {
 	
-<<<<<<< HEAD
-	public static String getPaging(String pageURL,int nowPage, int rowTotal,int blockList, int blockPage,String b_cate){
-=======
-	
-	
-	
-	
-	
-	
-public static String getPaging(String pageURL,int nowPage, int rowTotal,int blockList, int blockPage,String b_cate){
->>>>>>> refs/remotes/origin/CheonTk's-Branch
+	public static String getPaging(String pageURL,String filter, int nowPage, int rowTotal,int blockList, int blockPage,String b_cate){
 		
 		int totalPage/*전체페이지수*/,
             startPage/*시작페이지번호*/,
@@ -32,20 +17,11 @@ public static String getPaging(String pageURL,int nowPage, int rowTotal,int bloc
 		boolean  isPrevPage,isNextPage;
 		StringBuffer sb; //모든 상황을 판단하여 HTML코드를 저장할 곳
 		
-<<<<<<< HEAD
 		/*
 		 * System.out.println(pageURL); System.out.println(nowPage);
 		 * System.out.println(rowTotal); System.out.println(blockList);
 		 * System.out.println(blockPage); System.out.println(b_cate);
 		 */
-=======
-		System.out.println(pageURL);
-		System.out.println(nowPage);
-		System.out.println(rowTotal);
-		System.out.println(blockList);
-		System.out.println(blockPage);
-		System.out.println(b_cate);
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 		
 		isPrevPage=isNextPage=false;
 		//입력된 전체 자원을 통해 전체 페이지 수를 구한다..
@@ -69,14 +45,9 @@ public static String getPaging(String pageURL,int nowPage, int rowTotal,int bloc
 		//마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
 		//boolean형 변수의 값을 설정
 		if(endPage < totalPage) isNextPage = true;
-<<<<<<< HEAD
 		      // 2         2
-=======
-		
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 		//시작페이지의 값이 1보다 작으면 이전페이징 적용할 수 있도록 값설정
-		if(startPage < 1)isPrevPage = true;
-		
+		if(startPage > 1)isPrevPage = true;
 		
 		
 		//HTML코드를 저장할 StringBuffer생성=>코드생성
@@ -87,20 +58,13 @@ public static String getPaging(String pageURL,int nowPage, int rowTotal,int bloc
 		if(isPrevPage){
 			
 			sb.append(String.format("<li><a href='list.do?page=%d&b_cate=%s'>◀</a></li>", startPage-1, b_cate));
-<<<<<<< HEAD
 			/* System.out.println(startPage) */;
 			
-=======
-			System.out.println(startPage);
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 		}
 		else
 			sb.append("<li><a href='#'>◀</a></li>");
 		
-<<<<<<< HEAD
 		//`sb.append(String.format("<li><a href='list.do?page=%d&b_cate=%s'>&laquo;</a></li>", nowPage-1, b_cate));
-=======
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 //------페이지 목록 출력 -------------------------------------------------------------------------------------------------
 		
 		
@@ -119,13 +83,9 @@ public static String getPaging(String pageURL,int nowPage, int rowTotal,int bloc
 //-----그룹페이지처리 다음 ----------------------------------------------------------------------------------------------
 		//sb.append(String.format("<li><a href='list.do?page=%d&b_cate=%s'>&raquo;</a></li>", nowPage+1, b_cate));
 		if(isNextPage){
-<<<<<<< HEAD
 
 			sb.append(String.format("<li><a href='list.do?page=%d&b_cate=%s'>▶</a></li>", endPage+1, b_cate));
 			
-=======
-			sb.append(String.format("<li><a href='list.do?page=%d&b_cate=%s'>▶</a></li>", endPage+1, b_cate));
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 		}
 		else
 			sb.append("<li><a href='#'>▶</a></li>");
@@ -156,7 +116,6 @@ public static String getPaging(String pageURL,int nowPage, int rowTotal,int bloc
 		int endPage = 0;    //;/*마지막페이지번호*/
 
            
-<<<<<<< HEAD
 //		
 //		 System.out.println("nowpage===" + nowPage); //1
 //		 System.out.println("rowTotal===" + rowTotal); //15
@@ -214,62 +173,6 @@ public static String getPaging(String pageURL,int nowPage, int rowTotal,int bloc
 //		 System.out.println("isPrevPage" + isPrevPage);
 //		 System.out.println("isNextPage" + isNextPage);
 		 
-=======
-
-		System.out.println("nowpage===" + nowPage);	//1
-		System.out.println("rowTotal===" + rowTotal);	 //15
-		System.out.println("blockList===" + blockList);	 // 10
-		System.out.println("blockPage===" + blockPage);	 //5
-		
-		
-		boolean  isPrevPage,isNextPage;
-		StringBuffer sb; //모든 상황을 판단하여 HTML코드를 저장할 곳
-		
-		
-		isPrevPage=false;
-		isNextPage=false;
-		//입력된 전체 자원을 통해 전체 페이지 수를 구한다..
-		totalPage = rowTotal/blockList;   
-		if(rowTotal%blockList!=0)totalPage++;
-			
-		System.out.println("totalPage" + totalPage);
-		
-		//만약 잘못된 연산과 움직임으로 인하여 현재 페이지 수가 전체 페이지 수를
-		//넘을 경우 강제로 현재페이지 값을 전체 페이지 값으로 변경
-		if(nowPage > totalPage)nowPage = totalPage;
-		
-
-		//시작 페이지와 마지막 페이지를 구함.		
-		System.out.println(2/5);
-		startPage = ((nowPage-1)/blockPage) * blockPage + 1;
-		endPage   = startPage + blockPage - 1; //
-		
-		System.out.println("startPage======" + startPage);
-		System.out.println("endPage======"+ endPage);
-	
-		
-		//마지막 페이지 수가 전체페이지수보다 크면 마지막페이지 값을 변경
-		if(endPage > totalPage)endPage = totalPage;
-		System.out.println("endPage"+ endPage);
-		
-		//마지막페이지가 전체페이지보다 작을 경우 다음 페이징이 적용할 수 있도록
-		//boolean형 변수의 값을 설정
-		if(endPage < totalPage) isNextPage = true;
-
-		
-		System.out.println("endPage"+ endPage);
-		
-		//시작페이지의 값이 1보다 크면 이전페이징 적용할 수 있도록 값설정
-		if(startPage > 1) isPrevPage = true;
-		
-		System.out.println("startPage" + startPage);
-		
-		//HTML코드를 저장할 StringBuffer생성=>코드생성
-		sb = new StringBuffer("<ul class='pagination'>");
-		
-		System.out.println("isPrevPage" + isPrevPage);
-		System.out.println("isNextPage" + isNextPage);
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 		
 //-----그룹페이지처리 이전 ----------------		
 		if(isPrevPage == true){

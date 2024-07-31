@@ -39,10 +39,7 @@ public class MemberController {
 	@RequestMapping("login_form.do")
 	public String login_form(String url, Model model) {
 		
-<<<<<<< HEAD
 		System.out.println(url);
-=======
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 		model.addAttribute("url", url);
 		
 		return "member/member_login_form";
@@ -80,15 +77,10 @@ public class MemberController {
 		//로그인처리: 현재 로그인된 객체(user)정보를 session저장
 		session.setAttribute("user", user);
 		
-<<<<<<< HEAD
 		System.out.println(url);
 		
 		if(url.isEmpty()) {
 			return "redirect:../main.do";
-=======
-		if(url.isEmpty()) {
-			return "redirect:../board/list.do";
->>>>>>> refs/remotes/origin/CheonTk's-Branch
 		}else {
 		 	return "redirect:" + url;
 		}
