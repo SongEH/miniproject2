@@ -112,7 +112,8 @@
  											sysdate,
  											sysdate,
  											sysdate,
- 											#{m_name}
+ 											#{m_name},
+ 											null
  											)
 	</insert> 
 <!-- ************************** BOARD_INSERT ************************** -->

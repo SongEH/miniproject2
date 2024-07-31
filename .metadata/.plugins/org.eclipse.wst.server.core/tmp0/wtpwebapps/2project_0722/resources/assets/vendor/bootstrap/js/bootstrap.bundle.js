@@ -19,7 +19,6 @@
   /**
    * Constants
    */
-  
 
   const elementMap = new Map();
   const Data = {
