@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cmt">
+
+
+<!-- *********************************REPLY_INSERT_RE_RE********************************* -->
+
+<insert id="cmt_insert" parameterType="vo.ReplyVo">
+		insert into reply values(
+										seq_reply_re_idx.nextVal,
+										#{re_content},
+										sysdate,
+										if(#{cmt_cmt_idx} = 0, null, #{cmd_cmd_idx}),
+										#{b_idx},
+										#{m_idx},
+										#{m_name},
+										N
+		)
+	
+</insert>
+<!-- *********************************REPLY_INSERT_RE_RE********************************* -->
+
+
+
+<!-- *********************************REPLY_UPDATE_RE_RE********************************* -->
+	<update id="cmt_update" parameterType="vo.CommentVo">
+		update reply set  re_content=#{re_content} where re_idx=#{re_idx}
+	</update>
+<!-- *********************************REPLY_UPDATE_RE_RE********************************* -->	
+
+
+
+<!-- *********************************REPLY_DELETE_RE_RE********************************* -->	
+	<!-- 댓글 삭제 -->
+	<update id="cmt_delelte" parameterType="vo.CommentVo">
+		UPDATE comment SET
+			cmt_status=0
+		WHERE cmt_idx=#{cmt_idx}
+	</update>
+<!-- *********************************REPLY_DELETE_RE_RE********************************* -->
+	
+
+
+<!-- *********************************REPLY_LIST********************************* -->
+	<!-- 댓글 목록 조회 -->
+	<select id="cmt_list" resultType="vo.CommentVo">
+		select * from(
+		select
+			rank() over(order by cmt_idx asc) as no,
+			c.*		
+		(
+		SELECT * from cmt_db where b_idx = #{b_idx}
+													and cmt_status = 1
+													and cmt_cmt_idx is null
+													order by cmt_rdate
+		) c
+		)
+		where no between #{start} and #{end}
+	</select>
+<!-- *********************************REPLY_LIST********************************* -->
+
+
+<!-- *********************************COMMENT_REPLY_LIST********************************* -->
+<select id="cmt_reply_list">
+	select * from cmt_db where cmt_idx = #{cmt_idx}
+</select>
+<!-- *********************************COMMENT_REPLY_LIST********************************* -->
+
+
+
+
+
+
+<!-- *********************************REPLY 갯수 확인********************************* -->
+   <select id="cmt_row_total" parameterType="int"  resultType="int">
+       select nvl(count(*),0) from cmt_db where b_idx=#{ b_idx }
+   </select>
+<!--********************************* REPLY 갯수 확인*********************************-->
+
+
+
+
+
+<!-- *********************************REPLY_REPLY_LIST********************************* -->
+	<!-- 답글 목록 조회 -->
+	<select id="cmt_cmt_list" resultType="vo.CommentVo">
+		SELECT * from cmt_db where cmt_cmt_idx = #{cmt_cmt_idx}
+													and cmt_status = 1
+													order by cmt_rdate
+	</select>
+<!-- *********************************REPLY_REPLY_LIST********************************* -->
+
+
+
+
+
+
+</mapper>

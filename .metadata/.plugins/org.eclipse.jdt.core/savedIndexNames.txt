@@ -1,0 +1,24 @@
+INDEX VERSION 1.134+C:\Users\14A\Documents\GitHub\miniproject2\.metadata\.plugins\org.eclipse.jdt.core
+1950631908.index
+1198815722.index
+1865797976.index
+2488054598.index
+2916295752.index
+2258509906.index
+2533808383.index
+1411814804.index
+1379356899.index
+2734286140.index
+2779856138.index
+1020611064.index
+2353076025.index
+636288968.index
+1713103679.index
+635431083.index
+1073653212.index
+956454947.index
+65085144.index
+210151305.index
+2827883611.index
+3850318178.index
+763121035.index
