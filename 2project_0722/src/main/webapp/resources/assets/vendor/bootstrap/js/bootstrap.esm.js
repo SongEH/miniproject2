@@ -16,7 +16,6 @@ import * as Popper from '@popperjs/core';
  * Constants
  */
 
-
 const elementMap = new Map();
 const Data = {
   set(element, key, instance) {
