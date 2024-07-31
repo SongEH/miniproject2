@@ -33,9 +33,9 @@ public class MainController {
 		return"news/news_main";
 	}
 	
-	@RequestMapping("/place/place.do")
+	@RequestMapping("/location/location.do")
 	public String place() {
-		return"place/place_main";
+		return"location/location_main";
 	}
 	
 	

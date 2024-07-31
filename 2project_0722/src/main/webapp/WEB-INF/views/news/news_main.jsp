@@ -35,7 +35,7 @@
 			 
 			 //aJax요청
 			 $.ajax({
-				 url		:		"${pageContext.request.contextPath}/search.do", //KakaoSearchAction
+				 url		:		"${pageContext.request.contextPath}/searchnews.do", //KakaoSearchAction
 				 data		:		{
 					 				"query":query
 					 				},

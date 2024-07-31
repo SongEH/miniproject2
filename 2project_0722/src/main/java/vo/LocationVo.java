@@ -3,12 +3,21 @@ package vo;
 public class LocationVo {
 
 	int l_idx;
-	String l_cate;
-	String l_opentime;
-	String l_price;
-	String l_content;
-	String l_addr;
-	String l_URL;
+	String l_cate; //약국/병원/펜션
+	String l_name; //상호묭
+	String l_addr; //도로명주소
+	String l_opentime; //운영시간
+	String l_price;    // 가격
+	String l_sido;
+	String l_URL; //홈페이지url
+	
+	public String getL_sido() {
+		return l_sido;
+	}
+	public void setL_sido(String l_sido) {
+		this.l_sido = l_sido;
+	}
+	
 	
 	public int getL_idx() {
 		return l_idx;
@@ -34,12 +43,11 @@ public class LocationVo {
 	public void setL_price(String l_price) {
 		this.l_price = l_price;
 	}
-	public String getL_content() {
-		return l_content;
-	}
-	public void setL_content(String l_content) {
-		this.l_content = l_content;
-	}
+
+	/*
+	 * public String getL_content() { return l_content; } public void
+	 * setL_content(String l_content) { this.l_content = l_content; }
+	 */
 	public String getL_addr() {
 		return l_addr;
 	}
@@ -51,6 +59,12 @@ public class LocationVo {
 	}
 	public void setL_URL(String l_URL) {
 		this.l_URL = l_URL;
+	}
+	public String getL_name() {
+		return l_name;
+	}
+	public void setL_name(String l_name) {
+		this.l_name = l_name;
 	}
 	
 	

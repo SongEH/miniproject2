@@ -16,7 +16,7 @@
 
 
 <!-- 공통 css 부분 링크 -->
-<link rel="stylesheet" href="resources/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 
 
 <script type="text/javascript">
@@ -61,7 +61,7 @@ header {
 	<header class="">
 		<nav class="navbar navbar-expand-sm">
 			<div class="container-fluid">
-				<a class="navbar-brand" href=""><img src="test.png"
+				<a class="navbar-brand" href=""><img src="${pageContext.request.contextPath}/resources/assets/img/logo.png"
 					width="100px"></img>로고이미지/로고명</a>
 
 				<div class="collapse navbar-collapse" id="mynavbar">

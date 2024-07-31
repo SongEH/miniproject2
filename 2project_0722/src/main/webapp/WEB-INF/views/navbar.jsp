@@ -45,7 +45,7 @@ body {
 		<ul class="nav justify-content-center helpme">
 			<li class="nav-item catefont"><a class="nav-link" href="">다이어리</a></li>
 			<li class="nav-item catefont"><a class="nav-link" href="">커뮤니티</a></li>
-			<li class="nav-item catefont"><a class="nav-link" href="${ pageContext.request.contextPath}/place/place.do">플레이스</a></li>
+			<li class="nav-item catefont"><a class="nav-link" href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
 			<li class="nav-item catefont"><a class="nav-link" href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
 			<li class="nav-item catefont"><a class="nav-link" href="">쇼핑몰</a></li>
 

@@ -47,7 +47,7 @@
 
 
 <!-- 공통 css -->
-<link rel="stylesheet" href="resources/css/common.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css">
 
 	
 <style>

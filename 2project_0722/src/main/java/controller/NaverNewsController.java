@@ -26,7 +26,7 @@ public class NaverNewsController {
 	}
 	
 
-	@RequestMapping("/search.do")
+	@RequestMapping("/searchnews.do")
     public String getNews(@RequestParam("query") String query, Model model) {
         List<NewsItem> newsItems = NaverNewsService.searchJson(query);
         model.addAttribute("newsItems", newsItems);
