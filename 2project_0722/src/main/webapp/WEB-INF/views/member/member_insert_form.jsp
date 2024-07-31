@@ -206,7 +206,9 @@
 
 						<tr>
 							<th>닉네임</th>
-							<td><input class="form-control" name="m_nickname"></td>
+							<td><input class="form-control" name="m_nickname" id="m_nickname" onkeyup="check_nickname();">
+							<span id="nickname_msg"></span>
+							</td>
 						</tr>
 
 						<tr>
