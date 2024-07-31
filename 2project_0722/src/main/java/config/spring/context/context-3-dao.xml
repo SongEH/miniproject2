@@ -13,4 +13,33 @@
 
 	
 	<bean id="diary_dao"  class="dao.DiaryDaoImpl"  autowire="default"></bean>
+	
+	
+<!-- 	<bean id="member_dao" class="dao.MemberDaoImpl">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean> -->
+	
+  	<bean id="memberDAO" class="dao.MemberDAO">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean> 
+    
+    <bean id="petDAO" class="dao.PetDAO">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+    
+    <bean id="statisticsDAO" class="dao.StatisticsDAO">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+    
+    <bean id="board_dao" class="dao.BoardDao">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="board_images_dao" class="dao.BoardImagesDao">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="reply_dao" class="dao.ReplyDao">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
 </beans>

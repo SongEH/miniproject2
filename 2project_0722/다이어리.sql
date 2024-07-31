@@ -20,7 +20,7 @@ delete from note where o_idx = 1
 
 
  -- 테이블 + 제약조건까지 삭제 (필요시)
-drop table 태이블명  CASCADE CONSTRAINTS
+drop table member  CASCADE CONSTRAINTS
 
 
 -- 시퀀스 삭제  (필요시)
