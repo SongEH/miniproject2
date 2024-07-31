@@ -460,6 +460,7 @@ img {
 										</button>
 									</div>
 
+
 								</div>
 								<div class="card-title" name="b_title">
 									<a
