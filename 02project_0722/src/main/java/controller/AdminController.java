@@ -163,7 +163,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = "healthModify.do", method = RequestMethod.POST)
-    public String healthModify(@ModelAttribute HealthVO health, @RequestParam("h_date") String h_date, @RequestParam("h_time") String h_time, @RequestParam("h_ndate") String h_ndate) {
+    public String healthModify(@ModelAttribute HealthVO health, @RequestParam("h_rdate") String h_rdate, @RequestParam("h_time") String h_time, @RequestParam("h_ndate") String h_ndate) {
 
     	//health.setH_idx(h_idx);
     	
