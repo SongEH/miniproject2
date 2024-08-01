@@ -18,7 +18,7 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com" rel="preconnect">
-<link href="https://fonts.gstatic.com" rel="preconnect" >
+<link href="https://fonts.gstatic.com" rel="preconnect">
 <link
 	href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet">
@@ -49,7 +49,7 @@
 <!-- 공통 css -->
 <link rel="stylesheet" href="resources/css/common.css">
 
-	
+
 
 </head>
 
@@ -86,22 +86,19 @@
 </style>
 
 <script type="text/javascript">
+	function login_check() {
 
-	function login_check(){
-		
-		location.href = "${pageContext.request.contextPath}/member/login_form.do?url=" 	+ encodeURIComponent(location.href);
+		location.href = "${pageContext.request.contextPath}/member/login_form.do?url="
+				+ encodeURIComponent(location.href);
 		return;
-		
-		
-		}
-	
 
+	}
 </script>
 
 
 <body class="index-page">
-	
-<%@ include file="/WEB-INF/views/top.jsp" %>
+
+	<%@ include file="/WEB-INF/views/top.jsp"%>
 
 
 	<main class="main">
@@ -188,6 +185,8 @@
 
 		</section>
 		<!-- /Hero Section -->
+
+
 
 
 
@@ -327,39 +326,42 @@
 			</div>
 			<!-- End Section Title -->
 
+
 			<div class="container">
 
 				<div class="row gy-4">
-
-					<div class="col-xl-4 col-md-6" data-aos="fade-up"
-						data-aos-delay="100">
-						<article>
-
-							<div class="post-img">
-								<img src="resources/assets/img/blog/blog-1.jpg" alt=""
-									class="img-fluid">
-							</div>
-
-							<p class="post-category">Politics</p>
-
-							<h2 class="title">
-								<a href="blog-details.html">Dolorum optio tempore voluptas
-									dignissimos</a>
-							</h2>
-
-							<div class="d-flex align-items-center">
-								<img src="resources/assets/img/blog/blog-author.jpg" alt=""
-									class="img-fluid post-author-img flex-shrink-0">
-								<div class="post-meta">
-									<p class="post-author">Maria Doe</p>
-									<p class="post-date">
-										<time datetime="2022-01-01">Jan 1, 2022</time>
-									</p>
+					<c:forEach var="vo" items="${list}" varStatus="status">
+   					 <c:if test="${status.index < 3}">
+						<div class="col-xl-4 col-md-6" data-aos="fade-up"
+							data-aos-delay="100">
+							<article>
+								
+								
+								<div class="post-img" style="width:356px; height: 240px;">
+									<img src="${pageContext.request.contextPath}/resources/images/${image_file[0]}" alt=""
+										class="img-fluid" style="width:356px; height: 240px; object-fit:cover;">
+							
 								</div>
-							</div>
+								
+								<p class="post-category">Politics</p>
+								<h2 class="title">
+									<a href="blog-details.html">${vo.b_title }</a>
+								</h2>
+								<div class="d-flex align-items-center">
+									<img src="resources/assets/img/blog/blog-author.jpg" alt=""
+										class="img-fluid post-author-img flex-shrink-0">
+									<div class="post-meta">
+										<p class="post-author">${vo.m_name }</p>
+										<p class="post-date">
+											<time datetime="2022-01-01">${vo.b_rdate }</time>
+										</p>
+									</div>
+								</div>
 
-						</article>
-					</div>
+							</article>
+						</div>
+						</c:if>
+					</c:forEach>
 					<!-- End post list item -->
 
 					<div class="col-xl-4 col-md-6" data-aos="fade-up"
@@ -431,8 +433,6 @@
 
 		</section>
 		<!-- /Recent Posts Section -->
-
-
 
 
 
@@ -521,7 +521,7 @@
 	<!-- Preloader -->
 	<div id="preloader"></div>
 
-<!-- Vendor JS Files -->
+	<!-- Vendor JS Files -->
 	<script
 		src="resources/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="resources/assets/vendor/php-email-form/validate.js"></script>
@@ -533,11 +533,11 @@
 	<script
 		src="resources/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
 	<script
-		src="resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script> 
+		src="resources/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
 
-<!-- Main JS File -->
-<script src="resources/assets/js/main.js"></script>
+	<!-- Main JS File -->
+	<script src="resources/assets/js/main.js"></script>
 
 </body>
 

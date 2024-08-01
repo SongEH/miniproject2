@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -145,14 +146,16 @@ public class BoardController {
 				image_file.add(image.getB_filename());
 
 			}
-
+			
 		}
 		/*
 		 * b_content = board_dao.select_get_content(b_idx); b_content =
 		 * b_content.replaceAll("<[^>]*>", "");
 		 */
 		
-
+		
+		
+		
 		// Request Binding
 		model.addAttribute("list", list);
 		model.addAttribute("pageMenu", pageMenu);

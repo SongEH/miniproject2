@@ -1,3 +1,5 @@
+<%@page import="vo.BoardVo"%>
+<%@page import="java.util.List"%>
 <%@page import="java.io.Console"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -181,7 +183,7 @@ main.main {
 }
 
 .post-description {
-	width: 50%;
+	width: 100%;
 	font-size: 1em;
 	margin-top: 2px;
 	color: #555;
@@ -191,12 +193,12 @@ main.main {
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: pre-line;
-	display: -webkit-box;
+	white-space: normal;
 }
 
 .post-images {
-	width: 150px; display : flex;
+	width: 400px;
+	display: flex;
 	gap: 8px;
 	margin-bottom: 16px;
 	display: flex;
@@ -221,6 +223,7 @@ main.main {
 	font-size: 0.875em;
 	color: #999;
 }
+
 `
 .meta-top ul {
 	list-style: none;
@@ -245,45 +248,49 @@ main.main {
 }
 
 section {
-	height: 200px;
+	height: 100%;
+	border-bottom: 1px solid #FADA5A;
+	border-top: 1px solid #FADA5A;
 }
 
 /* 이미지 보여주는 CSS*/
 .image-container {
-    position: relative;
-    width: 300px; /* Adjust size as needed */
-    height: 200px; /* Adjust size as needed */
+	position: relative;
+	width: 300px; /* Adjust size as needed */
+	height: 200px; /* Adjust size as needed */
 }
 
 .main-image {
-    width: 100%;
-    height: 100%;
-    display: block;
+	width: 100%;
+	height: 100%;
+	display: block;
 }
 
 .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	/* align-items: flex-start; */
+	justify-content: flex-start; opacity : 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+	opacity: 0;
 }
 
 .overlay-image {
-    width: 20%;
-    height: 20%;
-    object-fit: cover;
-    display: block;
+	width: 50%;
+	height: 50%;
+	object-fit: cover;
+	display: block;
 }
 
 .image-container:hover .overlay {
-    opacity: 1;
-    pointer-events: auto;
+	opacity: 1;
+	pointer-events: auto;
 }
 
 #search {
@@ -490,73 +497,65 @@ section {
 					</select> <label for="search_text" class="form-label"></label> <input
 						id="search_text" class="form-control form-control-color"
 						value="${ param.search_text }"> <input type="button"
-						class="diary-btn-yellow-outline" value="검색" onclick="find();">
+						class="diary-btn-yellow" value="검색" onclick="find();">
 				</form>
 			</div>
 		</div>
 
-		<div class="container">
+
+
+
+	<%-- <%@ include file="/WEB-INF/views/board/board_list.jsp"%> --%>
+	
+		<div class="container mb-20" >
 			<c:forEach var="item" items="${list}">
-
 				<c:if test="${item.b_cate eq 'free' }">
-					<form style="height: 10%;">
+					<form style="height: 200px;">
 						<input type="hidden" id="b_cate" name="b_cate"
-							value=${item.b_cate }>
-						<section id="blog-posts-2" class="blog-posts-2 section">
-							<div class="container">
-								<div class="row gy-5">
-									<div class="container">
-										<article class="blog-post">
-											<div>${item.m_name }${item.b_rdate }</div>
-											<h3 class="post-title mt-2">
-												<a href="view.do?b_idx=${item.b_idx}"
-													class="post-title-link">${item.b_title} </a>(${item.b_readhit })
-											</h3>
-											<%-- <div class="post-description" data-content="${item.b_content}" id="content-${item.b_idx}">${item.b_content}</div> --%>
-											<div class="row mt-0">
-												<div class="col-md-8 post-description">
-													<h5>
-														<c:out
-															value='${item.b_content.replaceAll("\\\<.*?\\\>","")}' />
-													</h5>
+							value="${item.b_cate}">
 
-												</div>
-
-
-												<div class="col-md-4 image-container">
-													<div class="post-images">
-															<img src="${pageContext.request.contextPath}/resources/images/${item.image_list[0].b_filename}" alt="Main Image" class="main-image">
-															<div class="overlay">
-																 <c:forEach var="image" items="${item.image_list}">
-               														 <img src="${pageContext.request.contextPath}/resources/images/${image.b_filename}" alt="Overlay Image" class="overlay-image"
-																	onclick="location.href='view.do?b_idx=${item.b_idx}'">
-																</c:forEach>
-															</div>
-
-														
-													</div>
-												</div>
-											</div>
-										</article>
+						<section id="blog-posts-2" class="blog-posts-2 section"
+							style="padding: 5px;">
+							<div>${item.m_name}${item.b_rdate}</div>
+							<div class="col-md-8" style="margin-top: 30px;">
+								<h3 class="post-title mt-2">
+									<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
+									(${item.b_readhit})
+								</h3>
+								<h5 class="post-description">
+									<c:out value="${item.b_content.replaceAll('<[^>]*>', '')}" />
+								</h5>
+							</div>
+							<div class="col-md-4 image-container">
+								<div class="post-images">
+									<img
+										src="${pageContext.request.contextPath}/resources/images/${item.image_list[0].b_filename}"
+										alt="Main Image" class="main-image img-thumbnail">
+									<div class="overlay">
+										<c:forEach var="image" items="${item.image_list}">
+											<img
+												src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
+												alt="Overlay Image" class="overlay-image img-thumbnail"
+												onclick="location.href='view.do?b_idx=${item.b_idx}'">
+										</c:forEach>
 									</div>
-
 								</div>
 							</div>
 						</section>
 					</form>
 				</c:if>
 			</c:forEach>
-		</div>
+		</div> 
+		
 
 		<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
 
-
-		<div class="container">
+		<!-- <div> -->
 			<!-- Pagination menu -->
-			<div class="container" style="text-align: center;">
-				<div class="pagination">${pageMenu}</div>
-			</div>
-		</div>
+			<!-- <div class="container" style="text-align: center;"> -->
+				<div class="pagination" style="margin-top: 10px;">${pageMenu}</div>
+			<!-- </div> -->
+		<!-- </div> -->
 		<!--  페이지 메뉴 부트스트랩 -->
 		<script
 			src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

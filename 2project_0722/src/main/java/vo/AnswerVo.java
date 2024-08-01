@@ -13,7 +13,14 @@ public class AnswerVo {
 	String b_rdate;
 	String b_cate;
 	String b_content;
+	String b_udate;
 	
+	public String getB_udate() {
+		return b_udate;
+	}
+	public void setB_udate(String b_udate) {
+		this.b_udate = b_udate;
+	}
 	public String getB_content() {
 		return b_content;
 	}

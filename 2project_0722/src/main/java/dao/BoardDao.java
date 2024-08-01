@@ -107,6 +107,16 @@ public class BoardDao {
 	}
 
 
+	public List<BoardVo> selectList(String b_cate) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("board.board_select_main", b_cate);
+	}
+
+
+
+
+
+
 	
 
 

@@ -254,10 +254,23 @@
 							where b_idx = #{b_idx}
 	</update>
 
-
-
-
 <!-- ************************** BOARD_DELETE  ***************************** -->
+
+<select id="board_check_a_idx" parameterType="int" resultType="int">
+		select a_idx from board where b_idx = #{b_idx}
+</select>
+
+<!-- BOARD_CHECK_A_IDX -->
+
+
+
+<!-- BOARD_MAIN -->
+
+<select id="board_select_main" parameterType="int" resultType="vo.BoardVo">
+	select * from board where b_cate = #{b_cate}
+</select>
+
+<!-- BOARD_MAIN -->
 
 </mapper>
 

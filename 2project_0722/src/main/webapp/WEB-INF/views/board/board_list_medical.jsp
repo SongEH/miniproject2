@@ -307,6 +307,129 @@ img {
 	object-fit: cover;
 	margin: auto;
 }
+
+#search {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	/* padding: 15px 30px; */
+	border-radius: 15px;
+	text-decoration: none;
+	/* font-weight: 600;  */
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+#search:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+#search:active {
+	transform: scale(0.9);
+}
+
+#search_text {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+#search_text:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+#search_text:active {
+	transform: scale(0.9);
+}
+</style>
+
+
+<!-- 메인 버튼 스타일 Design by_JH -->
+<style>
+/*  diary-btn-yellow  */
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-yellow-outline  */
+.diary-btn-yellow-outline {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-gray-outline  */
+.diary-btn-gray-outline {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-gray-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-gray-outline:active {
+	transform: scale(0.9);
+}
+
+/*  마우스 오버시 모양 바꿈  */
+
+ .card-title a {
+    cursor: pointer; /* This will change the cursor to a hand icon */
+  }
 </style>
 
 
@@ -397,23 +520,27 @@ img {
 
 	<main class="main">
 
-		<div class="container d-flex justify-content-end">
-			<input class="btn btn-success" type="button" value="글쓰기"
-				onclick="insert_form();">
+		<div class="container">
+			<div style="text-align: right; margin-bottom: 5px;">
+				<input class="diary-btn-yellow" type="button" value="글쓰기"
+					onclick="insert_form();">
+			</div>
+			<div style="text-align: right; margin-bottom: 5px;">
+				<form class="form-inline">
+					<label for="search" class="form-label"></label> <select id="search"
+						class="form-control form-control-lg" value="#FADA5A">
+						<option value="all">전체보기</option>
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="title_content">제목+내용</option>
+					</select> <label for="search_text" class="form-label"></label> <input
+						id="search_text" class="form-control form-control-color"
+						value="${ param.search_text }"> <input type="button"
+						class="diary-btn-yellow" value="검색" onclick="find();">
+				</form>
+			</div>
 		</div>
 
-		<div style="text-align: right; margin-bottom: 5px;">
-			<form class="form-inline">
-				<select id="search" class="form-control">
-					<option value="all">전체보기</option>
-					<option value="title">제목</option>
-					<option value="content">내용</option>
-					<option value="title_content">제목+내용</option>
-				</select> <input id="search_text" class="form-control"
-					value="${ param.search_text }"> <input type="button"
-					class="btn btn-primary" value="검색" onclick="find();">
-			</form>
-		</div>
 
 
 
@@ -426,47 +553,35 @@ img {
 						<div class="card equal-card">
 							<div class="card-body">
 								<div class="gallery">
-									<div id="carouselExampleIndicators" class="carousel slide"
-										data-bs-ride="carousel">
+									<div id="carousel_${item.b_idx}" class="carousel slide">
 
+										
 										<div class="carousel-inner">
-
 											<c:forEach var="image" items="${item.image_list }"
 												varStatus="status">
-												<%-- <div class="gallery-item">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
-												alt="Image" class="gallery-image"
-												onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">
-										</div> --%>
 												<div class="carousel-item ${status.first ? 'active' : ''}">
 													<img
 														src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
-														class="d-block w-100" alt="...">
+														class="d-block w-100" alt="..." onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'" style="cursor: pointer;" >
 												</div>
 											</c:forEach>
 										</div>
 										<button class="carousel-control-prev" type="button"
-											data-bs-target="#carouselExampleIndicators"
-											data-bs-slide="prev">
+											data-bs-target="#carousel_${item.b_idx}" data-bs-slide="prev">
 											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 											<span class="visually-hidden">Previous</span>
 										</button>
 										<button class="carousel-control-next" type="button"
-											data-bs-target="#carouselExampleIndicators"
-											data-bs-slide="next">
+											data-bs-target="#carousel_${item.b_idx}" data-bs-slide="next">
 											<span class="carousel-control-next-icon" aria-hidden="true"></span>
 											<span class="visually-hidden">Next</span>
 										</button>
 									</div>
-
-
 								</div>
 								<div class="card-title" name="b_title">
-									<a
-										onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">${item.b_title}</a>
+									<a  onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">${item.b_title}</a>
 								</div>
-								<div class="card-text" name="b_content">${item.b_content}</div>
+								<%-- <div class="card-text" name="b_content">${item.b_content}</div> --%>
 
 
 							</div>

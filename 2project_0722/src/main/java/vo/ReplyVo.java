@@ -5,12 +5,25 @@ public class ReplyVo {
 	int re_idx;
 	int b_idx;
 	int m_idx;
+	int re_depth;
 	
 	String re_content;
 	String re_rdate;
 	String m_name;
+	String b_title;
 	
-	
+	public int getRe_depth() {
+		return re_depth;
+	}
+	public void setRe_depth(int re_depth) {
+		this.re_depth = re_depth;
+	}
+	public String getB_title() {
+		return b_title;
+	}
+	public void setB_title(String b_title) {
+		this.b_title = b_title;
+	}
 	public int getRe_idx() {
 		return re_idx;
 	}

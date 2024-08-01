@@ -4,34 +4,36 @@
 
 <%
 String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
-System.out.print(ctx);
+
 %>
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>반려동물종합관리플랫폼</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
+<title>반려동물종합관리플랫폼</title>
 
 
+<!-- SmartEditor를 사용하기 위해서 다음 js파일을 추가 (경로 확인) -->
+<%-- <script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/smarteditor2/js/HuskyEZCreator.js"
+	charset="utf-8"></script> --%>
 
 
 <!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 <!-- Favicons -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
@@ -119,8 +121,6 @@ input {
 }
 </style>
 
-</head>
-
 <!--  부트스트랩 스타일 수정  -->
 <style>
 .accent-background {
@@ -192,22 +192,20 @@ article p {
 /* 이미지 영역 CSS */
 .post-images {
 	display: flex;
-	gap: 8px;
-	margin-bottom: 16px;
+	flex-wrap: wrap;
+	gap: 2px; /* 이미지 간의 간격을 조정합니다 */
 }
 
 .post-img {
-	flex: 1;
-	width: 100%; /* Fixed width for the square */
-	height: auto; /* Fixed height for the square */
-	overflow: hidden;
+	flex: 0 0 calc(25% - 10px); /* 3개 열을 기준으로 각각의 이미지의 너비를 설정합니다. */
+	box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기를 계산합니다. */
 }
 
 .post-img img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover; /* Ensure images cover the entire area */
+	width: 300px;
+	height: 300px;
 	display: block;
+	object-fit: cover;
 }
 
 /*  댓글영역 CSS  */
@@ -220,6 +218,86 @@ article p {
 	margin-top: 30px;
 }
 </style>
+
+
+<!-- 메인 버튼 스타일 Design by_JH -->
+<style type="text/css">
+/*  diary-btn-yellow  */
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-yellow-outline */ 
+.diary-btn-yellow-outline {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-gray-outline  */
+.diary-btn-gray-outline {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-gray-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-gray-outline:active {
+	transform: scale(0.9);
+}
+
+</style>
+
+
+
+
+
+
 
 <!-- ------------------------삭제버튼 클릭 시 동작-------------------------  -->
 <script type="text/javascript">
@@ -241,7 +319,7 @@ article p {
 <script type="text/javascript">
 	/* ------------------------ANSWER_INSERT----------------------------------- */
 	function save_answer() {
-
+	alert("여기도착2")
 		if ("${ empty user }" == "true") {
 
 			if (confirm("의학전문가 아이디로 로그인후 댓글쓰기가 가능합니다\n로그인 하시겠습니까?") == false)
@@ -252,10 +330,10 @@ article p {
 
 			return;
 		}
-		
+
 		let a_content = $("#a_content").val();
 		alert(a_content)
-		
+
 		if (a_content == "") {
 			alert("댓글내용을 입력하세요!!");
 			$("#a_content").val("");
@@ -298,7 +376,7 @@ article p {
 
 	//댓글목록 요청
 	function answer_list() {
-		
+
 		$.ajax({
 
 			url : "../answer/list.do",
@@ -403,28 +481,76 @@ article p {
 	}//end:reply_list()	
 
 	/* ------------------------REPLY_LIST----------------------------------- */
+</script>
 
+<script type="text/javascript">
+
+	
 	//초기화 : 시작시
 	$(document).ready(function() {
-
+		
 		//현재 게시물에 달린 댓글목록 출력
 		reply_list(1);
 		answer_list();
-
+		
+		
 	});
 </script>
-<!-- ------------------------댓글 작성 ------------------------------------  -->
 
+ <!-- <script type="text/javascript">
+	var oEditors = [];
+	$(function() {
+		nhn.husky.EZCreator
+				.createInIFrame({
+					oAppRef : oEditors,
+					elPlaceHolder : "a_content", //textarea에서 지정한 id와 일치해야 합니다. 
+					//SmartEditor2Skin.html 파일이 존재하는 경로
+					sSkinURI : "${pageContext.request.contextPath}/resources/smarteditor2/SmartEditor2Skin.html",
+					htParams : {
+						// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseToolbar : true,
+						// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseVerticalResizer : true,
+						// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+						bUseModeChanger : true,
+						fOnBeforeUnload : function() {
 
+						}
+					},
+					fOnAppLoad : function() {
+						//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
+						/* oEditors.getById["ir1"].exec("PASTE_HTML", ["기존 DB에 저장된 내용을 에디터에 적용할 문구"]); */
+						oEditors.getById["a_content"].exec();
+					},
+					fCreator : "createSEditor2"
+				});
+
+		/* //저장버튼 클릭시 form 전송
+		$("#save").click(function() {
+			oEditors.getById["a_content"].exec("UPDATE_CONTENTS_FIELD", []);
+			$("#frm").submit();
+		});
+ */
+		/* function save(f){
+			
+			oEditors.getById["b_content"].exec("UPDATE_CONTENTS_FIELD", []);
+			
+			f.action = "insert.do";
+			f.submit();
+		} */
+
+	});
+</script>  -->
+</head>
 <body class="index-page">
-	
-	<%@ include file="/WEB-INF/views/top.jsp" %>
+
+	<%@ include file="/WEB-INF/views/top.jsp"%>
 	<!-- ---------------------------------------본문내용-------------------------------------------------------  -->
 	<main class="main mt-300">
 		<form method="post" enctype="multipart/form-data">
 
 			<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
-			<input type="hidden" name="b_idx" value="${vo.b_idx }">  <input
+			<input type="hidden" name="b_idx" value="${vo.b_idx }"> <input
 				type="hidden" name="m_name" value="${vo.m_name }"> <input
 				type="hidden" name="b_rdate" value="${vo.b_rdate }">
 			<!-- 데이터 디스플레이는 하지 않고 넘기려는 데이터  -->
@@ -474,40 +600,62 @@ article p {
 				</div>
 			</div>
 
-
-
 			<!-- ------------------------------답변 공간  ---------------------------------------- -->
 
-			<div class="container">
-				<div id="answer_display"></div>
-			</div>
+		</form>
+		<div class="container" style="margin-top: 40px; text-align: center;">
+			<div id="answer_display"></div>
+		</div>
 
 
+		<div class="container">
 
 			<%-- <c:if test="${user.grade eq 'medical'}"> --%>
+			<button class="btn btn-primary" data-bs-toggle="collapse"
+				data-bs-target="#answer_togle">답변하기</button>
+			<div id="answer_togle" class="collapse">
+				<table class="table">
+					<tr>
+						<td style="width: 10%; vertical-align: middle;">내용</td>
+						<td>
+						<textarea rows="10" cols="30" id="a_content" name="a_content" 
+						style="width: 80%; heigth:auto;" placeholder="내용을 입력해주세요"></textarea>
+					</tr>
+					<tr>
+						<td style="vertical-align: middle;">사진</td>
+						<td style="display: flex; justify-content: center; align-items: center;">
+							<label for="diary-btn-yellow" class="diary-btn-yellow">upload</label>
+							
+							<input id="diary-btn-yellow" name="photo" type="file" multiple="multiple" style="display: none;"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="display: flex; justify-content: center; align-items: center;">
+						<input type="button" class="diary-btn-yellow-outline"
+							id="save" value="답변 등록" onclick="save_answer();" /> &nbsp;&nbsp;&nbsp;<input
+							type="button" class="diary-btn-gray-outline" value="취소" /></td>
+					</tr>
+				</table>
 
-			<div class="container" class="answer">
-				<div class="row">
-					<div class="col-md-10">
-						<textarea rows="8" cols="30" id="a_content" name="a_content"
-							style="width: 100%; height: 300px;"></textarea>
-					</div>
-					<div class="col-md-2"
-						style="display: flex; justify-content: center; align-items: center; height: 300px;">
-						<input type="button" value="답변 등록" onclick="save_answer();">
-					</div>
 
-
-					<div>
-						<input name="photo" type="file" multiple="multiple">
+				<!-- <div class="container answer mt-3">
+					<div class="row">
+						<div class="col-md-10">
+							<textarea rows="8" cols="30" id="a_content" name="a_content"
+								style="width: 100%; height: 300px;"></textarea>
+						</div>
+						<div class="col-md-2"
+							style="display: flex; justify-content: center; align-items: center; height: 300px;">
+							<input type="button" value="답변 등록" onclick="save_answer();">
+						</div>
+						<div>
+							<input name="photo" type="file" multiple="multiple">
+						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
-			<%-- </c:if> --%>
-		</form>
-
-
-
+		</div>
+		<%-- </c:if> --%>
 		<!-- ----------------답변 공간 -------------------------------------->
 
 
@@ -520,7 +668,6 @@ article p {
 			<div class="row">
 				<div class="col-sm-10">
 					<textarea rows="3" id="re_content" name="re_content"
-						
 						placeholder="로그인후에 댓글쓰기가 가능합니다"></textarea>
 				</div>
 				<div class="col-sm-2">
@@ -532,7 +679,7 @@ article p {
 		<!-- ----------------댓글 작성 폼 공간-------------------------------------->
 
 		<!-- ----------------댓글 디스플레이 공간-------------------------------------->
-		
+
 		<div class="container">
 			<div id="reply_display"></div>
 		</div>

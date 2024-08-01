@@ -166,7 +166,7 @@ select {
 				enctype="multipart/form-data">
 				<table class="table" width="100%">
 					<tr>
-						<td>제목</td>
+						<td style="width:10%">제목</td>
 						<td>
 							<input type="text" id="title" name="b_title" style="width: 100%" placeholder="제목을 입력하세요"/></td>
 					</tr>
@@ -187,8 +187,8 @@ select {
 					<tr>
 						<td>사진</td>
 						<td>
-						<label for="diary-btn-yellow-outline" class="diary-btn-yellow-outline">사진</label>
-						<input id="diary-btn-yellow-outline" name="photo" type="file" multiple="multiple" style="display:none;">
+						<label for="diary-btn-yellow" class="diary-btn-yellow">사진</label>
+						<input id="diary-btn-yellow" name="photo" type="file" multiple="multiple" style="display:none;">
 						</td>
 					</tr>
 
@@ -196,7 +196,7 @@ select {
 					<tr style="border-bottom: none;">
 						<td>
 						<td>
-							<input type="submit" class="diary-btn-yellow"id="save" value="저장" onclick="save(this.form);" /> 
+							<input type="submit" class="diary-btn-yellow-outline"id="save" value="저장" onclick="save(this.form);" /> 
 							<input type="button" class="diary-btn-gray-outline" value="취소" />
 						</td>
 						</td>
