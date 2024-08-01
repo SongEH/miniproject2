@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../top.jsp" %>
-<%@ include file="../admin/topMenu.jsp" %>
+<%@ include file="topForAdmin.jsp" %>
+<%@ include file="topMenu.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn" %>
@@ -27,7 +27,7 @@
     
     <script>
         $(function() {
-            $("#h_date").datepicker({
+            $("#h_rdate").datepicker({
                 dateFormat: "yy-mm-dd"
             });
             $("#h_time").timepicker({
@@ -72,8 +72,8 @@
 	                </select>
 	            </div>
                 <div class="mb-4">
-                    <label for="h_date" class="block text-gray-700 font-bold mb-2">진료 날짜</label>
-                    <input type="text" id="h_date" name="h_date" value="${formattedHdate}" class="w-full p-2 border border-gray-300 rounded">
+                    <label for="h_rdate" class="block text-gray-700 font-bold mb-2">진료 날짜</label>
+                    <input type="text" id="h_rdate" name="h_rdate" value="${formattedHdate}" class="w-full p-2 border border-gray-300 rounded">
                 </div>
                 <div class="mb-4">
                     <label for="h_time" class="block text-gray-700 font-bold mb-2">진료 시간 (HH:mm)</label>
@@ -106,7 +106,7 @@
         $(document).ready(function() {
             const formattedHdate = "${formattedHdate}";
             if (formattedHdate) {
-                $("#h_date").val(formattedHdate.substring(0, 10)); // 날짜만 표시 (yyyy-mm-dd)
+                $("#h_rdate").val(formattedHdate.substring(0, 10)); // 날짜만 표시 (yyyy-mm-dd)
             }
         });
         $(document).ready(function() {
