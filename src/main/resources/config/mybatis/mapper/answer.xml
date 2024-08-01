@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="answer">
+
+<!-- ************************** ANSWER_LIST  ***************************** -->
+<select id="answer_list" resultType="vo.AnswerVo">
+	select * from answer where b_idx = #{b_idx}
+</select>
+<!-- ************************** ANSWER_LIST  ***************************** -->
+
+
+
+<!-- ************************** ANSWER_LIST_ONE  ***************************** 
+<select id="answer_list_one" parameterType="int"  resultType="vo.AnswerVo">
+	select * from answer where a_idx = #{a_idx}
+</select>
+ ************************** ANSWER_LIST_ONE  ***************************** -->
+
+
+
+
+<!-- ************************** ANSWER_LIST_ONE  ***************************** -->
+<select id="answer_list_one" parameterType="int"  resultType="vo.AnswerVo">
+	select a.*, b.* 
+	from answer a 
+	join board b 
+	on a.b_idx = b.b_idx and a.m_idx = b.m_idx
+	where a_idx = #{a_idx}
+</select>
+<!-- ************************** ANSWER_LIST_ONE  ***************************** -->
+
+
+
+
+
+<!-- ************************** ANSWER_INSERT  ***************************** -->
+<insert id="answer_insert" parameterType="vo.AnswerVo">
+	insert into answer values(seq_answer_a_idx.nextVal,
+ 											#{b_idx},
+ 											#{m_idx},
+ 											#{a_content},
+ 											sysdate,
+ 											null,
+ 											#{m_name}
+ 											)
+
+</insert>
+<!-- ************************** ANSWER_INSERT  ***************************** -->
+
+
+
+
+<!-- ************************** ANSWER_UPDATE  ***************************** -->
+
+<update id="answer_update" parameterType="vo.AnswerVo">
+		update answer set a_content = #{a_content} where a_idx = #{a_idx}
+</update>
+
+
+
+<!-- ************************** ANSWER_UPDATE  ***************************** -->
+
+
+
+
+
+
+
+
+<!-- ************************** ANSWER_DELETE  ***************************** -->
+<delete id="answer_delete" parameterType="int">
+		delete from answer where a_idx = #{a_idx}
+</delete>
+<!-- ************************** ANSWER_DELETE  ***************************** -->
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

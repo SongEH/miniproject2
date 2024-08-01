@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="health">
+    <select id="getAllHealthRecords" resultType="vo.HealthVO">
+        SELECT * FROM HealthView
+    </select>
+
+    <select id="getHealthById" parameterType="int" resultType="vo.HealthVO">
+        SELECT * FROM HealthView WHERE h_idx = #{h_idx}
+    </select>
+
+    <insert id="insertHealthRecord" parameterType="vo.HealthVO">
+        INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
+        VALUES (#{h_idx}, #{m_idx}, #{p_idx}, #{h_type}, #{h_rdate}, #{h_time}, #{h_cost}, #{h_content}, #{h_hname}, #{h_ndate})
+    </insert>
+
+    <update id="updateHealthRecord" parameterType="vo.HealthVO">
+        UPDATE Health
+        SET h_type = #{h_type},
+            h_rdate = #{h_rdate},
+            h_time = #{h_time},
+            h_cost = #{h_cost},
+            h_content = #{h_content},
+            h_hname = #{h_hname},
+            h_ndate = #{h_ndate}
+        WHERE h_idx = #{h_idx}
+    </update>
+
+    <delete id="deleteHealthRecord" parameterType="int">
+        DELETE FROM Health WHERE h_idx = #{h_idx}
+    </delete>
+    
+    <select id="getHealthRecordsWithPaging" resultType="vo.HealthVO">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate, 
+                   m_name, pet_name, ROWNUM RNUM 
+            FROM (
+                SELECT h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate, 
+                       m_name, pet_name
+                FROM HealthView
+                WHERE LOWER(h_type) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                OR LOWER(h_content) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                ORDER BY h_idx
+            ) A WHERE ROWNUM <= #{offset} + #{limit}
+        ) WHERE RNUM > #{offset}
+        ]]>
+    </select>
+
+    <select id="getHealthRecordCount" resultType="int">
+        SELECT COUNT(*)
+        FROM HealthView
+        WHERE LOWER(h_type) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+        OR LOWER(h_content) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+    </select>
+    
+	<select id="getHealthRecordById" parameterType="int" resultType="vo.HealthVO">
+        SELECT h.h_idx, h.m_idx, h.p_idx, h.h_type, h.h_rdate, h.h_time, h.h_cost, h.h_content, h.h_hname, h.h_ndate, 
+               h.m_name, h.pet_name
+        FROM HealthView h
+        WHERE h.h_idx = #{h_idx}
+    </select>
+</mapper>
