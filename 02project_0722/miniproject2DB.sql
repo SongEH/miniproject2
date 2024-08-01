@@ -194,7 +194,7 @@ CREATE TABLE Health (
     m_idx INT NOT NULL,
     p_idx INT NOT NULL,
     h_type VARCHAR2(50) NOT NULL,
-    h_date DATE NOT NULL,
+    h_rdate DATE NOT NULL,
     h_time DATE NOT NULL,
     h_cost NUMBER(10, 2) NOT NULL,
     h_content VARCHAR2(50) NOT NULL,
@@ -219,7 +219,7 @@ SELECT
     h.p_idx, 
     p.p_name AS pet_name, 
     h.h_type, 
-    h.h_date, 
+    h.h_rdate, 
     h.h_time, 
     h.h_cost, 
     h.h_content, 
@@ -233,34 +233,34 @@ JOIN
     Pet p ON h.p_idx = p.p_idx;
 
 -- 예제 데이터 추가
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 1, 1, '진료', TO_DATE('2024-07-01', 'YYYY-MM-DD'), TO_DATE('10:00:00', 'HH24:MI:SS'), 100.00, '기본 진료', '서울병원', TO_DATE('2024-07-15', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 2, 2, '검진', TO_DATE('2024-07-02', 'YYYY-MM-DD'), TO_DATE('11:00:00', 'HH24:MI:SS'), 200.00, '정기 검진', '강남병원', TO_DATE('2024-07-16', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 3, 3, '치료', TO_DATE('2024-07-03', 'YYYY-MM-DD'), TO_DATE('12:00:00', 'HH24:MI:SS'), 300.00, '치료 방문', '연세병원', TO_DATE('2024-07-17', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 4, 4, '수술', TO_DATE('2024-07-04', 'YYYY-MM-DD'), TO_DATE('13:00:00', 'HH24:MI:SS'), 400.00, '수술 예약', '삼성병원', TO_DATE('2024-07-18', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 5, 5, '상담', TO_DATE('2024-07-05', 'YYYY-MM-DD'), TO_DATE('14:00:00', 'HH24:MI:SS'), 500.00, '건강 상담', '서울병원', TO_DATE('2024-07-19', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 1, 6, '진료', TO_DATE('2024-07-06', 'YYYY-MM-DD'), TO_DATE('15:00:00', 'HH24:MI:SS'), 600.00, '기본 진료', '강남병원', TO_DATE('2024-07-20', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 2, 7, '검진', TO_DATE('2024-07-07', 'YYYY-MM-DD'), TO_DATE('16:00:00', 'HH24:MI:SS'), 700.00, '정기 검진', '연세병원', TO_DATE('2024-07-21', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 3, 8, '치료', TO_DATE('2024-07-08', 'YYYY-MM-DD'), TO_DATE('17:00:00', 'HH24:MI:SS'), 800.00, '치료 방문', '삼성병원', TO_DATE('2024-07-22', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 4, 9, '수술', TO_DATE('2024-07-09', 'YYYY-MM-DD'), TO_DATE('18:00:00', 'HH24:MI:SS'), 900.00, '수술 예약', '서울병원', TO_DATE('2024-07-23', 'YYYY-MM-DD'));
 
-INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_date, h_time, h_cost, h_content, h_hname, h_ndate)
+INSERT INTO Health (h_idx, m_idx, p_idx, h_type, h_rdate, h_time, h_cost, h_content, h_hname, h_ndate)
 VALUES (seq_h_idx.NEXTVAL, 5, 10, '상담', TO_DATE('2024-07-10', 'YYYY-MM-DD'), TO_DATE('19:00:00', 'HH24:MI:SS'), 1000.00, '건강 상담', '강남병원', TO_DATE('2024-07-24', 'YYYY-MM-DD'));
 
 
