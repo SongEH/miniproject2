@@ -183,22 +183,21 @@ article p {
 /* 이미지 영역 CSS */
 .post-images {
 	display: flex;
-	gap: 8px;
-	margin-bottom: 16px;
+	flex-wrap: wrap;
+	gap: 2px; /* 이미지 간의 간격을 조정합니다 */
+}
 }
 
 .post-img {
-	flex: 1;
-	width: 100%; /* Fixed width for the square */
-	height: auto; /* Fixed height for the square */
-	overflow: hidden;
+	flex: 0 0 calc(25% - 10px); /* 3개 열을 기준으로 각각의 이미지의 너비를 설정합니다. */
+	box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기를 계산합니다. */
 }
 
 .post-img img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover; /* Ensure images cover the entire area */
+	width: 300px;
+	height: 300px;
 	display: block;
+	object-fit: cover;
 }
 
 
@@ -331,6 +330,7 @@ article p {
 
 
 <body class="index-page">
+
 	<%@ include file="/WEB-INF/views/top.jsp"%>
 <!-- ---------------------------------------본문내용-------------------------------------------------------  -->
 	<main class="main mt-300">

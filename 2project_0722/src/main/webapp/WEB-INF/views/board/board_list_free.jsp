@@ -20,21 +20,19 @@ pageContext.setAttribute("replaceChar", "\n");
 <title>반려동물종합관리플랫폼</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
-<!-- bootstrap -->
+ <!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 <!-- Favicons -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
@@ -163,6 +161,12 @@ main.main {
 	display: flex;
 }
 
+.container{
+
+	width: 80%:
+	
+}
+
 /* 블로그 글 CSS */
 .blog-post {
 	border: 1px solid #ddd;
@@ -175,16 +179,17 @@ main.main {
 	font-size: 1.5em;
 	margin-bottom: 8px;
 	color: #ff69b4;
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
 .post-title-link {
 	text-decoration: none;
-	color: inherit;
+	 color: black; 
 }
 
 .post-description {
 	width: 100%;
-	font-size: 1em;
+	font-size: 14px;
 	margin-top: 2px;
 	color: #555;
 	display: inline-block;
@@ -194,6 +199,12 @@ main.main {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: normal;
+	line-height: 2;
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+.inline{
+
+	text-align: right;
 }
 
 .post-images {
@@ -207,7 +218,7 @@ main.main {
 .post-img {
 	flex: 1;
 	width: 400px;
-	height: 200px;
+	height: 150px;
 	overflow: hidden;
 	object-fit: cover;
 }
@@ -237,8 +248,8 @@ main.main {
 
 .img-thumbnail {
 	cursor: pointer;
-	width: 300px;
-	height: 150px;
+	width: 100%;
+	height: 100%;
 }
 
 /* 페이지 메뉴 CSS  */
@@ -257,12 +268,12 @@ section {
 .image-container {
 	position: relative;
 	width: 300px; /* Adjust size as needed */
-	height: 200px; /* Adjust size as needed */
+	height: 150px; /* Adjust size as needed */
 }
 
 .main-image {
-	width: 100%;
-	height: 100%;
+	width: 250px;
+	height: 150px;
 	display: block;
 }
 
@@ -294,6 +305,7 @@ section {
 }
 
 #search {
+	text-align:right;
 	background-color: white;
 	border: 3px solid #FADA5A;
 	position: relative;
@@ -409,6 +421,15 @@ section {
 .diary-btn-gray-outline:active {
 	transform: scale(0.9);
 }
+
+
+/* 글자 */
+.blog-posts-2{
+
+	font-size: 12px;
+
+}
+
 </style>
 <!-- 메인 버튼 스타일 Design by_JH -->
 
@@ -475,8 +496,9 @@ section {
 
 <body class="index-page">
 
-	<%@ include file="/WEB-INF/views/top.jsp"%>
-
+<div class="container-fluid">
+<%@ include file="/WEB-INF/views/top.jsp"%>
+</div>
 	<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
 
 	<main class="main mt-300">
@@ -487,17 +509,19 @@ section {
 					onclick="insert_form();">
 			</div>
 			<div style="text-align: right; margin-bottom: 5px;">
-				<form class="form-inline">
-					<label for="search" class="form-label"></label> <select id="search"
+				<form class="form-inline inline">
+					<label for="search" class="form-label"></label> 
+					<select id="search"
 						class="form-control form-control-lg" value="#FADA5A">
 						<option value="all">전체보기</option>
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 						<option value="title_content">제목+내용</option>
-					</select> <label for="search_text" class="form-label"></label> <input
-						id="search_text" class="form-control form-control-color"
-						value="${ param.search_text }"> <input type="button"
-						class="diary-btn-yellow" value="검색" onclick="find();">
+					</select> <label for="search_text" class="form-label">
+					</label> 
+					<input	id="search_text" class="form-control form-control-color"
+						value="${ param.search_text }"> 
+					<input type="button" class="diary-btn-yellow" value="검색" onclick="find();">
 				</form>
 			</div>
 		</div>
@@ -510,15 +534,15 @@ section {
 		<div class="container mb-20" >
 			<c:forEach var="item" items="${list}">
 				<c:if test="${item.b_cate eq 'free' }">
-					<form style="height: 200px;">
+					<form style="height: 200px; margin-top: 30px;">
 						<input type="hidden" id="b_cate" name="b_cate"
 							value="${item.b_cate}">
 
 						<section id="blog-posts-2" class="blog-posts-2 section"
-							style="padding: 5px;">
-							<div>${item.m_name}${item.b_rdate}</div>
+							style="padding: 3px;">
+							<div>${item.m_name}&nbsp;&nbsp;&nbsp;  (${item.b_rdate})</div>
 							<div class="col-md-8" style="margin-top: 30px;">
-								<h3 class="post-title mt-2">
+								<h3 class="post-title mt-1">
 									<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
 									(${item.b_readhit})
 								</h3>
@@ -527,19 +551,9 @@ section {
 								</h5>
 							</div>
 							<div class="col-md-4 image-container">
-								<div class="post-images">
 									<img
 										src="${pageContext.request.contextPath}/resources/images/${item.image_list[0].b_filename}"
 										alt="Main Image" class="main-image img-thumbnail">
-									<div class="overlay">
-										<c:forEach var="image" items="${item.image_list}">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
-												alt="Overlay Image" class="overlay-image img-thumbnail"
-												onclick="location.href='view.do?b_idx=${item.b_idx}'">
-										</c:forEach>
-									</div>
-								</div>
 							</div>
 						</section>
 					</form>

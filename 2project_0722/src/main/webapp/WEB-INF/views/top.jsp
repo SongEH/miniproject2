@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -132,88 +132,88 @@ input {
 	}
 </script>
 <body class="index-page">
-	<header id="header" class="header fixed-top">
+		<header id="header" class="header fixed-top">
 
-		<div class="topbar d-flex align-items-center">
-			<div
-				class="container d-flex justify-content-center justify-content-md-between">
-				<div class="contact-info d-flex align-items-center">
-					<i class="bi bi-envelope d-flex align-items-center"><a
-						href="mailto:contact@example.com">contact@example.com</a></i> <i
-						class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-							5589 55488 55</span></i>
-				</div>
-				<div class="social-links d-none d-md-flex align-items-center">
-					<!-- <div>
+			<div class="topbar d-flex align-items-center">
+				<div
+					class="container d-flex justify-content-center justify-content-md-between">
+					<div class="contact-info d-flex align-items-center">
+						<i class="bi bi-envelope d-flex align-items-center"><a
+							href="mailto:contact@example.com">contact@example.com</a></i> <i
+							class="bi bi-phone d-flex align-items-center ms-4"><span>+1
+								5589 55488 55</span></i>
+					</div>
+					<div class="social-links d-none d-md-flex align-items-center">
+						<!-- <div>
 						<input type="button" value="로그인" onclick="login_check();">
 					</div> -->
 
-					<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a> <a
-						href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
-						href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
-						href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-				</div>
-				<div class="text-end">
-					<!-- 로그인이 안되어 있는 경우  -->
-					<c:if test="${ empty sessionScope.user }">
-						<input class="btn btn-default" type="button" value="로그인"
-							onclick="location.href='${pageContext.request.contextPath}/member/login_form.do'">
-						<input class="btn btn-default" type="button" value="회원가입"
-							onclick="location.href='${pageContext.request.contextPath}/member/insert_form.do'">
-					</c:if>
-					<!-- 로그인이 되어 있는 경우  -->
-					<c:if test="${ not empty sessionScope.user }">
-						<input class="btn btn-default" type="button" value="로그아웃"
-							onclick="location.href='${pageContext.request.contextPath}/member/logout.do'">
-						<input class="btn btn-default" type="button" value="마이페이지">
-						<!-- 로그인이 되어 있고 관리자인 경우  -->
-						<c:if test="${ sessionScope.user.m_grade == '관리자'}">
-							<input class="btn btn-info" type="button" value="관리자페이지">
+						<a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a> <a
+							href="#" class="facebook"><i class="bi bi-facebook"></i></a> <a
+							href="#" class="instagram"><i class="bi bi-instagram"></i></a> <a
+							href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+					</div>
+					<div class="text-end">
+						<!-- 로그인이 안되어 있는 경우  -->
+						<c:if test="${ empty sessionScope.user }">
+							<input class="btn btn-default" type="button" value="로그인"
+								onclick="location.href='${pageContext.request.contextPath}/member/login_form.do'">
+							<input class="btn btn-default" type="button" value="회원가입"
+								onclick="location.href='${pageContext.request.contextPath}/member/insert_form.do'">
 						</c:if>
-					</c:if>
+						<!-- 로그인이 되어 있는 경우  -->
+						<c:if test="${ not empty sessionScope.user }">
+							<input class="btn btn-default" type="button" value="로그아웃"
+								onclick="location.href='${pageContext.request.contextPath}/member/logout.do'">
+							<input class="btn btn-default" type="button" value="마이페이지">
+							<!-- 로그인이 되어 있고 관리자인 경우  -->
+							<c:if test="${ sessionScope.user.m_grade == '관리자'}">
+								<input class="btn btn-info" type="button" value="관리자페이지">
+							</c:if>
+						</c:if>
+					</div>
 				</div>
 			</div>
-		</div>
-		<!-- End Top Bar -->
+			<!-- End Top Bar -->
 
-		<div class="branding d-flex align-items-cente">
+			<div class="branding d-flex align-items-cente">
 
-			<div
-				class="container position-relative d-flex align-items-center justify-content-between">
-				<a href="${pageContext.request.contextPath}/index.jsp"
-					class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
-					<img
-					src="${pageContext.request.contextPath}/resources/images/logo.png"
-					alt="">
-					<h1 class="sitename"></h1>
-				</a>
-				<nav id="navmenu" class="navmenu">
-					<ul>
-						<li><a
-							href="${pageContext.request.contextPath}/diary/diary_list.do">다이어리<br></a></li>
-						<li class="dropdown"><a><span>커뮤니티</span> <i
-								class="bi bi-chevron-down toggle-dropdown"></i></a>
-							<ul>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
-								<li><a
-									href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
-							</ul></li>
-						<li><a
-							href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
-						<li><a
-							href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
-						<li><a href="#team">쇼핑몰</a></li>
+				<div
+					class="container position-relative d-flex align-items-center justify-content-between">
+					<a href="${pageContext.request.contextPath}/index.jsp"
+						class="logo d-flex align-items-center"> <!-- Uncomment the line below if you also wish to use an image logo -->
+						<img
+						src="${pageContext.request.contextPath}/resources/images/logo.png"
+						alt="">
+						<h1 class="sitename"></h1>
+					</a>
+					<nav id="navmenu" class="navmenu">
+						<ul>
+							<li><a
+								href="${pageContext.request.contextPath}/diary/diary_list.do">다이어리<br></a></li>
+							<li class="dropdown"><a><span>커뮤니티</span> <i
+									class="bi bi-chevron-down toggle-dropdown"></i></a>
+								<ul>
+									<li><a
+										href="${pageContext.request.contextPath}/board/list.do?b_cate=free">자유게시판</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/board/list.do?b_cate=medical">의학상담</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/board/list.do?b_cate=mate">동네친구</a></li>
+								</ul></li>
+							<li><a
+								href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
+							<li><a
+								href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
+							<li><a href="#team">쇼핑몰</a></li>
 
-						<li><a href="#">문의</a></li>
-					</ul>
-					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-				</nav>
+							<li><a href="#">문의</a></li>
+						</ul>
+						<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+					</nav>
+
+				</div>
 
 			</div>
 
-		</div>
-
-	</header>
+		</header>

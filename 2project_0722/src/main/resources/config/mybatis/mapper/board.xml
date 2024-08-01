@@ -265,10 +265,25 @@
 
 
 <!-- BOARD_MAIN -->
+<resultMap type="vo.BoardVo"  id="BoardMap6">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_image_list6"
+	                    />
+	</resultMap>
+	
+	<select id="board_image_list6"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
 
-<select id="board_select_main" parameterType="int" resultType="vo.BoardVo">
-	select * from board where b_cate = #{b_cate}
-</select>
+	<select id="board_select_main" parameterType="String" resultMap="BoardMap6">
+				select
+				rank() over(order by b_idx desc) as no, b.*
+				from 
+					(select * from board where b_cate = #{b_cate}) b
+	</select>
 
 <!-- BOARD_MAIN -->
 

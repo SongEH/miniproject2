@@ -119,8 +119,6 @@ input {
 }
 </style>
 
-</head>
-
 <!--  부트스트랩 스타일 수정  -->
 <style>
 .accent-background {
@@ -219,6 +217,33 @@ article p {
 .answer {
 	margin-top: 30px;
 }
+</style>
+
+<!-- 메인 버튼 스타일 Design by_JH -->
+<style type="text/css">
+/*  diary-btn-yellow  */
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
 </style>
 
 <!-- ------------------------삭제버튼 클릭 시 동작-------------------------  -->
@@ -420,6 +445,10 @@ article p {
 </script>
 <!-- ------------------------댓글 작성 ------------------------------------  -->
 
+</head>
+
+
+
 
 <body class="index-page">
 	<%@ include file="/WEB-INF/views/top.jsp"%>
@@ -441,11 +470,9 @@ article p {
 				</div>
 
 				<div>
-					<!-- 유저 본인만 삭제 및 수정 가능  -->
-
 					<div>
 						<input class="btn btn-success" type="button" value="목록으로"
-							onclick="location.href='list.do?b_cate=${vo.b_cate }'">
+							onclick="location.href='../board/list.do?b_cate=${vo.b_cate }'">
 					</div>
 					<!-- ------------------------------메인 헤더 출력 공간  ---------------------------------------------- -->
 
@@ -464,8 +491,8 @@ article p {
 
 
 					<!-- ------------------------------메인 내용 출력 공간  ---------------------------------------- -->
-					<article>
-						<div class="post-description">${vo.b_content }</div>
+					<article style="margin-bottom:30px;">
+						<div class="post-description" >${vo.b_content }</div>
 					</article>
 					<!-- ------------------------------메인 내용 출력 공간  ---------------------------------------- -->
 				</div>
@@ -479,22 +506,15 @@ article p {
 
 			<input type="hidden" value="${vo.a_idx }">
 			<div class="container" class="answer">
-				<div class="row">
-					<div class="col-md-10">
+					<div>
 						<textarea rows="8" cols="30" id="a_content" name="a_content" style="width: 100%; height: 300px;">${vo.a_content }</textarea>
 					</div>
-					<div class="col-md-2">
-	
-						<input type="button" value="답변 수정"
-							onclick="send(this.form);">
+					<div style="display: flex; align-items: center; justify-content: center; margin-top: 20px;">
+						<input  class="diary-btn-yellow" type="button" value="답변 수정" onclick="send(this.form);">
 					</div>
 
 
-					<div>
-						<input name="photo" type="file" multiple="multiple">
-					</div>
 				</div>
-			</div>
 		</form>
 
 		<!-- ----------------답변 공간 -------------------------------------->
@@ -505,7 +525,6 @@ article p {
 
 
 		<!-- ----------------댓글 디스플레이 공간-------------------------------------->
-		<hr>
 		<div>
 			<div id="reply_display"></div>
 		</div>

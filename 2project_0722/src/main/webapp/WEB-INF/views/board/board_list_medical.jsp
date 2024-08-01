@@ -248,7 +248,8 @@ img {
 	width: 300px;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	height: 400px !important;
+	
 }
 
 .card-text {
@@ -259,11 +260,23 @@ img {
 }
 
 .card-body {
-	width: 300px;
+	/* width: 300px; */
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	
+	
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 3px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	
 }
 
 .equal-reply-content {
@@ -425,10 +438,29 @@ img {
 	transform: scale(0.9);
 }
 
-/*  마우스 오버시 모양 바꿈  */
 
+.card-title{
+	
+	text-align: center;
+	width: 100%;
+	font-size: 1em;
+	/* margin-top: 2px; */
+	color: #555;
+	display: inline-block;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+
+
+}
+
+/*  마우스 오버시 모양 바꿈  */
  .card-title a {
     cursor: pointer; /* This will change the cursor to a hand icon */
+    font-size: 16px;
   }
 </style>
 
@@ -545,10 +577,9 @@ img {
 
 
 		<form method="post" enctype="multipart/form-data">
-			<div class="container">
+			<div class="container" style="margin-top: 50px;">
 				<c:forEach var="item" items="${list}">
-					<input type="hidden" id="b_cate" name="b_cate"
-						value=${item.b_cate }>
+					<input type="hidden" id="b_cate" name="b_cate"	value=${item.b_cate }>
 					<div class="col-sm-4">
 						<div class="card equal-card">
 							<div class="card-body">
@@ -557,8 +588,7 @@ img {
 
 										
 										<div class="carousel-inner">
-											<c:forEach var="image" items="${item.image_list }"
-												varStatus="status">
+											<c:forEach var="image" items="${item.image_list }" varStatus="status">
 												<div class="carousel-item ${status.first ? 'active' : ''}">
 													<img
 														src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
@@ -579,7 +609,7 @@ img {
 									</div>
 								</div>
 								<div class="card-title" name="b_title">
-									<a  onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">${item.b_title}</a>
+									<a onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">${item.b_title}</a>
 								</div>
 								<%-- <div class="card-text" name="b_content">${item.b_content}</div> --%>
 
@@ -592,7 +622,9 @@ img {
 		</form>
 
 	</main>
-
+	<div>
+		<div class="pagination" style="margin-top: 10px;">${pageMenu}</div>
+	</div>
 
 </body>
 </html>
