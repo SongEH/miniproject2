@@ -7,7 +7,7 @@ public class HealthVO {
     private int m_idx;
     private int p_idx;
     private String h_type;
-    private String h_date;
+    private String h_rdate;
     private Time h_time;
     private double h_cost;
     private String h_content;
@@ -48,12 +48,12 @@ public class HealthVO {
         this.h_type = h_type;
     }
 
-    public String getH_date() {
-        return h_date;
+    public String getH_rdate() {
+        return h_rdate;
     }
 
-    public void setH_date(String h_date) {
-        this.h_date = h_date;
+    public void setH_rdate(String h_rdate) {
+        this.h_rdate = h_rdate;
     }
 
     public Time getH_time() {

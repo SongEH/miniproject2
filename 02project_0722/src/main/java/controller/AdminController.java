@@ -136,8 +136,8 @@ public class AdminController {
     public String healthDetail(@RequestParam("h_idx") int h_idx, Model model) {
         HealthVO health = healthDAO.getHealthRecordById(h_idx);
         
-        if (health.getH_date() != null) {
-            model.addAttribute("formattedHdate", health.getH_date());
+        if (health.getH_rdate() != null) {
+            model.addAttribute("formattedHdate", health.getH_rdate());
         }
         if (health.getH_ndate() != null) {
             model.addAttribute("formattedHndate", health.getH_ndate());
@@ -151,8 +151,8 @@ public class AdminController {
     public String healthModifyForm(@RequestParam("h_idx") int h_idx, Model model) {
         HealthVO health = healthDAO.getHealthRecordById(h_idx);
         
-        if (health.getH_date() != null) {
-            model.addAttribute("formattedHdate", health.getH_date());
+        if (health.getH_rdate() != null) {
+            model.addAttribute("formattedHdate", health.getH_rdate());
         }
         if (health.getH_ndate() != null) {
             model.addAttribute("formattedHndate", health.getH_ndate());
@@ -167,9 +167,9 @@ public class AdminController {
 
     	//health.setH_idx(h_idx);
     	
-        if (health.getH_date() == null || health.getH_date().isEmpty()) {
+        if (health.getH_rdate() == null || health.getH_rdate().isEmpty()) {
             HealthVO originalHealth = healthDAO.getHealthRecordById(health.getH_idx());
-            health.setH_date(originalHealth.getH_date());
+            health.setH_rdate(originalHealth.getH_rdate());
         }
         if (health.getH_ndate() == null || health.getH_ndate().isEmpty()) {
         	HealthVO originalHealth = healthDAO.getHealthRecordById(health.getH_idx());
