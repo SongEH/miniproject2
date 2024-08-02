@@ -91,7 +91,7 @@
     </insert>
     
     <select id="member_one_nickname" parameterType="String" resultType="vo.MemberVO"> 
-    	select * from member where m_nickname=#{m_nickname} 
+    	select * from member where m_nickname=#{m_nickname}
     </select>
     
     <select id="member_one_email" parameterType="String" resultType="vo.MemberVO"> 

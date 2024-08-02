@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -72,7 +73,14 @@ public class MemberDAO {
 	}
 	
 	public MemberVO selectName(String m_nickname) {
-		return sqlSession.selectOne("member.member_one_nickname", m_nickname);
+	    List<MemberVO> members = sqlSession.selectList("member.member_one_nickname", m_nickname);
+	    if (members.size() == 1) {
+	        return members.get(0);
+	    } else if (members.isEmpty()) {
+	        return null;
+	    } else {
+	        throw new TooManyResultsException("Expected one result (or null) to be returned by selectOne(), but found: " + members.size());
+	    }
 	}
 	
 	public MemberVO selectOne(String m_email) {
