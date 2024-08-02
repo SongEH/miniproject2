@@ -204,9 +204,7 @@ input {
 							href="${ pageContext.request.contextPath}/location/location.do">플레이스</a></li>
 						<li><a
 							href="${ pageContext.request.contextPath}/news/news.do">뉴스</a></li>
-						<li><a href="#team">쇼핑몰</a></li>
-
-						<li><a href="#">문의</a></li>
+						
 					</ul>
 					<i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 				</nav>

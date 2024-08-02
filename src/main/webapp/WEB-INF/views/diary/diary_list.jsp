@@ -220,7 +220,7 @@ let full_calendar_test;
 	       center: 'title',
 	       right: 'dayGridMonth,dayGridWeek,dayGridDay'
 	     },
-	     initialDate: '2024-07-26',
+	     initialDate: '2024-08-02',
 	     dateClick: function(info) { // 날짜 클릭시 이벤트 
 	 	    // alert('Clicked on: ' + info.dateStr);
 	     

@@ -1,49 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="../top.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-
-<!--  Bootstrap  3.x  -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원 수정</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+	rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="resources/css/common.css">
-
-
-<script type="text/javascript">
-	function send(f) {
-
-		let m_email = f.m_email.value.trim();
-		let m_pwd = f.m_pwd.value.trim();
-
-		if (m_email == '') {
-			alert("이메일을 입력하시오");
-			f.m_email.value = "";
-			f.m_email.focus();
-			return;
-		}
-
-		if (m_pwd == '') {
-			alert("비밀번호를 입력하시오");
-			f.m_pwd.value = "";
-			f.m_pwd.focus();
-			return;
-		}
-
-		f.action = "login.do";
-		f.submit();
-
-	}//end:send()
-</script>
-
-
-<script type="text/javascript">
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
 	//javascript 초기화
 	//window.onload = function(){};
 
@@ -72,10 +42,33 @@
 		}
 
 	}
+
+	function send(f) {
+
+		let m_email = f.m_email.value.trim();
+		let m_pwd = f.m_pwd.value.trim();
+
+		if (m_email == '') {
+			alert("이메일을 입력하시오");
+			f.m_email.value = "";
+			f.m_email.focus();
+			return;
+		}
+
+		if (m_pwd == '') {
+			alert("비밀번호를 입력하시오");
+			f.m_pwd.value = "";
+			f.m_pwd.focus();
+			return;
+		}
+
+		f.action = "login.do";
+		f.submit();
+
+	}//end:send()
 </script>
 
 <style>
-/*  diary-btn-yellow  */
 .diary-btn-yellow {
 	background-color: #FADA5A;
 	position: relative;
@@ -143,62 +136,46 @@
 .diary-btn-gray-outline:active {
 	transform: scale(0.9);
 }
-
-.container {
-	width: 50%;
-	height: 50%;
-	top: 50%;
-	left: 50%;
-}
-.container th, .container td {
-	border: none !important;
-}
 </style>
 
 
 </head>
 <body class="bg-gray-100">
+	<div class="container mx-auto p-6">
+		<h1 class="text-3xl font-bold mb-6" style="margin-top: 150px;">로&nbsp;그&nbsp;인</h1>
+		<div class="bg-white shadow-md rounded-lg p-6">
+			<form
+				action="${pageContext.request.contextPath}/member/login_form.do"
+				method="post">
+				<input type="hidden" name="url" value="${param.url}">
 
-<div class="container mx-auto p-6">
-	<form class="form-inline" >
-		<input type="hidden" name="url" value="${param.url}">
-		<div id="box">
-			<div>
-				<div>
-					<h3 style="text-align: center;font-size: 30px;">로&nbsp;그&nbsp;인</h3>
+				<div class="mb-4">
+					<label for="m_email" class="block text-gray-700 font-bold mb-2">이메일</label>
+					<input type="email" id="m_email" name="m_email"
+						value="${member.m_email}"
+						class="w-full p-2 border border-gray-300 rounded">
 				</div>
-				<div class="container">
-					<table class="table">
-						<tr>
-							<th>이메일</th>
-							<td><input class="form-control" name="m_email"
-								value="${ param.m_email }"></td>
-						</tr>
 
-						<tr>
-							<th>비밀번호</th>
-							<td><input class="form-control" type="password" name="m_pwd"
-								value="${param.m_pwd }"></td>
-						</tr>
-
-						<tr>
-							<td colspan="2" align="center"><input
-								class="diary-btn-yellow-outline" type="button" value="회원가입"
-								onclick="location.href='insert_form.do'">
-								&nbsp;&nbsp;&nbsp;&nbsp;
-								<input
-								class="diary-btn-gray-outline" type="button" value="로그인"
-								onclick="send(this.form);"></td>
-						</tr>
-					</table>
+				<div class="mb-4">
+					<label for="m_pwd" class="block text-gray-700 font-bold mb-2">비밀번호</label>
+					<input type="password" id="m_pwd" name="m_pwd"
+						value="${member.m_pwd}"
+						class="w-full p-2 border border-gray-300 rounded">
 				</div>
-			</div>
+
+
+				<div class="flex justify-end">
+					<input type="button" value="회원가입"
+						class="diary-btn-yellow-outline bg-blue-500 hover:bg-yellow-100 font-bold py-2 px-4 rounded"
+						onclick="location.href='insert_form.do'">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button"
+						value="로그인"
+						class="diary-btn-gray-outline bg-blue-500 hover:bg-yellow-100 font-bold py-2 px-4 rounded"
+						onclick="send(this.form);">
+				</div>
+			</form>
 		</div>
-	</form>
 	</div>
-	
-	
-	
-	
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>

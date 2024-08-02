@@ -53,7 +53,7 @@ body {
                 <li class="mb-4">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="${itme.link}" class="text-decoration-none">${item.title}</a></h5>
+                            <h5 class="card-title"><a href="${item.link}" class="text-decoration-none">${item.title}</a></h5>
                             <p class="card-text"><strong></strong> ${item.description}</p>
                         </div>
                     </div>

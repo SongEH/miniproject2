@@ -1,93 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="../top.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Insert title here</title>
-
-<link rel="stylesheet" href="resources/css/common.css">
-<style>
-/*  diary-btn-yellow  */
-.diary-btn-yellow {
-	background-color: #FADA5A;
-	position: relative;
-	padding: 15px;
-	border-radius: 15px;
-	border: none;
-	text-decoration: none;
-	font-weight: 600;
-	transition: 0.25s;
-	letter-spacing: 2px;
-	width: 100px;
-}
-
-.diary-btn-yellow:hover {
-	transform: scale(1.1);
-	cursor: pointer;
-}
-
-.diary-btn-yellow:active {
-	transform: scale(0.9);
-}
-
-/*  diary-btn-yellow-outline  */
-.diary-btn-yellow-outline {
-	background-color: white;
-	border: 3px solid #FADA5A;
-	position: relative;
-	padding: 15px;
-	border-radius: 15px;
-	text-decoration: none;
-	text-align:center;
-	font-weight: 600;
-	transition: 0.25s;
-	letter-spacing: 2px;
-	width: 100px;
-}
-
-.diary-btn-yellow-outline:hover {
-	transform: scale(1.1);
-	cursor: pointer;
-}
-
-.diary-btn-yellow-outline:active {
-	transform: scale(0.9);
-}
-
-/*  diary-btn-gray-outline  */
-.diary-btn-gray-outline {
-	background-color: white;
-	border: 3px solid #C0C0C0;
-	position: relative;
-	padding: 15px;
-	border-radius: 15px;
-	text-decoration: none;
-	text-align:center;
-	font-weight: 600;
-	transition: 0.25s;
-	letter-spacing: 2px;
-	width: 100px;
-}
-
-.diary-btn-gray-outline:hover {
-	transform: scale(1.1);
-	cursor: pointer;
-}
-
-.diary-btn-gray-outline:active {
-	transform: scale(0.9);
-}
-</style>
-
-
-
-<link rel="stylesheet" href="resources/css/common.css">
-<!-- 주소검색 API  -->
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+<title>회원가입</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	function check_nickname() {
 
@@ -137,24 +60,20 @@
 			}
 		});
 	}//end:check_nickname() 
-	function find_addr() {
-
-		var themeObj = {
-			bgColor : "#B51D1D" //바탕 배경색
-		};
-
+	function execDaumPostcode() {
 		new daum.Postcode({
-			theme : themeObj,
 			oncomplete : function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-				// 예제를 참고하여 다양한 활용법을 확인해 보세요.
-				$("#m_zipcode").val(data.zonecode); //우편번호 넣기
-				$("#m_addr").val(data.address); //주소넣기
-
+				var addr = '';
+				if (data.userSelectedType === 'R') {
+					addr = data.roadAddress;
+				} else {
+					addr = data.jibunAddress;
+				}
+				document.getElementById('m_zipcode').value = data.zonecode;
+				document.getElementById('m_addr').value = addr;
 			}
 		}).open();
-
-	}//end:find_addr()	
+	}
 
 	function send(f) {
 
@@ -229,105 +148,106 @@
 	/* 자바 스크립트 함수 선언(비밀번호 확인) */
 
 	function passConfirm() {
-		/* 비밀번호, 비밀번호 확인 입력창에 입력된 값을 비교해서 같다면 비밀번호 일치, 그렇지 않으면 불일치 라는 텍스트 출력.*/
-		/* document : 현재 문서를 의미함. 작성되고 있는 문서를 뜻함. */
-		/* getElementByID('아이디') : 아이디에 적힌 값을 가진 id의 value를 get을 해서 password 변수 넣기 */
-		var password = document.getElementById('password'); //비밀번호 
-		var passwordConfirm = document.getElementById('passwordConfirm'); //비밀번호 확인 값
-		var confirmMsg = document.getElementById('confirmMsg'); //확인 메세지
-		var correctColor = "blue"; //맞았을 때 출력되는 색깔.
-		var wrongColor = "red"; //틀렸을 때 출력되는 색깔
+		var password = $('#m_pwd').val();
+		var passwordConfirm = $('#passwordConfirm').val();
+		var confirmMsg = $('#confirmMsg');
+		var correctColor = "blue";
+		var wrongColor = "red";
 
-		if (password.value == passwordConfirm.value) {//password 변수의 값과 passwordConfirm 변수의 값과 동일하다.
-			confirmMsg.style.color = correctColor;/* span 태그의 ID(confirmMsg) 사용  */
-			confirmMsg.innerHTML = "비밀번호 일치";/* innerHTML : HTML 내부에 추가적인 내용을 넣을 때 사용하는 것. */
+		if (password === passwordConfirm) {
+			confirmMsg.css('color', correctColor);
+			confirmMsg.html("비밀번호 일치");
 		} else {
-			confirmMsg.style.color = wrongColor;
-			confirmMsg.innerHTML = "비밀번호 불일치";
+			confirmMsg.css('color', wrongColor);
+			confirmMsg.html("비밀번호 불일치");
 		}
 	}
 </script>
-
 </head>
 <body class="bg-gray-100">
 	<div class="container mx-auto p-6">
-		<form>
-			<input type="hidden" id="m_email" name="m_email">
-			<div id="box">
-				<div>
-					<div class="panel-heading">
-						<h4 style="text-align: center; font-size: 30px;">
-							회&nbsp;원&nbsp;가&nbsp;입</h4>
-					</div>
-					<div class="container">
-						<table class="table">
-							<tr>
-								<th>이름</th>
-								<td><input class="form-control" name="m_name"></td>
-							</tr>
+		<h1 class="text-3xl font-bold mb-6" style="margin-top:150px;">회&nbsp;원&nbsp;가&nbsp;입</h1>
+		<div class="bg-white shadow-md rounded-lg p-6">
+			<form
+				action="${pageContext.request.contextPath}/member/insert_form.do"
+				method="post">
+				<input type="hidden" name="m_email" id="m_email">
 
-							<tr>
-								<th>닉네임</th>
-								<td><input class="form-control" name="m_nickname"></td>
-							</tr>
+				<div class="mb-4">
+					<label for="m_name" class="block text-gray-700 font-bold mb-2">이름</label>
+					<input type="text" id="m_name" name="m_name"
+						class="w-full p-2 border border-gray-300 rounded">
+				</div>
 
-							<tr>
-								<th scope="row">이메일 <span class="em_red">*</span></th>
-								<td><input type="text" id="email_id" class="form-control"
-									value="" title="이메일 아이디" maxlength="18" /> @ <input
-									type="text" id="email_domain" class="form-control" value=""
-									title="이메일 도메인" maxlength="18" /> <select
-									class="select, form-control" title="이메일 도메인 주소 선택"
-									onclick="setEmailDomain(this.value);return false;">
-										<option value="직접입력">-선택-</option>
-										<option value="naver.com">naver.com</option>
-										<option value="google.com">google.com</option>
-										<option value="hanmail.net">hanmail.net</option>
-										<option value="daum.net">daum.net</option>
-										<option value="kakao.com">kakao.com</option>
-										<option value="nate.com">nate.com</option>
-								</select></td>
-							</tr>
+				<div class="mb-4">
+					<label for="m_nickname" class="block text-gray-700 font-bold mb-2">닉네임</label>
+					<input type="text" id="m_nickname" name="m_nickname"
+						class="w-full p-2 border border-gray-300 rounded"
+						onkeyup="check_nickname();"> <span id="nickname_msg"></span>
+				</div>
 
-							<!-- 비밀번호 확인 -->
-							<tr>
-								<th>비밀번호</th>
-								<td><input class="form-control" type="password"
-									name="m_pwd" id="password"></td>
-							</tr>
-							<tr>
-								<th>비밀번호 확인</th>
-								<!-- onkeyup="JS function" 입력이 되었을 때, -->
-								<td><input class="form-control" type="password"
-									name="m_pwd_confirm" id="passwordConfirm"
-									onkeyup="passConfirm()"> <span id="confirmMsg"></span></td>
-							</tr>
+				<div class="mb-4">
+					<label for="m_email" class="block text-gray-700 font-bold mb-2">이메일<span
+						class="em_red">*</span></label> <input type="text" id="email_id" value=""
+						title="이메일 아이디" maxlength="18"
+						class="w-full p-2 border border-gray-300 rounded"> @ <input
+						type="text" id="email_domain" value="" title="이메일 도메인"
+						maxlength="18" class="w-full p-2 border border-gray-300 rounded" />
+					<select class="select, form-control" title="이메일 도메인 주소 선택"
+						onclick="setEmailDomain(this.value);return false;">
+						<option value="직접입력">-선택-</option>
+						<option value="naver.com">naver.com</option>
+						<option value="google.com">google.com</option>
+						<option value="hanmail.net">hanmail.net</option>
+						<option value="daum.net">daum.net</option>
+						<option value="kakao.com">kakao.com</option>
+						<option value="nate.com">nate.com</option>
+					</select>
+				</div>
 
-							<tr>
-								<th>우편번호</th>
-								<td><input class="form-control" name="m_zipcode"
-									id="m_zipcode">&nbsp;&nbsp;&nbsp;<input class="diary-btn-yellow"
-									type="button" value="주소검색" onclick="find_addr();"></td>
-							</tr>
+				<div class="mb-4">
+					<label for="m_pwd" class="block text-gray-700 font-bold mb-2">비밀번호</label>
+					<input type="password" id="m_pwd" name="m_pwd"
+						class="w-full p-2 border border-gray-300 rounded">
+				</div>
+				<div class="mb-4">
+					<label for="m_pwd" class="block text-gray-700 font-bold mb-2">비밀번호
+						확인</label> <input type="password" id="passwordConfirm"
+						name="m_pwd_confirm"
+						class="w-full p-2 border border-gray-300 rounded"
+						onkeyup="passConfirm()"> <span id="confirmMsg"></span>
+				</div>
 
-							<tr>
-								<th>주소</th>
-								<td><input class="form-control" name="m_addr" id="m_addr"></td>
-							</tr>
-
-							<tr>
-								<td colspan="2" align="center"><input
-									class="diary-btn-yellow-outline" type="button" value="메인화면"
-									onclick="location.href='../main.do'"> &nbsp;&nbsp;&nbsp;<input
-									id="btn_register" class="diary-btn-gray-outline" type="button"
-									value="가입하기" onclick="send(this.form);"></td>
-							</tr>
-
-						</table>
+				<div class="mb-4">
+					<label for="m_zipcode" class="block text-gray-700 font-bold mb-2">우편번호</label>
+					<div class="flex">
+						<input type="text" id="m_zipcode" name="m_zipcode"
+							class="w-7/8 p-2 border border-gray-300 rounded"> <input
+							type="button" value="주소검색"
+							class="w-1/8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2"
+							onclick="execDaumPostcode()">
 					</div>
 				</div>
-			</div>
-		</form>
+
+				<div class="mb-4">
+					<label for="m_addr" class="block text-gray-700 font-bold mb-2">주소</label>
+					<input id="m_addr" name="m_addr"
+						class="w-full p-2 border border-gray-300 rounded">
+				</div>
+
+
+
+				<div class="flex justify-end">
+					<input type="button" value="메인화면"
+						class="diary-btn-yellow-outline bg-white-500 hover:bg-yellow-100 font-bold py-2 px-4 rounded"
+						onclick="location.href='../main.do'">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="button"
+						value="가입하기"
+						class="diary-btn-gray-outline bg-blue-100 hover:bg-yellow-100 font-bold py-2 px-4 rounded"
+						onclick="send(this.form);">
+				</div>
+			</form>
+		</div>
 	</div>
 	<jsp:include page="../footer.jsp" />
 </body>
