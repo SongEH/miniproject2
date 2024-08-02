@@ -13,7 +13,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="resources/css/common.css">
 
 
 <script type="text/javascript">
@@ -79,7 +79,7 @@
 .diary-btn-yellow {
 	background-color: #FADA5A;
 	position: relative;
-	padding: 15px 30px;
+	padding: 15px;
 	border-radius: 15px;
 	border: none;
 	text-decoration: none;
@@ -103,7 +103,7 @@
 	background-color: white;
 	border: 3px solid #FADA5A;
 	position: relative;
-	padding: 15px 30px;
+	padding: 15px;
 	border-radius: 15px;
 	text-decoration: none;
 	font-weight: 600;
@@ -126,7 +126,7 @@
 	background-color: white;
 	border: 3px solid #C0C0C0;
 	position: relative;
-	padding: 15px 30px;
+	padding: 15px;
 	border-radius: 15px;
 	text-decoration: none;
 	font-weight: 600;
@@ -143,20 +143,31 @@
 .diary-btn-gray-outline:active {
 	transform: scale(0.9);
 }
+
+.container {
+	width: 50%;
+	height: 50%;
+	top: 50%;
+	left: 50%;
+}
+.container th, .container td {
+	border: none !important;
+}
 </style>
 
 
 </head>
 <body class="bg-gray-100">
+
 <div class="container mx-auto p-6">
-	<form class="form-inline">
+	<form class="form-inline" >
 		<input type="hidden" name="url" value="${param.url}">
 		<div id="box">
 			<div>
 				<div>
 					<h3 style="text-align: center;font-size: 30px;">로&nbsp;그&nbsp;인</h3>
 				</div>
-				<div>
+				<div class="container">
 					<table class="table">
 						<tr>
 							<th>이메일</th>

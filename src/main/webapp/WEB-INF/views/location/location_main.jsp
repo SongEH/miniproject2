@@ -7,13 +7,38 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet">
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<style type="text/css">
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
 
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
+</style>	
+	
+	
 <script type="text/javascript">
 	//초기화 이벤트
 	 $(document).ready(function(){
@@ -55,9 +80,10 @@
 
 
     <!-- <!-- 검색메뉴 -->
-    <div style="text-align: right; margin-bottom: 5px;">
+    
         <form class="form-inline">
-            <select id="sido" class="form-control">
+         <div class="input-group mb-3">
+            <select id="sido" class="form-control" style="max-width: 300px; margin-left:30%;text-align: center;">
                 <option value="all">전체보기</option>
                 <option value="서울특별시">서울</option>
                 <option value="경기도">경기</option>
@@ -73,19 +99,21 @@
                 <option value="세종특별자치시">세종</option>
                 <option value="부산광역시">부산</option>
                 <option value="대구광역시">대구</option>
-                
+                <option value="제주특별자치도">제주</option>
             </select>
 
-            <select id="cate" class="form-control">
+            <select id="cate" class="form-control" style="max-width: 300px;  text-align: center;">
                 <option value="all">전체보기</option>
                 <option value="카페">카페</option>
                 <option value="동물병원">병원</option>
-                <option value="동물약국">약국</option>
+                <option value="펜션">펜션</option>
+                <option value="반려동물용품">반려동물용품점</option>
             </select>
 			
-            <input type="button" class="btn btn-primary" value="검색" onclick="find();">
+              <button class="diary-btn-yellow" type="button" onclick="find();">검색</button>
+              </div>
         </form>
-    </div>
+    
 
     <hr>
     <div id="disp"></div>

@@ -11,18 +11,18 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 <!-- bootstrap -->
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- <script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  -->
 <!-- Favicons -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
@@ -183,22 +183,27 @@ article p {
 /* 이미지 영역 CSS */
 .post-images {
 	display: flex;
-	gap: 8px;
-	margin-bottom: 16px;
+	flex-wrap: wrap;
+	 justify-content: center;
+	gap: 2px; /* 이미지 간의 간격을 조정합니다 */
+}
 }
 
 .post-img {
-	flex: 1;
-	width: 100%; /* Fixed width for the square */
-	height: auto; /* Fixed height for the square */
-	overflow: hidden;
+	flex: 0 0 calc(25% - 10px); /* 3개 열을 기준으로 각각의 이미지의 너비를 설정합니다. */
+	box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기를 계산합니다. */
+	display: flex;
+    justify-content: center; /* 이미지를 세로 방향으로 가운데 정렬 */
+    align-items: center; /* 이미지를 가로 방향으로 가운데 정렬 */
 }
 
 .post-img img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover; /* Ensure images cover the entire area */
+	width: 250px;
+	height: 250px;
 	display: block;
+	object-fit: cover;
+	margin: 10px;
+	
 }
 
 
@@ -331,6 +336,7 @@ article p {
 
 
 <body class="index-page">
+
 	<%@ include file="/WEB-INF/views/top.jsp"%>
 <!-- ---------------------------------------본문내용-------------------------------------------------------  -->
 	<main class="main mt-300">

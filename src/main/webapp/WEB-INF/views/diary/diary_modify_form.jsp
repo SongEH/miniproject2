@@ -26,20 +26,115 @@ textarea {
 	resize: none;
 }
 
-h4 {
-	font-weight: bold;
+
+
+
+.container th {
+	/* color:red !important; */
+	font-size: 18px;
+	text-align:center;
+	color:#3C4043 !important;
+	padding:20px !important;
+	vertical-align: middle;
+	margin:0px !important;
+}
+.container td {
+	padding:20px !important;
+	
+}
+
+.container td, .container th{
+	border:none !important;
+}
+
+h2 {
+	text-align:center;
+}
+
+#container-diary {
+	/* width: 80%; */
+	/* vertical-align: middle !important;
+	text-align:center !important;
+	background-color:green;
+	vertical-align: middle !important; */
 }
 
 .box {
-margin-top:150px;
-	/* width: 800px;
-	height: 600px;
-	margin: auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden; */
+	margin-top:150px;
 }
+
+
+/*  diary-btn-yellow  */
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-yellow-outline  */
+.diary-btn-yellow-outline {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 15px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-gray-outline  */
+.diary-btn-gray-outline {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-gray-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-gray-outline:active {
+	transform: scale(0.9);
+}
+
 </style> 
 
 
@@ -104,8 +199,8 @@ margin-top:150px;
 	<h4>수정하기</h4><br>
 	
   	<div class="box">	
-  	<h4>수정하기</h4><br>
-  	
+  	<div id="container-diary" class="container">
+  	<h2 style="font-family: 'Noto Sans KR', sans-serif;" >수정하기</h2><br>
 	<c:choose>
 		<c:when test="${table_name == 'weight'}">
 			<form method="post">
@@ -136,10 +231,10 @@ margin-top:150px;
 						</table>
 
 
-						<div style="margin-top: 10px;">
-							<input class="btn btn-info" type="button" value="목록보기"
+						<div style="margin-top: 10px; text-align:center; ">
+							<input class="diary-btn-yellow-outline"  type="button" value="목록보기"
 								onclick="location.href='diary_list.do'"> <input
-								class="btn btn-primary" type="button" value="수정하기"
+								class="diary-btn-yellow" type="button" value="수정하기"
 								onclick="send(this.form);">
 						</div>
 
@@ -194,10 +289,10 @@ margin-top:150px;
 								name="s_memo" rows="3">${map.S_MEMO}</textarea></td>
 					</tr>
 				</table>
-				<div style="margin-top: 10px;">
-				<input class="btn btn-info" type="button" value="목록보기"
+				<div style="margin-top: 10px; text-align:center; ">
+				<input class="diary-btn-yellow-outline"  type="button" value="목록보기"
 					onclick="location.href='diary_list.do'"> <input
-					class="btn btn-primary" type="button" value="수정하기"
+					class="diary-btn-yellow" type="button" value="수정하기"
 					onclick="send_s(this.form);">
 			</div>
 			</form>
@@ -248,10 +343,10 @@ margin-top:150px;
 					</tr>
 				</table>
 
-				<div style="margin-top: 10px;">
-					<input class="btn btn-info" type="button" value="목록보기"
+				<div style="margin-top: 10px; text-align:center; ">
+					<input class="diary-btn-yellow-outline"  type="button" value="목록보기"
 						onclick="location.href='diary_list.do'"> <input
-						class="btn btn-primary" type="button" value="수정하기"
+						class="diary-btn-yellow" type="button" value="수정하기"
 						onclick="send_f(this.form);">
 				</div>
 			</form>
@@ -319,10 +414,10 @@ margin-top:150px;
 							value="${formattedDate}" /></td>
 					</tr>
 				</table>
-				<div style="margin-top: 10px;">
-				<input class="btn btn-info" type="button" value="목록보기"
+				<div style="margin-top: 10px; text-align:center; ">
+				<input class="diary-btn-yellow-outline"  type="button" value="목록보기"
 					onclick="location.href='diary_list.do'"> <input
-					class="btn btn-primary" type="button" value="수정하기"
+					class="diary-btn-yellow" type="button" value="수정하기"
 					onclick="send_h(this.form);">
 				</div>
 			</form>
@@ -363,10 +458,10 @@ margin-top:150px;
 								name="o_content" rows="3">${map.O_CONTENT}</textarea></td>
 					</tr>
 				</table>
-				<div style="margin-top: 10px;">
-				<input class="btn btn-info" type="button" value="목록보기"
+				<div style="margin-top: 10px; text-align:center; ">
+				<input class="diary-btn-yellow-outline"  type="button" value="목록보기"
 					onclick="location.href='diary_list.do'"> <input
-					class="btn btn-primary" type="button" value="수정하기"
+					class="diary-btn-yellow" type="button" value="수정하기"
 					onclick="send_o(this.form);">
 				</div>
 			</form>
@@ -374,6 +469,6 @@ margin-top:150px;
 		</c:when>
 	</c:choose>
 	</div>
-
+	</div>
 </body>
 </html>

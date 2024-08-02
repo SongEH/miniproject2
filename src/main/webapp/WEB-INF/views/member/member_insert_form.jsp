@@ -7,20 +7,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
 
-<!--  Bootstrap  3.x  -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="resources/css/common.css">
 <style>
 /*  diary-btn-yellow  */
 .diary-btn-yellow {
 	background-color: #FADA5A;
 	position: relative;
-	padding: 15px 30px;
+	padding: 15px;
 	border-radius: 15px;
 	border: none;
 	text-decoration: none;
@@ -44,7 +37,7 @@
 	background-color: white;
 	border: 3px solid #FADA5A;
 	position: relative;
-	padding: 15px 30px;
+	padding: 15px;
 	border-radius: 15px;
 	text-decoration: none;
 	text-align:center;
@@ -68,7 +61,7 @@
 	background-color: white;
 	border: 3px solid #C0C0C0;
 	position: relative;
-	padding: 15px 30px;
+	padding: 15px;
 	border-radius: 15px;
 	text-decoration: none;
 	text-align:center;
@@ -90,7 +83,7 @@
 
 
 
-
+<link rel="stylesheet" href="resources/css/common.css">
 <!-- 주소검색 API  -->
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -258,7 +251,7 @@
 </head>
 <body class="bg-gray-100">
 	<div class="container mx-auto p-6">
-		<form class="form-inline">
+		<form>
 			<input type="hidden" id="m_email" name="m_email">
 			<div id="box">
 				<div>
@@ -266,7 +259,7 @@
 						<h4 style="text-align: center; font-size: 30px;">
 							회&nbsp;원&nbsp;가&nbsp;입</h4>
 					</div>
-					<div>
+					<div class="container">
 						<table class="table">
 							<tr>
 								<th>이름</th>

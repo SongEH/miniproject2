@@ -24,6 +24,7 @@
    }
    
 body {
+	
 	margin: 40px 10px;
 	padding: 0;
 	font-size: 14px;
@@ -92,6 +93,35 @@ body {
 
 .diary-btn-yellow:active {
 	transform: scale(0.9);  
+}
+
+/*  diary-btn-yellow-outline  */
+.diary-btn-yellow-outline {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 15px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+	margin-left:10px;
+}
+
+.diary-btn-yellow-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline:active {
+	transform: scale(0.9);
+}
+
+#insert_top{
+	text-align:center;
+	font-family: 'Noto Sans KR', sans-serif;
 }
 </style>
     
@@ -321,14 +351,15 @@ body {
   	
   	<div class="box">
   	
-
-	    <h1>카테고리 선택</h1>
-	    <button onclick="showForm('stoll')">산책</button>
-	    <button onclick="showForm('weight')">체중</button>
-		<button onclick="showForm('feeding')">사료/간식/영양제</button>
-		<button onclick="showForm('health')">건강</button>
-		<button onclick="showForm('note')">메모</button>
-	
+		<div id="insert_top">
+		    <h2 style="font-family: 'Noto Sans KR', sans-serif;" >카테고리 선택</h2><br>
+		    <button class="diary-btn-yellow-outline" onclick="showForm('stoll')">산책</button>
+		    <button class="diary-btn-yellow-outline" onclick="showForm('weight')">체중</button>
+			<button class="diary-btn-yellow-outline" onclick="showForm('feeding')">급여</button>
+			<button class="diary-btn-yellow-outline" onclick="showForm('health')">건강</button>
+			<button class="diary-btn-yellow-outline" onclick="showForm('note')">메모</button>
+		</div>
+		
 		<div class="container">
 		    <div id="input-container" class="input-container">
 		        <!-- 입력 폼이 여기에 동적으로 삽입됩니다. -->

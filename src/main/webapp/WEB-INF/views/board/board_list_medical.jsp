@@ -14,7 +14,7 @@
 <meta content="" name="description">
 <meta content="" name="keywords">
 <!-- bootstrap -->
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
@@ -26,7 +26,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
 
 <!-- Favicons -->
 <link
@@ -227,7 +227,7 @@ main.main {
 }
 
 .carousel-item {
-	width: 300px !important;
+	width: 245px !important;
 	height: 300px !important;
 }
 
@@ -248,7 +248,7 @@ img {
 	width: 300px;
 	display: flex;
 	flex-direction: column;
-	height: 100%;
+	height: 400px !important;
 }
 
 .card-text {
@@ -259,11 +259,20 @@ img {
 }
 
 .card-body {
-	width: 300px;
+	/* width: 300px; */
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 3px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
 }
 
 .equal-reply-content {
@@ -283,9 +292,10 @@ img {
 	margin-bottom: 10px;
 }
 
-.col-sm-4 {
-	margin-bottom: 20px;
-}
+/* .col-sm-4 {
+	margin: 10px;
+	width: 400px;
+} */
 
 /*  갤러리 형식의 이미지 */
 .gallery {
@@ -309,16 +319,21 @@ img {
 }
 
 #search {
+	float: none;
 	background-color: white;
 	border: 3px solid #FADA5A;
 	position: relative;
 	/* padding: 15px 30px; */
 	border-radius: 15px;
 	text-decoration: none;
-	/* font-weight: 600;  */
+	font-weight: 600;
+	font-size: 15px;
 	transition: 0.25s;
 	letter-spacing: 2px;
 	width: 100px;
+	margin-left: 800px;
+	display: inline-block;
+	transition: 0.25s;
 }
 
 #search:hover {
@@ -341,6 +356,7 @@ img {
 	transition: 0.25s;
 	letter-spacing: 2px;
 	width: 100px;
+	display: inline-block;
 }
 
 #search_text:hover {
@@ -350,6 +366,16 @@ img {
 
 #search_text:active {
 	transform: scale(0.9);
+}
+
+.form-inline {
+	display: flex;
+	justify-content: flex-end; /* 요소들을 오른쪽 정렬 */
+	align-items: center; /* 요소들을 세로 중앙 정렬 */
+}
+
+.form-label, .form-control, .diary-btn-yellow {
+	margin-left: 10px; /* 각 요소 사이의 간격 조정 */
 }
 </style>
 
@@ -425,11 +451,26 @@ img {
 	transform: scale(0.9);
 }
 
-/*  마우스 오버시 모양 바꿈  */
+.card-title {
+	text-align: center;
+	width: 100%;
+	font-size: 1em;
+	/* margin-top: 2px; */
+	color: #555;
+	display: inline-block;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
+}
 
- .card-title a {
-    cursor: pointer; /* This will change the cursor to a hand icon */
-  }
+/*  마우스 오버시 모양 바꿈  */
+.card-title a {
+	cursor: pointer; /* This will change the cursor to a hand icon */
+	font-size: 16px;
+}
 </style>
 
 
@@ -533,8 +574,8 @@ img {
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 						<option value="title_content">제목+내용</option>
-					</select> <label for="search_text" class="form-label"></label> <input
-						id="search_text" class="form-control form-control-color"
+					</select> <label for="search_text" class="form-label"> </label> <input
+						id="search_text" class="form-control form-control-color finder"
 						value="${ param.search_text }"> <input type="button"
 						class="diary-btn-yellow" value="검색" onclick="find();">
 				</form>
@@ -545,78 +586,58 @@ img {
 
 
 		<form method="post" enctype="multipart/form-data">
-			<div class="container">
-				<c:forEach var="item" items="${list}">
-					<input type="hidden" id="b_cate" name="b_cate"
-						value=${item.b_cate }>
-					<div class="col-sm-4">
-						<div class="card equal-card">
-							<div class="card-body">
-								<div class="gallery">
-									<div id="carousel_${item.b_idx}" class="carousel slide">
-
-										
-										<div class="carousel-inner">
-											<c:forEach var="image" items="${item.image_list }"
-												varStatus="status">
-												<div class="carousel-item ${status.first ? 'active' : ''}">
-													<img
-														src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
-														class="d-block w-100" alt="..." onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'" style="cursor: pointer;" >
-												</div>
-											</c:forEach>
+			<div class="container" style="margin-top: 50px;">
+				<div class="row">
+					<c:forEach var="item" items="${list}">
+						<input type="hidden" id="b_cate" name="b_cate"
+							value="${item.b_cate}">
+						<div class="col-sm-4 d-flex justify-content-center mb-3">
+							<div class="card equal-card">
+								<div class="card-body">
+									<div class="gallery">
+										<div id="carousel_${item.b_idx}" class="carousel slide">
+											<div class="carousel-inner">
+												<c:forEach var="image" items="${item.image_list}"
+													varStatus="status">
+													<div class="carousel-item ${status.first ? 'active' : ''}">
+														<img
+															src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
+															class="d-block w-100" alt="..."
+															onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate}'"
+															style="cursor: pointer;">
+													</div>
+												</c:forEach>
+											</div>
+											<button class="carousel-control-prev" type="button"
+												data-bs-target="#carousel_${item.b_idx}"
+												data-bs-slide="prev">
+												<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Previous</span>
+											</button>
+											<button class="carousel-control-next" type="button"
+												data-bs-target="#carousel_${item.b_idx}"
+												data-bs-slide="next">
+												<span class="carousel-control-next-icon" aria-hidden="true"></span>
+												<span class="visually-hidden">Next</span>
+											</button>
 										</div>
-										<button class="carousel-control-prev" type="button"
-											data-bs-target="#carousel_${item.b_idx}" data-bs-slide="prev">
-											<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Previous</span>
-										</button>
-										<button class="carousel-control-next" type="button"
-											data-bs-target="#carousel_${item.b_idx}" data-bs-slide="next">
-											<span class="carousel-control-next-icon" aria-hidden="true"></span>
-											<span class="visually-hidden">Next</span>
-										</button>
+									</div>
+									<div class="card-title">
+										<a
+											onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate}'">${item.b_title}</a>
 									</div>
 								</div>
-								<div class="card-title" name="b_title">
-									<a  onclick="location.href='view.do?b_idx=${item.b_idx}&b_cate=${item.b_cate }'">${item.b_title}</a>
-								</div>
-								<%-- <div class="card-text" name="b_content">${item.b_content}</div> --%>
-
-
 							</div>
 						</div>
-					</div>
-				</c:forEach>
+					</c:forEach>
+				</div>
 			</div>
 		</form>
 
 	</main>
-
+	<div>
+		<div class="pagination" style="margin-top: 10px;">${pageMenu}</div>
+	</div>
 
 </body>
 </html>
-
-
-<!--  
-<c:forEach var="item" items="${items}">
-    <div id="carousel_${item.id}" class="carousel slide">
-        <div class="carousel-inner">
-            <c:forEach var="image" items="${item.image_list }" varStatus="status">
-                <div class="carousel-item ${status.first ? 'active' : ''}">
-                    <img src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
-                         class="d-block w-100" alt="...">
-                </div>
-            </c:forEach>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel_${item.id}" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel_${item.id}" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</c:forEach>
--->

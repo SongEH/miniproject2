@@ -44,7 +44,8 @@
 
 	    // 산책
 	    if (response.stoll_list.length > 0) {
-	        formHtml += '산책<br>';
+	        formHtml += '<div style="font-size:23px;"><hr>산책';
+	        formHtml += '<img src="../resources/images/diary/diary_1.png" alt="" width="80px"></div><br>';
 	        response.stoll_list.forEach(function(StollVo) {
 	        	
 	        	 let formattedStartTime = formatTime(StollVo.s_stime);
@@ -62,29 +63,18 @@
 	             formHtml += '</tbody></table></form></div>';
 	             formHtml += '<div id="btns"><a href="diary_view.do?table_name=stoll&idx=' + (StollVo.s_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
 	             formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'stoll\',' + (StollVo.s_idx || '') + ');"></div><br>';
-	        
-	        	
-	            /* formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
-	            formHtml += '<tr><th>반려동물</th>';
-	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_idx" value="' + (StollVo.p_idx || '') + '"></td></tr>';
-	            formHtml += '<tr><th>시작시간</th>';
-	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_stime" value="' + (StollVo.s_stime || '') + '"></td></tr>';
-	          
-	            formHtml += '<tr><th>종료시간</th>';
-	            formHtml += '<td><input class="form-control form-control-lg" type="time" name="s_etime" value="' + (StollVo.s_etime || '') + '"></td></tr>';
-	            formHtml += '<tr><th>거리(m)</th>';
-	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="s_distance" value="' + (StollVo.s_distance || '') + '"></td></tr>';
-	            formHtml += '</tbody></table></form></div>';
-	            formHtml += '<a href="diary_view.do?table_name=stoll&idx=' + (StollVo.s_idx || '') + '"><input class="diary-btn-yellow" type="button" value="상세보기" style="margin-right:50px;"></a>';
-	            formHtml += '<input class="diary-btn-yellow" type="button" value="삭제" onclick="del(\'stoll\',' + (StollVo.s_idx || '') + ');"><br>';
-	         */});
+
+	           });
 	    }
 	    
 		// 체중
 	    if (response.weight_list.length > 0) {
-	        formHtml += '<div style="font-size:23px;">체중</div><br>';
+	        formHtml += '<div style="font-size:23px;"><hr>체중';
+	        formHtml += '<img src="../resources/images/diary/diary_5.png" alt="" width="80px"></div><br>';
+	        
+	        
 	        response.weight_list.forEach(function(WeightVo) {
-	            formHtml += '<div id="diary_bottom_list"><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	            formHtml += '<form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
 	            formHtml += '<tr><th>반려동물</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_name" value="' + (WeightVo.p_name || '') + '" readonly ></td></tr>';
 	            formHtml += '<tr><th>체중(kg)</th>';
@@ -97,13 +87,14 @@
 
 	    // 사료/간식/영양제
 	    if (response.feeding_list.length > 0) {
-	        formHtml += '사료/간식/영양제<br>';
+	        formHtml += '<div style="font-size:23px;"><hr>사료/간식/영양제';
+	        formHtml += '<img src="../resources/images/diary/diary_3.png" alt="" width="80px"></div><br>';
 	        response.feeding_list.forEach(function(FeedingVo) {
 	        	
 	        	let formattedTime = formatTime(FeedingVo.f_time);
 	             
 	             
-	            formHtml += '<div><form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
+	            formHtml += '<form action="diary_modify_form.do" method="post"><table class="table"><tbody>';
 	            formHtml += '<tr><th>반려동물</th>';
 	            formHtml += '<td><input class="form-control form-control-lg" type="text" name="p_name" value="' + (FeedingVo.p_name || '') + '" readonly></td></tr>';
 	            formHtml += '<tr><th>시간</th>';
@@ -120,7 +111,9 @@
 
 	    // 건강
 	    if (response.health_list.length > 0) {
-	        formHtml += '건강<br>';
+	        formHtml += '<div style="font-size:23px;"><hr>건강';
+	        formHtml += '<img src="../resources/images/diary/diary_4.png" alt="" width="80px"></div><br>';
+	        
 	        response.health_list.forEach(function(HealthVo) {
 	        	let formattedTime = formatTime(HealthVo.h_time);
 	        	
@@ -141,7 +134,8 @@
 
 	    // 메모
 	    if (response.note_list.length > 0) {
-	        formHtml += '메모<br>';
+	        formHtml += '<div style="font-size:23px;"><hr>메모';
+	        formHtml += '<img src="../resources/images/diary/diary_2.png" alt="" width="80px"></div><br>';
 	        response.note_list.forEach(function(NoteVo) {
 	        	let formattedTime = formatTime(NoteVo.o_time);
 	        	
@@ -388,7 +382,8 @@ body {
 }
 
 .container {
-	width: 80%;
+	
+	text-align: center;
 }
 
 /* .th_h{
@@ -489,10 +484,21 @@ body {
 	font-size:27px;
 }
 
+#diary_select_date{
+	text-align:center;
+	
+}
+
 
 #btns{
 	text-align:center;
 }
+
+#diary_bottom_list{
+	width:800px;
+	text-align:center;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -532,7 +538,7 @@ body {
 		<form>
 			<input type=hidden id="select_date"> 
 			<input class="diary-btn-yellow-outline" type="button" value="추가하기"
-				onclick="diary_insert_form()">
+				onclick="diary_insert_form()" style="margin-left:-110px;">
 		</form>
 		</div>
 		

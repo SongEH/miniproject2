@@ -47,25 +47,12 @@
       height: 80px;
    }
    
-   
-.box {
-margin-top:150px;
-	/* width: 800px;
-	height: 600px;
-	margin: auto;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	overflow: hidden; */
-}
 
 .container {
 	width: 80%;
 }
 
-/* .th_h{
-	margin-top:15px !important;
-} */
+
 .container th {
 	/* color:red !important; */
 	font-size: 18px;
@@ -83,6 +70,88 @@ margin-top:150px;
 .container td, .container th{
 	border:none !important;
 }
+
+
+h2 {
+	text-align:center;
+}
+
+.box {
+	margin-top:150px;
+
+}
+
+/*  diary-btn-yellow  */
+.diary-btn-yellow {
+	background-color: #FADA5A;
+	position: relative;
+	padding: 15px;
+	border-radius: 15px;
+	border: none;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+.diary-btn-yellow:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-yellow-outline  */
+.diary-btn-yellow-outline {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 15px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-yellow-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline:active {
+	transform: scale(0.9);
+}
+
+/*  diary-btn-gray-outline  */
+.diary-btn-gray-outline {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-gray-outline:hover {
+	transform: scale(1.1);
+	cursor: pointer;
+}
+
+.diary-btn-gray-outline:active {
+	transform: scale(0.9);
+}
+
 </style>
 
 <script type="text/javascript">
@@ -102,10 +171,11 @@ margin-top:150px;
 	<%@include file="../top.jsp"%>
   	
   	<div class="box">
-  	상세보기<br>
+  		<div class="container">
 
 			<c:choose>
 				<c:when test="${table_name == 'weight'}">
+				<h2 style="font-family: 'Noto Sans KR', sans-serif;" >체중 상세보기</h2><br>
 				<table class="table">
 					<tr>
 						<th>날짜</th>
@@ -124,17 +194,18 @@ margin-top:150px;
 							type="number" name="w_weight" step="0.01" value="${map.W_WEIGHT}" readonly></td>
 					</tr>
 				</table><br>
-				<div>
-					<input class="btn btn-primary" type="button" value="목록보기"
+				<div style="text-align:center;"  >
+					<input class="diary-btn-yellow-outline" type="button" value="목록보기"
 						onclick="location.href='diary_list.do'"> <a
 						href="diary_modify_form.do?table_name=weight&idx=${map.W_IDX}"> <input
-						class="btn btn-info" type="button" value="수정하기">
-					</a> <input class="btn btn-danger" type="button" value="삭제하기"
+						class="diary-btn-yellow" type="button" value="수정하기">
+					</a> <input class="diary-btn-gray-outline" type="button" value="삭제하기"
 						onclick="del('${table_name}', ${map.W_IDX});">
 				</div>
 				</c:when>
 				
 				<c:when test="${table_name == 'stoll'}">
+				<h2 style="font-family: 'Noto Sans KR', sans-serif;" >산책 상세보기</h2><br>
 			    <table class="table">
 			        <tr>
 			            <th>날짜</th>
@@ -175,16 +246,17 @@ margin-top:150px;
 			            </td>
 			        </tr>
 			    </table>
-			    <div>
-			        <input class="btn btn-primary" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
+			    <div style="text-align:center;"  >
+			        <input class="diary-btn-yellow-outline" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
 			        <a href="diary_modify_form.do?table_name=stoll&idx=${map.S_IDX}">
-			            <input class="btn btn-info" type="button" value="수정하기" />
+			            <input class="diary-btn-yellow" type="button" value="수정하기" />
 			        </a>
-			        <input class="btn btn-danger" type="button" value="삭제하기" onclick="del('stoll', ${map.S_IDX});" />
+			        <input class="diary-btn-gray-outline" type="button" value="삭제하기" onclick="del('stoll', ${map.S_IDX});" />
 			    </div>
 			</c:when>
 			
 			<c:when test="${table_name == 'feeding'}">
+			<h2 style="font-family: 'Noto Sans KR', sans-serif;" >급여 상세보기</h2><br>
 			    <table class="table">
 			        <tr>
 			            <th>날짜</th>
@@ -218,17 +290,18 @@ margin-top:150px;
 			            </td>
 			        </tr>
 			    </table>
-			    <div>
-			        <input class="btn btn-primary" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
+			    <div style="text-align:center;"  >
+			        <input class="diary-btn-yellow-outline" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
 			        <a href="diary_modify_form.do?table_name=feeding&idx=${map.F_IDX}">
-			            <input class="btn btn-info" type="button" value="수정하기" />
+			            <input class="diary-btn-yellow" type="button" value="수정하기" />
 			        </a>
-			        <input class="btn btn-danger" type="button" value="삭제하기" onclick="del('feeding', ${map.F_IDX});" />
+			        <input class="diary-btn-gray-outline" type="button" value="삭제하기" onclick="del('feeding', ${map.F_IDX});" />
 			    </div>
 			</c:when>
 						
 			
 			<c:when test="${table_name == 'health'}">
+			<h2 style="font-family: 'Noto Sans KR', sans-serif;" >진료/접종 상세보기</h2><br>
 			    <table class="table">
 			        <tr>
 			            <th>날짜</th>
@@ -281,17 +354,18 @@ margin-top:150px;
 			            </td>
 			        </tr>
 			    </table>
-			    <div>
-			        <input class="btn btn-primary" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
+			    <div style="text-align:center;"  >
+			        <input class="diary-btn-yellow-outline" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
 			        <a href="diary_modify_form.do?table_name=health&idx=${map.H_IDX}">
-			            <input class="btn btn-info" type="button" value="수정하기" />
+			            <input class="diary-btn-yellow" type="button" value="수정하기" />
 			        </a>
-			        <input class="btn btn-danger" type="button" value="삭제하기" onclick="del('health', ${map.H_IDX});" />
+			        <input class="diary-btn-gray-outline" type="button" value="삭제하기" onclick="del('health', ${map.H_IDX});" />
 			    </div>
 			</c:when>
 			
 			
 			<c:when test="${table_name == 'note'}">
+			<h2 style="font-family: 'Noto Sans KR', sans-serif;" >메모 상세보기</h2><br>
 			    <table class="table">
 			        <tr>
 			            <th>날짜</th>
@@ -319,12 +393,12 @@ margin-top:150px;
 			            </td>
 			        </tr>
 			    </table>
-			    <div>
-			        <input class="btn btn-primary" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
+			    <div style="text-align:center;"  >
+			        <input class="diary-btn-yellow-outline" type="button" value="목록보기" onclick="location.href='diary_list.do'" />
 			        <a href="diary_modify_form.do?table_name=note&idx=${map.O_IDX}">
-			            <input class="btn btn-info" type="button" value="수정하기" />
+			            <input class="diary-btn-yellow" type="button" value="수정하기" />
 			        </a>
-			        <input class="btn btn-danger" type="button" value="삭제하기" onclick="del('note', ${map.O_IDX});" />
+			        <input class="diary-btn-gray-outline" type="button" value="삭제하기" onclick="del('note', ${map.O_IDX});" />
 			    </div>
 			</c:when>
 			
@@ -332,10 +406,8 @@ margin-top:150px;
 			
 			</c:choose>
 
-
-	</div>
 		</div>
-
-  </div>
+	</div>
+	
 </body>
 </html>

@@ -26,13 +26,13 @@ String ctx = request.getContextPath(); //콘텍스트명 얻어오기.
 
 
 <!-- bootstrap -->
-<link
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> 
 
 <!-- Favicons -->
 <link
@@ -193,19 +193,26 @@ article p {
 .post-images {
 	display: flex;
 	flex-wrap: wrap;
+	 justify-content: center;
 	gap: 2px; /* 이미지 간의 간격을 조정합니다 */
+}
 }
 
 .post-img {
 	flex: 0 0 calc(25% - 10px); /* 3개 열을 기준으로 각각의 이미지의 너비를 설정합니다. */
 	box-sizing: border-box; /* 패딩과 테두리를 포함하여 크기를 계산합니다. */
+	display: flex;
+    justify-content: center; /* 이미지를 세로 방향으로 가운데 정렬 */
+    align-items: center; /* 이미지를 가로 방향으로 가운데 정렬 */
 }
 
 .post-img img {
-	width: 300px;
-	height: 300px;
+	width: 250px;
+	height: 250px;
 	display: block;
 	object-fit: cover;
+	margin: 10px;
+	
 }
 
 /*  댓글영역 CSS  */
@@ -257,6 +264,7 @@ article p {
 	transition: 0.25s;
 	letter-spacing: 2px;
 	width: 100px;
+	text-align: center;
 }
 
 .diary-btn-yellow-outline:hover {
@@ -291,6 +299,57 @@ article p {
 	transform: scale(0.9);
 }
 
+
+.diary-btn-gray-outline-re {
+	background-color: white;
+	border: 3px solid #C0C0C0;
+	position: relative;
+	padding: 15px 30px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100px;
+}
+
+.diary-btn-gray-outline-re:hover {
+	transform: scale(1);
+	cursor: pointer;
+}
+
+.diary-btn-gray-outline-re:active {
+	transform: scale(0.8);
+}
+
+
+/*  diary-btn-yellow-outline */ 
+.diary-btn-yellow-outline-btn {
+	background-color: white;
+	border: 3px solid #FADA5A;
+	position: relative;
+	padding: 5px 10px;
+	border-radius: 15px;
+	text-decoration: none;
+	font-weight: 600;
+	transition: 0.25s;
+	letter-spacing: 2px;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+.diary-btn-yellow-outline-btn:hover {
+	transform: scale(1.0);
+	cursor: pointer;
+}
+
+.diary-btn-yellow-outline-btn:active {
+	transform: scale(0.8);
+}
+
+
+
 </style>
 
 
@@ -319,7 +378,7 @@ article p {
 <script type="text/javascript">
 	/* ------------------------ANSWER_INSERT----------------------------------- */
 	function save_answer() {
-	alert("여기도착2")
+	
 		if ("${ empty user }" == "true") {
 
 			if (confirm("의학전문가 아이디로 로그인후 댓글쓰기가 가능합니다\n로그인 하시겠습니까?") == false)
@@ -332,7 +391,7 @@ article p {
 		}
 
 		let a_content = $("#a_content").val();
-		alert(a_content)
+		
 
 		if (a_content == "") {
 			alert("댓글내용을 입력하세요!!");
@@ -603,56 +662,30 @@ article p {
 			<!-- ------------------------------답변 공간  ---------------------------------------- -->
 
 		</form>
-		<div class="container" style="margin-top: 40px; text-align: center;">
+		<div class="container" style="margin-top: 10px; text-align: center;">
 			<div id="answer_display"></div>
 		</div>
 
 
-		<div class="container">
+		<div class="container" style="text-align:center;">
 
 			<%-- <c:if test="${user.grade eq 'medical'}"> --%>
-			<button class="btn btn-primary" data-bs-toggle="collapse"
-				data-bs-target="#answer_togle">답변하기</button>
+			<button class="diary-btn-yellow" data-bs-toggle="collapse"
+				data-bs-target="#answer_togle" style="width:90%; margin-top:20px">답변</button>
 			<div id="answer_togle" class="collapse">
-				<table class="table">
-					<tr>
-						<td style="width: 10%; vertical-align: middle;">내용</td>
-						<td>
+				
+					<div>
 						<textarea rows="10" cols="30" id="a_content" name="a_content" 
-						style="width: 80%; heigth:auto;" placeholder="내용을 입력해주세요"></textarea>
-					</tr>
-					<tr>
-						<td style="vertical-align: middle;">사진</td>
-						<td style="display: flex; justify-content: center; align-items: center;">
-							<label for="diary-btn-yellow" class="diary-btn-yellow">upload</label>
-							
-							<input id="diary-btn-yellow" name="photo" type="file" multiple="multiple" style="display: none;"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td style="display: flex; justify-content: center; align-items: center;">
-						<input type="button" class="diary-btn-yellow-outline"
-							id="save" value="답변 등록" onclick="save_answer();" /> &nbsp;&nbsp;&nbsp;<input
-							type="button" class="diary-btn-gray-outline" value="취소" /></td>
-					</tr>
-				</table>
-
-
-				<!-- <div class="container answer mt-3">
-					<div class="row">
-						<div class="col-md-10">
-							<textarea rows="8" cols="30" id="a_content" name="a_content"
-								style="width: 100%; height: 300px;"></textarea>
-						</div>
-						<div class="col-md-2"
-							style="display: flex; justify-content: center; align-items: center; height: 300px;">
-							<input type="button" value="답변 등록" onclick="save_answer();">
-						</div>
-						<div>
-							<input name="photo" type="file" multiple="multiple">
-						</div>
+							style="width: 90%; heigth:auto; margin-top:10px" placeholder="내용을 입력해주세요"></textarea>
 					</div>
-				</div> -->
+					<div>
+						<label for="diary-btn-yellow" class="diary-btn-yellow">upload</label>
+						<input id="diary-btn-yellow" name="photo" type="file" multiple="multiple" style="display: none;">
+					</div>
+					<div>
+						<input type="button" class="diary-btn-yellow-outline" id="save" value="답변 등록" onclick="save_answer();" /> &nbsp;&nbsp;&nbsp;
+						<input type="button" class="diary-btn-gray-outline" value="취소" /></td>
+					</div>
 			</div>
 		</div>
 		<%-- </c:if> --%>
@@ -661,17 +694,16 @@ article p {
 
 
 
-
 		<!-- ----------------댓글 작성 폼 공간-------------------------------------->
-		<div class="container">
-			<hr>
+		<div class="container" style="margin-top: 20px;">
+			
 			<div class="row">
 				<div class="col-sm-10">
-					<textarea rows="3" id="re_content" name="re_content"
+					<textarea rows="3" class="diary-btn-gray-outline-re" id="re_content" name="re_content"
 						placeholder="로그인후에 댓글쓰기가 가능합니다"></textarea>
 				</div>
-				<div class="col-sm-2">
-					<input id="btn_re_register" type="button" value="댓글쓰기"
+				<div class="col-sm-2" style="display:flex;">
+					<input class="diary-btn-yellow-outline-btn" style="display: flex; justify-content: center; align-items: center; id="btn_re_register" type="button" value="댓글쓰기"
 						onclick="reply_insert();">
 				</div>
 			</div>

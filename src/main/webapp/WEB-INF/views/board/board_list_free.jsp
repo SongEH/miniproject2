@@ -20,21 +20,19 @@ pageContext.setAttribute("replaceChar", "\n");
 <title>반려동물종합관리플랫폼</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
-<!-- bootstrap -->
-<link
+<!--  <!-- bootstrap -->
+<!-- <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  -->
 <!-- Favicons -->
 <link
 	href="${pageContext.request.contextPath}/resources/assets/img/favicon.png"
@@ -163,6 +161,10 @@ main.main {
 	display: flex;
 }
 
+.container {
+	width: 80%:
+}
+
 /* 블로그 글 CSS */
 .blog-post {
 	border: 1px solid #ddd;
@@ -175,16 +177,17 @@ main.main {
 	font-size: 1.5em;
 	margin-bottom: 8px;
 	color: #ff69b4;
+	font-family: 'Noto Sans KR', sans-serif !important;
 }
 
 .post-title-link {
 	text-decoration: none;
-	color: inherit;
+	color: black;
 }
 
 .post-description {
 	width: 100%;
-	font-size: 1em;
+	font-size: 14px;
 	margin-top: 2px;
 	color: #555;
 	display: inline-block;
@@ -194,6 +197,12 @@ main.main {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: normal;
+	line-height: 2;
+	font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.inline {
+	text-align: right;
 }
 
 .post-images {
@@ -207,7 +216,7 @@ main.main {
 .post-img {
 	flex: 1;
 	width: 400px;
-	height: 200px;
+	height: 150px;
 	overflow: hidden;
 	object-fit: cover;
 }
@@ -235,12 +244,6 @@ main.main {
 	justify-content: space-between;
 }
 
-.img-thumbnail {
-	cursor: pointer;
-	width: 300px;
-	height: 150px;
-}
-
 /* 페이지 메뉴 CSS  */
 .pagination {
 	text-align: center !important;
@@ -253,57 +256,74 @@ section {
 	border-top: 1px solid #FADA5A;
 }
 
+.flex-container {
+	display: flex; /* 요소들을 행으로 정렬 */
+	justify-content: space-between; /* 요소들을 좌우로 분산 정렬 */
+	align-items: center; /* 요소들을 세로 방향 상단 정렬 */
+}
+
+.col-md-8 {
+	flex: 1; /* 자동으로 남은 공간을 채우도록 설정 */
+	margin-top: 30px;
+}
+
+.col-md-4 {
+	flex: 1; /* 자동으로 남은 공간을 채우도록 설정 */
+}
+
+.image-container {
+	margin-top: 30px; /* 이미지 컨테이너 위 여백 설정 */
+}
+
 /* 이미지 보여주는 CSS*/
 .image-container {
-	position: relative;
-	width: 300px; /* Adjust size as needed */
-	height: 200px; /* Adjust size as needed */
+	display: flex; /* 이미지를 가운데 정렬하기 위해 flexbox 사용 */
+	justify-content: center; /* 수평 가운데 정렬 */
+	align-items: center; /* 수직 가운데 정렬 */
+	height: 180px; /* 이미지 컨테이너의 높이 설정 */
+	overflow: hidden; /* 내용이 넘치면 숨김 */
+	margin-top: 10px; /* 위 여백 설정 */
+}
+
+.image-wrapper {
+	width: 250px; /* 이미지의 고정 너비 */
+	height: 180px; /* 이미지의 고정 높이 */
+	position: relative; /* 상대 위치 설정 */
+	overflow: hidden;
 }
 
 .main-image {
-	width: 100%;
-	height: 100%;
-	display: block;
+	width: 100%; /* 이미지 너비를 100%로 설정하여 부모 요소에 맞게 조정 */
+	height: 180px; /* 이미지 높이 자동으로 설정 */
+	object-fit: cover; /* 이미지를 부모 요소에 맞게 크롭하여 채우기 */
+	object-position: center;
 }
 
-.overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-wrap: wrap;
-	/* align-items: flex-start; */
-	justify-content: flex-start; opacity : 0;
-	transition: opacity 0.3s ease;
-	pointer-events: none;
-	opacity: 0;
+.main-image.img {
+	width: 250px; /* 이미지 너비를 100%로 설정하여 부모 요소에 맞게 조정 */
+	height: 180px; /* 이미지 높이 자동으로 설정 */
 }
 
-.overlay-image {
-	width: 50%;
-	height: 50%;
-	object-fit: cover;
-	display: block;
-}
-
-.image-container:hover .overlay {
-	opacity: 1;
-	pointer-events: auto;
+.no-border {
+	border: none; /* border 제거 */
 }
 
 #search {
+	float: none;
 	background-color: white;
 	border: 3px solid #FADA5A;
 	position: relative;
-	/* padding: 15px 30px; */
+	 padding: 5px 10px; 
 	border-radius: 15px;
 	text-decoration: none;
-	/* font-weight: 600;  */
-	transition: 0.25s;
+	font-weight: 400;
+	font-size: 15px; transition : 0.25s;
 	letter-spacing: 2px;
 	width: 100px;
+	margin-left: 800px;
+	display: inline-block;
+	transition: 0.25s;
+	text-align: center;
 }
 
 #search:hover {
@@ -319,13 +339,15 @@ section {
 	background-color: white;
 	border: 3px solid #C0C0C0;
 	position: relative;
-	padding: 15px 30px;
+	padding: 5px 10px;
 	border-radius: 15px;
 	text-decoration: none;
-	font-weight: 600;
+	font-weight: 400;
 	transition: 0.25s;
 	letter-spacing: 2px;
 	width: 100px;
+	display: inline-block;
+	text-align: center;
 }
 
 #search_text:hover {
@@ -335,6 +357,16 @@ section {
 
 #search_text:active {
 	transform: scale(0.9);
+}
+
+.form-inline {
+	display: flex;
+	justify-content: flex-end; /* 요소들을 오른쪽 정렬 */
+	align-items: center; /* 요소들을 세로 중앙 정렬 */
+}
+
+.form-label, .form-control, .diary-btn-yellow {
+	margin-left: 10px; /* 각 요소 사이의 간격 조정 */
 }
 </style>
 
@@ -409,6 +441,19 @@ section {
 .diary-btn-gray-outline:active {
 	transform: scale(0.9);
 }
+
+/* 글자 */
+.blog-posts-2 {
+	font-size: 12px;
+}
+
+
+.search.search_text{
+	font-size: 12px;
+}
+
+
+
 </style>
 <!-- 메인 버튼 스타일 Design by_JH -->
 
@@ -475,8 +520,9 @@ section {
 
 <body class="index-page">
 
-	<%@ include file="/WEB-INF/views/top.jsp"%>
-
+	<div class="container-fluid">
+		<%@ include file="/WEB-INF/views/top.jsp"%>
+	</div>
 	<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
 
 	<main class="main mt-300">
@@ -488,16 +534,17 @@ section {
 			</div>
 			<div style="text-align: right; margin-bottom: 5px;">
 				<form class="form-inline">
-					<label for="search" class="form-label"></label> <select id="search"
-						class="form-control form-control-lg" value="#FADA5A">
+					<label for="search" class="form-label"></label> 
+					<select id="search"class="form-control form-control-lg" value="#FADA5A" style="font-size: 12px;">
 						<option value="all">전체보기</option>
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 						<option value="title_content">제목+내용</option>
-					</select> <label for="search_text" class="form-label"></label> <input
-						id="search_text" class="form-control form-control-color"
+					</select> 
+					<label for="search_text" class="form-label"> </label> 
+					<input	id="search_text" class="form-control form-control-color finder" style="font-size: 12px; 
 						value="${ param.search_text }"> <input type="button"
-						class="diary-btn-yellow" value="검색" onclick="find();">
+						class="diary-btn-yellow"  " value="검색" onclick="find();">
 				</form>
 			</div>
 		</div>
@@ -505,39 +552,35 @@ section {
 
 
 
-	<%-- <%@ include file="/WEB-INF/views/board/board_list.jsp"%> --%>
-	
-		<div class="container mb-20" >
+		<%-- <%@ include file="/WEB-INF/views/board/board_list.jsp"%> --%>
+
+		<div class="container mb-20">
 			<c:forEach var="item" items="${list}">
 				<c:if test="${item.b_cate eq 'free' }">
-					<form style="height: 200px;">
+					<form style="height: 200px; margin-top: 30px;">
 						<input type="hidden" id="b_cate" name="b_cate"
 							value="${item.b_cate}">
 
 						<section id="blog-posts-2" class="blog-posts-2 section"
-							style="padding: 5px;">
-							<div>${item.m_name}${item.b_rdate}</div>
-							<div class="col-md-8" style="margin-top: 30px;">
-								<h3 class="post-title mt-2">
-									<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
-									(${item.b_readhit})
-								</h3>
-								<h5 class="post-description">
-									<c:out value="${item.b_content.replaceAll('<[^>]*>', '')}" />
-								</h5>
-							</div>
-							<div class="col-md-4 image-container">
-								<div class="post-images">
-									<img
-										src="${pageContext.request.contextPath}/resources/images/${item.image_list[0].b_filename}"
-										alt="Main Image" class="main-image img-thumbnail">
-									<div class="overlay">
-										<c:forEach var="image" items="${item.image_list}">
-											<img
-												src="${pageContext.request.contextPath}/resources/images/${image.b_filename}"
-												alt="Overlay Image" class="overlay-image img-thumbnail"
-												onclick="location.href='view.do?b_idx=${item.b_idx}'">
-										</c:forEach>
+							style="padding: 3px;">
+							<div class="flex-container">
+
+								<div class="col-md-8" style="margin-top: 10px;">
+									<div>${item.m_name}&nbsp;&nbsp;&nbsp;(${item.b_rdate})</div>
+									<h3 class="post-title mt-1">
+										<a href="view.do?b_idx=${item.b_idx}" class="post-title-link">${item.b_title}</a>
+										(${item.b_readhit})
+									</h3>
+									<h5 class="post-description">
+										<c:out value="${item.b_content.replaceAll('<[^>]*>', '')}" />
+									</h5>
+								</div>
+								<div class="col-md-4 image-container">
+									<div class="image-wrapper">
+										<img
+											src="${pageContext.request.contextPath}/resources/images/${item.image_list[0].b_filename}"
+											alt="Main Image" class="main-image img-thumbnail"
+											style="width: 250px; height: 180px;">
 									</div>
 								</div>
 							</div>
@@ -545,16 +588,16 @@ section {
 					</form>
 				</c:if>
 			</c:forEach>
-		</div> 
-		
+		</div>
+
 
 		<!-- ---------------------------------------자유게시판-------------------------------------------------------  -->
 
 		<!-- <div> -->
-			<!-- Pagination menu -->
-			<!-- <div class="container" style="text-align: center;"> -->
-				<div class="pagination" style="margin-top: 10px;">${pageMenu}</div>
-			<!-- </div> -->
+		<!-- Pagination menu -->
+		<!-- <div class="container" style="text-align: center;"> -->
+		<div class="pagination" style="margin-top: 10px;">${pageMenu}</div>
+		<!-- </div> -->
 		<!-- </div> -->
 		<!--  페이지 메뉴 부트스트랩 -->
 		<script

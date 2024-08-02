@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -139,9 +139,8 @@ input {
 				class="container d-flex justify-content-center justify-content-md-between">
 				<div class="contact-info d-flex align-items-center">
 					<i class="bi bi-envelope d-flex align-items-center"><a
-						href="mailto:contact@example.com">contact@example.com</a></i> <i
-						class="bi bi-phone d-flex align-items-center ms-4"><span>+1
-							5589 55488 55</span></i>
+						href="mailto:contact@example.com">global_it@gmail.com</a></i> <i
+						class="bi bi-phone d-flex align-items-center ms-4"><span>02-6020-0055</span></i>
 				</div>
 				<div class="social-links d-none d-md-flex align-items-center">
 					<!-- <div>
@@ -157,9 +156,9 @@ input {
 					<!-- 로그인이 안되어 있는 경우  -->
 					<c:if test="${ empty sessionScope.user }">
 						<input class="btn btn-default" type="button" value="로그인"
-							onclick="location.href='${pageContext.request.contextPath}/member/login_form.do'">
+							onclick="location.href='${pageContext.request.contextPath}/member/login_form.do'" style="font-size:15px; color:#333333;">
 						<input class="btn btn-default" type="button" value="회원가입"
-							onclick="location.href='${pageContext.request.contextPath}/member/insert_form.do'">
+							onclick="location.href='${pageContext.request.contextPath}/member/insert_form.do'" style="font-size:15px; color:#333333;">
 					</c:if>
 					<!-- 로그인이 되어 있는 경우  -->
 					<c:if test="${ not empty sessionScope.user }">
@@ -168,7 +167,7 @@ input {
 						<input class="btn btn-default" type="button" value="마이페이지" onclick="location.href='${pageContext.request.contextPath}/member/mypage.do'">
 						<!-- 로그인이 되어 있고 관리자인 경우  -->
 						<c:if test="${ sessionScope.user.m_grade == '관리자'}">
-							<input class="btn btn-info" type="button" value="관리자페이지" onclick="location.href='${pageContext.request.contextPath}/admin/menu'">
+							<input class="btn btn-info" type="button" value="관리자페이지" onclick="location.href='${pageContext.request.contextPath}/admin/menu'" style="font-size:15px; color:#333333;">
 						</c:if>
 					</c:if>
 				</div>
