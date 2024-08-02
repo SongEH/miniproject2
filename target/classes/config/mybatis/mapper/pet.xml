@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.PetMapper">
+    <select id="getAllPets" resultType="vo.PetVO">
+        SELECT * FROM Pet
+    </select>
+
+    <select id="getPetById" parameterType="int" resultType="vo.PetVO">
+        SELECT * FROM Pet WHERE p_idx = #{p_idx}
+    </select>
+    
+    <select id="getPValueStatistics" resultType="map">
+        SELECT
+            p_value,
+            COUNT(*) AS count
+        FROM
+            pet
+        GROUP BY
+            p_value
+    </select>
+    
+    <select id="getPetsByMemberId" parameterType="int" resultType="vo.PetVO">
+        SELECT * FROM Pet WHERE m_idx = #{m_idx}
+    </select>
+
+	<insert id="insertPet" parameterType="vo.PetVO">
+	    INSERT INTO Pet (p_idx, p_name, p_value, p_breed, p_birthday, p_gender, p_serialNum, p_photo, m_idx)
+	    VALUES (Pet_Seq.NEXTVAL, #{p_name}, #{p_value}, #{p_breed}, #{p_birthday}, #{p_gender}, #{p_serialNum}, #{p_photo}, #{m_idx})
+	</insert>
+
+	<update id="updatePet" parameterType="vo.PetVO">
+	    UPDATE Pet
+	    SET p_name = #{p_name},
+	        p_value = #{p_value},
+	        p_breed = #{p_breed},
+	        p_birthday = #{p_birthday},
+	        p_gender = #{p_gender},
+	        p_serialNum = #{p_serialNum},
+	        p_photo = #{p_photo}
+	    WHERE p_idx = #{p_idx}
+	</update>
+	
+    <delete id="deletePet" parameterType="int">
+        DELETE FROM Pet WHERE p_idx = #{p_idx}
+    </delete>
+    
+    <select id="getPetsWithPaging" resultType="vo.PetVO">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT A.*, ROWNUM RNUM FROM (
+                SELECT * FROM Pet
+                WHERE LOWER(p_name) LIKE '%' || LOWER(#{searchKeyword}) || '%' 
+                   OR LOWER(p_value) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                   OR LOWER(p_breed) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                ORDER BY p_idx
+            ) A WHERE ROWNUM <= #{offset} + #{limit}
+        ) WHERE RNUM > #{offset}
+        ]]>
+    </select>
+
+    <select id="getPetCount" resultType="int">
+        SELECT COUNT(*)
+        FROM Pet
+        WHERE LOWER(p_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(p_value) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(p_breed) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+    </select>
+    
+    <select id="getPetNameById" parameterType="int" resultType="String">
+    	SELECT p_name
+    	FROM pet
+    	WHERE p_idx = #{p_idx}
+	</select>
+
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+    <select id="selectAll" resultType="vo.MemberVO">
+        SELECT * FROM member
+    </select>
+
+    <select id="selectById" parameterType="int" resultType="vo.MemberVO">
+        SELECT * FROM member WHERE m_idx = #{m_idx}
+    </select>
+    
+    <update id="updateMember" parameterType="vo.MemberVO">
+        UPDATE Member
+        SET m_name = #{m_name},
+            m_nickname = #{m_nickname},
+            m_email = #{m_email},
+            m_pwd = #{m_pwd},
+            m_zipcode = #{m_zipcode},
+            m_addr = #{m_addr},
+            m_grade = #{m_grade}
+        WHERE m_idx = #{m_idx}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM member WHERE m_idx = #{m_idx}
+    </delete>
+    
+    <select id="selectWithPagingAndFilters" resultType="vo.MemberVO">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT A.*, ROWNUM RNUM FROM (
+                SELECT * FROM member 
+                WHERE (m_name LIKE '%' || #{searchKeyword, jdbcType=VARCHAR} || '%' OR m_nickname LIKE '%' || #{searchKeyword, jdbcType=VARCHAR} || '%' OR m_email LIKE '%' || #{searchKeyword, jdbcType=VARCHAR} || '%')
+                AND (#{gradeFilter, jdbcType=VARCHAR} IS NULL OR m_grade = #{gradeFilter, jdbcType=VARCHAR})
+                AND (#{yearFilter, jdbcType=VARCHAR} IS NULL OR TO_CHAR(m_rdate, 'YYYY') = #{yearFilter, jdbcType=VARCHAR})
+                ORDER BY m_idx
+            ) A WHERE ROWNUM <= #{offset} + #{limit}
+        ) WHERE RNUM > #{offset}
+        ]]>
+    </select>
+
+    <select id="selectMemberCountWithFilters" resultType="int">
+        SELECT COUNT(*)
+        FROM member
+        WHERE (m_name LIKE '%' || #{searchKeyword, jdbcType=VARCHAR} || '%' OR m_nickname LIKE '%' || #{searchKeyword, jdbcType=VARCHAR} || '%' OR m_email LIKE '%' || #{searchKeyword, jdbcType=VARCHAR} || '%')
+        AND (#{gradeFilter, jdbcType=VARCHAR} IS NULL OR m_grade = #{gradeFilter, jdbcType=VARCHAR})
+        AND (#{yearFilter, jdbcType=VARCHAR} IS NULL OR TO_CHAR(m_rdate, 'YYYY') = #{yearFilter, jdbcType=VARCHAR})
+    </select>
+    
+    <update id="updateMemberForUser" parameterType="vo.MemberVO">
+	    UPDATE member
+	    SET m_name = #{m_name, jdbcType=VARCHAR},
+	        m_nickname = #{m_nickname, jdbcType=VARCHAR},
+	        m_email = #{m_email, jdbcType=VARCHAR},
+	        m_zipcode = #{m_zipcode, jdbcType=VARCHAR},
+	        m_addr = #{m_addr, jdbcType=VARCHAR}
+	    WHERE m_idx = #{m_idx}
+	</update>
+	
+    <select id="getMembersWithPaging" resultType="vo.MemberVO">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT A.*, ROWNUM RNUM FROM (
+                SELECT * FROM Member
+                WHERE (#{searchKeyword} IS NULL OR LOWER(m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                   OR LOWER(m_nickname) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                   OR LOWER(m_email) LIKE '%' || LOWER(#{searchKeyword}) || '%')
+                ORDER BY m_idx
+            ) A WHERE ROWNUM <= #{offset} + #{limit}
+        ) WHERE RNUM > #{offset}
+        ]]>
+    </select>
+
+    <select id="getMemberCount" resultType="int">
+        SELECT COUNT(*)
+        FROM Member
+        WHERE (#{searchKeyword} IS NULL OR LOWER(m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(m_nickname) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+           OR LOWER(m_email) LIKE '%' || LOWER(#{searchKeyword}) || '%')
+    </select>
+    
+	<insert id="insertMember" parameterType="vo.MemberVO">
+        INSERT INTO Member (m_idx, m_name, m_nickname, m_email, m_pwd, m_zipcode, m_addr, m_grade)
+        VALUES (member_seq.nextval, #{m_name}, #{m_nickname}, #{m_email}, #{m_pwd}, #{m_zipcode}, #{m_addr}, #{m_grade})
+    </insert>
+    
+    <insert id="member_insert" parameterType="vo.MemberVO"> 
+    	insert into member 
+    	values(member_seq.nextval, #{ m_name }, #{m_nickname}, #{ m_email }, #{ m_pwd }, #{ m_zipcode }, #{ m_addr }, #{m_rdate}, default) 
+    </insert>
+    
+    <select id="member_one_nickname" parameterType="String" resultType="vo.MemberVO"> 
+    	select * from member where m_nickname=#{m_nickname}
+    </select>
+    
+    <select id="member_one_email" parameterType="String" resultType="vo.MemberVO"> 
+    	select * from member where m_email=#{m_email} 
+    </select>
+    
+</mapper>

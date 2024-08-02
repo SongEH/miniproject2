@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+<select id="admin_board_list_page" parameterType="Map" resultType="vo.BoardVo">
+    <![CDATA[
+    SELECT * FROM (
+        SELECT ROWNUM AS rnum, a.*
+        FROM (
+            SELECT b.b_idx, b.m_idx, b.b_cate, b.b_title, b.b_content, b.b_rdate, b.b_udate, b.b_ddate, m.m_name
+            FROM board b
+            JOIN member m ON b.m_idx = m.m_idx
+            WHERE (
+                LOWER(m.m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                OR LOWER(b.b_title) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                OR LOWER(b.b_content) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+            )
+            ORDER BY b.b_idx DESC
+        ) a
+        WHERE ROWNUM <= #{end}
+    )
+    WHERE rnum > #{start}
+    ]]>
+</select>
+
+<select id="admin_board_row_total" parameterType="Map" resultType="int">
+    SELECT COUNT(*)
+    FROM board b
+    JOIN member m ON b.m_idx = m.m_idx
+    WHERE 1=1
+    <if test="searchKeyword != null and searchKeyword != ''">
+        AND (
+            LOWER(m.m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+            OR LOWER(b.b_title) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+            OR LOWER(b.b_content) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+        )
+    </if>
+    <if test="b_cate != null and b_cate != ''">
+        AND b.b_cate = #{b_cate}
+    </if>
+</select>
+
+
+<!--  
+	<select id="board_list_page" parameterType="Map" resultType="vo.BoardVo">
+		SELECT v.*
+			FROM (
+			    SELECT
+			        p.*, 
+			        RANK() OVER (ORDER BY b_idx DESC) AS no
+			    FROM 
+			    	( SELECT * FROM board ) p
+			) v
+			WHERE no BETWEEN #{start} AND #{end}
+	</select>
+-->
+	
+<!--  ************************** BOARD_ROW_TOTAL  ***************************** -->
+	<select id="board_row_total" parameterType="String" resultType="int">
+		select nvl(count(*),0) from board where b_cate = #{b_cate}
+	</select>
+<!--  ************************** BOARD_ROW_TOTAL  ***************************** -->
+
+	
+<!-- ************************** BOARD_LIST  ***************************** -->
+	<resultMap type="vo.BoardVo"  id="BoardMap">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_image_list"
+	                    />
+	</resultMap>
+	
+	
+	<select id="board_image_list"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+	
+	<select id="board_list" resultMap="BoardMap">
+		select
+			rank() over(order by b_idx desc) as no, b.*
+			from 
+			(select * from board where  ) b
+	</select>
+<!-- ************************** BOARD_LIST  ***************************** -->
+	
+
+<!-- ************************** BOARD_LIST_B_CATE  ***************************** -->
+	<resultMap type="vo.BoardVo"  id="BoardMap3">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_image_list"
+	                    />
+	</resultMap>
+	
+	
+	<select id="board_image_list3"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+
+	<select id="board_list_b_cate" parameterType="String" resultMap="BoardMap3">
+				select
+				rank() over(order by b_idx desc) as no, b.*
+				from 
+					(select * from board where b_cate = #{b_cate}) b
+	</select>
+<!-- ************************** BOARD_LIST_B_CATE  ***************************** -->
+
+
+<!-- ************************** BOARD_LIST_page  ***************************** -->
+	<!-- 
+	<resultMap type="vo.BoardVo"  id="BoardMap4">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_list_image_page"
+	                    />
+	</resultMap>
+	
+	<select id="board_list_image_page"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+
+	<select id="board_list_page" parameterType="Map" resultMap="BoardMap4">
+		select *	from
+		(
+			select
+			rank() over(order by b_idx desc) as no, b.*
+			from 
+					(select * from board where b_cate = #{b_cate}) b
+ 		)
+		where no between #{start} and #{end} 
+	</select>
+	 -->
+	
+<!-- ************************** BOARD_LIST_page  ***************************** -->
+
+
+<!-- ************************** BOARD_LIST_PAGE_CONDITION  ***************************** -->
+	<resultMap type="vo.BoardVo"  id="BoardMap5">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_list_image_page"
+	                    />
+	</resultMap>
+	
+	<select id="board_list_image_page"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+
+	<select id="board_list_page_condition" parameterType="Map" resultMap="BoardMap5">
+		select w.* from
+		(
+			select
+				rank() over(order by v.b_idx desc) as no,
+				v.*
+			   from (
+					select b.* 
+					from (
+						select * from board where b_cate = #{b_cate}
+						
+						) b
+						
+						<!-- Dynamic Query: 조건별 Query -->
+					     <trim prefix="where"  prefixOverrides="or">
+					      		<if test="b_title!=null">
+					           			 b_title like '%' || #{ b_title } || '%'
+					         	</if>
+					        	 <if test="b_content!=null">
+					            		or b_content like '%' || #{ b_content } || '%'
+					        	 </if>
+					      </trim>
+					
+ 					) v
+ 		)w
+		where no between #{start} and #{end} 
+	</select>
+	
+<!-- ************************** BOARD_LIST_PAGE_CONDITION   ***************************** -->
+
+
+	
+<!-- ************************** BOARD_INSERT ************************** -->
+ 	<insert id="board_insert" parameterType="vo.BoardVo" >
+ 			insert into board values(seq_board_b_idx.nextVal,
+ 											#{m_idx},
+ 											#{b_cate},
+ 											#{b_title},
+ 											#{b_content},
+ 											sysdate,
+ 											sysdate,
+ 											sysdate,
+ 											#{m_name},
+ 											0
+ 											)
+	</insert> 
+<!-- ************************** BOARD_INSERT ************************** -->
+
+
+
+<!-- ************************** GET_B_IDX ************************** -->	
+<select id="board_get_b_idx"  resultType="int">
+  		select seq_board_b_idx.currVal from dual
+</select>
+<!-- ************************** GET_B_IDX ************************** -->	
+
+
+
+<!-- ************************** GET_B_CONTENT ************************** -->	
+<select id="board_select_content" parameterType="int"  resultType="String">
+  		select b_content from board where b_idx = #{b_idx}
+</select>
+<!-- ************************** GET_B_CONTENT ************************** -->	
+
+
+
+
+
+
+<!-- ************************** INSERT_BOARD_IMAGES ************************** -->	
+ 	<insert id="board_insert_images" parameterType="vo.BoardImagesVo">
+ 			insert into board_images (img_idx, b_idx, b_filename)
+ 			 values(seq_board_images_img_idx.nextVal,
+ 											#{b_idx},
+ 											#{b_filename}
+ 											)
+	</insert> 
+<!-- ************************** INSERT_BOARD_IMAGES ************************** -->	
+
+
+
+
+<!-- ************************** BOARD_LIST_ONE  ***************************** -->
+
+	<resultMap type="vo.BoardVo"  id="BoardMap2">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_image_list2"
+	                    />
+	</resultMap>
+	
+	
+	<select id="board_image_list2"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+	
+	
+	<select id="board_list_one" parameterType="int" resultMap="BoardMap2">
+	      select * from board where b_idx = #{b_idx}
+	</select>
+
+<!-- ************************** BOARD_LIST_ONE  ***************************** -->
+
+
+
+<!-- ************************** BOARD_UPDATE  ***************************** -->
+	<update id="board_update" parameterType="vo.BoardVo">
+		update board set b_title = #{b_title},
+						 b_content = #{b_content},
+						 b_udate = sysdate,
+						 b_cate = #{b_cate}
+						 where b_idx = #{b_idx}
+	</update>
+<!-- ************************** BOARD_UPDATE  ***************************** -->
+
+
+
+<!-- ************************** BOARD_DELETE  ***************************** -->
+	<delete id="board_delete" parameterType="int">
+		delete from board where b_idx = #{b_idx}
+	</delete>
+
+
+
+<!-- ************************** BOARD_DELETE  ***************************** -->
+
+
+
+
+<!-- ************************** BOARD_DELETE  ***************************** -->
+
+	<update id="board_update_readhit" parameterType="int">
+			update board set b_readhit = b_readhit+1 
+							where b_idx = #{b_idx}
+	</update>
+
+<!-- ************************** BOARD_DELETE  ***************************** -->
+
+<select id="board_check_a_idx" parameterType="int" resultType="int">
+		select a_idx from board where b_idx = #{b_idx}
+</select>
+
+<!-- BOARD_CHECK_A_IDX -->
+
+
+
+<!-- BOARD_MAIN -->
+	<resultMap type="vo.BoardVo"  id="BoardMap6">
+	    <result property="b_idx"  column="b_idx"/>
+	    <collection property="image_list"
+	                    column="b_idx"
+	                    select="board_image_list6"
+	                    />
+	</resultMap>
+
+	<select id="board_image_list6"  resultType="vo.BoardImagesVo">
+	     select * from board_images where b_idx=#{ b_idx } 
+	</select>
+
+
+	<select id="board_select_main" parameterType="String" resultMap="BoardMap6">
+		select
+		rank() over(order by b_idx desc) as no, b.*
+		from
+		(select * from board where b_cate = #{b_cate}) b
+	</select>
+
+<!-- BOARD_MAIN -->
+
+</mapper>

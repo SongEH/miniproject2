@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+
+
+
+<!-- 	*********************************REPLY_LIST_PAGE******************************	 -->
+<select id="reply_list_page"  parameterType="Map"  resultType="vo.ReplyVo">
+        select * from
+	   (
+			select
+				rank() over(order by re_idx asc) as no,
+				c.*
+			from 
+			(
+			  select * from reply where b_idx=#{b_idx}
+			) c
+	    )
+	    where no between #{start} and #{end}
+</select>
+<!--	********************************* REPLY_LIST_PAGE********************************* -->
+
+
+<!-- *********************************REPLY 갯수 확인********************************* -->
+   <select id="reply_row_total" parameterType="int"  resultType="int">
+       select nvl(count(*),0) from reply where b_idx=#{ b_idx }
+   </select>
+<!--********************************* REPLY 갯수 확인*********************************-->
+
+
+
+
+<!-- *********************************REPLY_INSERT********************************* -->
+
+<insert id="reply_insert" parameterType="vo.ReplyVo">
+		insert into reply values(
+										seq_reply_re_idx.nextVal,
+										#{re_content},
+										sysdate,
+										0,
+										#{b_idx},
+										#{m_idx},
+										#{m_name}
+												
+		)
+	
+</insert>
+<!-- *********************************REPLY_INSERT********************************* -->
+
+
+
+
+<!-- *********************************REPLY_INSERT********************************* -->
+<delete id="reply_delete" parameterType="int">
+	delete from reply where re_idx = #{re_idx}
+</delete>
+<!-- *********************************REPLY_INSERT********************************* -->
+
+
+
+<!-- ************************** ANSWER_MODIFY_FORM  ***************************** -->
+
+<select id="reply_modify_form" parameterType="int" resultType="vo.ReplyVo">
+	select * from reply where re_idx = #{re_idx}
+</select>
+
+<!-- ************************** ANSWER_MODIFY_FORM  ***************************** -->
+
+
+<!-- ************************** ANSWER_MODIFY  ***************************** -->
+
+<update id="reply_update" parameterType="vo.ReplyVo">
+ update reply set re_content = #{re_content},
+ 						re_rdate = sysdate
+ 						 where re_idx = #{re_idx}
+</update>
+
+<!-- ************************** ANSWER_MODIFY  ***************************** -->
+
+
+<select id="reply_get_b_idx" parameterType="int" resultType="int">
+	select b_idx from reply where re_idx = #{re_idx}
+</select>
+
+    <!-- 관리자 댓글 목록 쿼리 -->
+    <select id="admin_reply_list_page" parameterType="Map" resultType="vo.ReplyVo">
+        <![CDATA[
+        SELECT * FROM (
+            SELECT ROWNUM AS rnum, a.*
+            FROM (
+                SELECT re_idx, b_idx, m_idx, re_content, re_rdate, m_name, b_title
+                FROM reply_view
+                WHERE
+                    LOWER(m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                    OR LOWER(re_content) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+                ORDER BY ${sortField} ${sortOrder}
+            ) a
+            WHERE ROWNUM <= #{end}
+        )
+        WHERE rnum > #{start}
+        ]]>
+    </select>
+
+    <!-- 관리자 댓글 수 조회 쿼리 -->
+    <select id="admin_reply_row_total" parameterType="Map" resultType="int">
+        SELECT COUNT(*)
+        FROM reply_view
+        WHERE
+            LOWER(m_name) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+            OR LOWER(re_content) LIKE '%' || LOWER(#{searchKeyword}) || '%'
+    </select>
+    
+    <!-- 관리자 댓글 삭제 쿼리 -->
+    <delete id="admin_reply_delete" parameterType="int">
+        DELETE FROM reply WHERE re_idx = #{re_idx}
+    </delete>
+
+
+
+</mapper>

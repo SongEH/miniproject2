@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="diary">
+
+	<!-- 전체조회 -->
+	<select id="diary_list_weight" resultType="weight" parameterType="String"> <!-- board 타입으로 -->
+		select * from weight where w_rdate = #{ now_date }
+	</select>
+
+
+	<!-- 체중 기록 추가 -->
+	<insert id="diary_insert_weight" parameterType="vo.WeightVo">
+		insert into weight values(
+						 seq_weight_w_idx.nextVal,
+		                 #{ m_idx }, -- m_idx
+		                 #{ p_idx }, -- p_idx                                 
+		                 TO_DATE(#{w_rdate}, 'YYYY-MM-DD'),
+		                 #{ w_weight }
+		                 ) 
+	</insert>
+	
+	<!-- 산책 기록 추가 -->
+	<insert id="diary_insert_stoll" parameterType="vo.StollVo">
+	    insert into stoll (
+	        s_idx,
+	        m_idx,
+	        p_idx,
+	        s_rdate,
+	        s_stime,
+	        s_etime,
+	        s_distance,
+	        s_memo
+	    ) values (
+	        seq_stoll_s_idx.nextVal,
+	        #{m_idx},
+	        #{p_idx},
+	        TO_DATE(#{s_rdate}, 'YYYY-MM-DD'),
+	        TO_DATE(#{s_stime}, 'HH24:MI'),
+	        TO_DATE(#{s_etime}, 'HH24:MI'),
+	        #{s_distance},
+	        #{s_memo}
+	    )
+	</insert>
+	
+	<!-- 사료 기록 추가 -->
+	<insert id="diary_insert_feeding" parameterType="vo.FeedingVo">
+		insert into feeding values(
+						 seq_feeding_f_idx.nextVal,		            
+		                 #{ m_idx }, 
+		                 #{ p_idx }, 
+		                 #{ f_type },                                  
+		                 TO_DATE(#{f_rdate}, 'YYYY-MM-DD'),
+		                 TO_DATE(#{f_time}, 'HH24:MI'),
+		                 #{ f_pname }
+		                 ) 
+	</insert>
+	
+	<!-- 건강 기록 추가 -->
+	<insert id="diary_insert_health" parameterType="vo.HealthVO">
+		insert into health values(
+						 seq_health_h_idx.nextVal,
+		                 #{ m_idx }, 
+		                 #{ p_idx },  
+		                 #{ h_type },
+		                 TO_DATE(#{h_rdate}, 'YYYY-MM-DD'),
+		                 TO_DATE(#{h_time}, 'HH24:MI'),
+		                 #{ h_cost },                              
+		                 #{ h_content },
+		                 #{ h_hname },
+		                 #{ h_ndate }
+		                 ) 
+	</insert>
+	
+	<!-- 메모 추가 -->
+	<insert id="diary_insert_note" parameterType="vo.NoteVo">
+		insert into note values(
+						 seq_note_o_idx.nextVal,
+		                 #{ m_idx }, 
+		                 #{ p_idx },                                  
+		                 TO_DATE(#{o_rdate}, 'YYYY-MM-DD'),
+		                 TO_DATE(#{o_time}, 'HH24:MI'),
+		                 #{ o_content }
+		                 ) 
+	</insert>
+	
+	
+	<!-- 선택 날짜의 기록 조회 -->
+	<select id="diary_select_weight_date" resultType="weight" parameterType="map">
+	    select * from weight_p_name_view  where w_rdate = #{date} and m_idx = #{m_idx}
+	</select> 
+	
+	<select id="diary_select_stoll_date" resultType="vo.StollVo" parameterType="map">
+	    select * from stoll_p_name_view where to_char(s_rdate, 'YYYY-MM-DD') = #{date} and m_idx = #{m_idx}
+	</select>
+	
+	<select id="diary_select_feeding_date" resultType="vo.FeedingVo" parameterType="map">
+	    select * from feeding_p_name_view where to_char(f_rdate, 'YYYY-MM-DD') = #{date} and m_idx = #{m_idx}
+	</select>
+	
+	<select id="diary_select_health_date" resultType="vo.HealthVO" parameterType="map">
+	    select * from health_p_name_view where to_char(h_rdate, 'YYYY-MM-DD') = #{date} and m_idx = #{m_idx}
+	</select>
+	
+	<select id="diary_select_note_date" resultType="vo.NoteVo" parameterType="map">
+	    select * from note_p_name_view where to_char(o_rdate, 'YYYY-MM-DD') = #{date} and m_idx = #{m_idx}
+	</select>
+
+	
+	
+	<!-- 전체 날짜 기록 조회 -->
+	<select id="diary_select_stoll_all" resultType="vo.StollVo" parameterType="int">
+	    select * from stoll_p_name_view where m_idx = #{m_idx}
+	</select>
+	
+	<select id="diary_select_weight_all" resultType="vo.WeightVo" parameterType="int">
+	    select * from weight_p_name_view where m_idx = #{m_idx}
+	</select>
+	
+	<select id="diary_select_feeding_all" resultType="vo.FeedingVo" parameterType="int">
+	    select * from feeding_p_name_view where m_idx = #{m_idx}
+	</select>
+	
+	<select id="diary_select_health_all" resultType="vo.HealthVO" parameterType="int">
+	    select * from health_p_name_view where m_idx = #{m_idx}
+	</select>
+	
+	<select id="diary_select_note_all" resultType="vo.NoteVo" parameterType="int">
+	    select * from note_p_name_view where m_idx = #{m_idx}
+	</select>
+
+	
+	
+   <!-- idx에 해당되는 기록글 1건 얻어오기 -->
+<!--    <select id="diary_select_one_weight"  parameterType="int"  resultType="weight">
+      select * from weight where w_idx=#{ w_idx }
+   </select> -->
+   
+   <!-- idx에 해당되는 기록글 1건 얻어오기. 통합-->
+   <select id="diary_select_one" parameterType="map" resultType="map">
+    select * from 
+    <choose>
+        <when test="table_name == 'weight'">weight_p_name_view</when>
+        <when test="table_name == 'health'">health_p_name_view</when>
+        <when test="table_name == 'feeding'">feeding_p_name_view</when>
+        <when test="table_name == 'note'">note_p_name_view</when>
+        <when test="table_name == 'stoll'">stoll_p_name_view</when>
+
+    </choose>
+    where 
+    <choose>
+        <when test="table_name == 'weight'">w_idx = #{idx}</when>
+        <when test="table_name == 'health'">h_idx = #{idx}</when>
+        <when test="table_name == 'feeding'">f_idx = #{idx}</when>
+        <when test="table_name == 'note'">o_idx = #{idx}</when>
+        <when test="table_name == 'stoll'">s_idx = #{idx}</when>
+
+    </choose>
+</select>
+   
+   
+   	<!-- 수정하기 -->
+<!-- 	<update id="diary_update_weight"  parameterType="weight">
+	    update weight 
+	    	set w_weight=#{w_weight}
+    	where w_idx=#{w_idx}                   
+	</update> -->
+	
+	<!-- 수정하기 -->
+	<!-- Weight -->
+	<update id="diary_update_weight">
+    UPDATE weight
+    SET m_idx = #{m_idx},
+        p_idx = #{p_idx},
+        w_weight = #{w_weight},
+        w_rdate = #{w_rdate}
+    WHERE w_idx = #{w_idx}
+</update>
+	
+	<!-- Health -->
+	<update id="diary_update_health">
+	    UPDATE health SET
+	        m_idx = #{m_idx},
+	        p_idx = #{p_idx},
+	        h_type = #{h_type},
+	        h_rdate = #{h_rdate},
+	        h_time = #{h_time},
+	        h_cost = #{h_cost},
+	        h_content = #{h_content},
+	        h_hname = #{h_hname},
+	        h_ndate = #{h_ndate}
+	    WHERE h_idx = #{h_idx}
+	</update>
+	
+	<!-- Note -->
+	<update id="diary_update_note">
+	    UPDATE note SET
+	        m_idx = #{m_idx},
+	        p_idx = #{p_idx},
+	        o_rdate = #{o_rdate},
+	        o_time = #{o_time},
+	        o_content = #{o_content}
+	    WHERE o_idx = #{o_idx}
+	</update>
+	
+	<!-- Feeding -->
+	<update id="diary_update_feeding">
+	    UPDATE feeding SET
+	        m_idx = #{m_idx},
+	        p_idx = #{p_idx},
+	        f_type = #{f_type},
+	        f_rdate = #{f_rdate},
+	        f_time = #{f_time},
+	        f_pname = #{f_pname}
+	    WHERE f_idx = #{f_idx}
+	</update>
+	
+	<!-- Stoll -->
+	<update id="diary_update_stoll">
+	    UPDATE stoll SET
+	        m_idx = #{m_idx},
+	        p_idx = #{p_idx},
+	        s_rdate = #{s_rdate},
+	        s_stime = #{s_stime},
+	        s_etime = #{s_etime},
+	        s_distance = #{s_distance},
+	        s_memo = #{s_memo}
+	    WHERE s_idx = #{s_idx}
+	</update>
+	
+	
+	
+  	<!-- 삭제처리  -->
+<!--   	<delete id="diary_delete_weight" parameterType="int">
+  		delete from weight where w_idx=#{ w_idx }
+  	</delete> -->
+  	
+  	<!-- 삭제처리 통합-->
+  	<!-- 테이블 이름이나 칼럼 이름에는 #{}를 사용할 수 없음
+  	직접 문자열로 삽입되거나 동적 SQL로 처리해야 한다 -->
+  	<delete id="diary_delete" parameterType="map">
+  		delete from
+	    <choose>
+	        <when test="table_name == 'weight'">weight</when>
+	        <when test="table_name == 'health'">health</when>
+	        <when test="table_name == 'note'">note</when>
+	        <when test="table_name == 'stoll'">stoll</when>
+	        <when test="table_name == 'feeding'">feeding</when>
+	    </choose>
+	    where
+	    <choose>
+	        <when test="table_name == 'weight'">w_idx = #{idx}</when>
+	        <when test="table_name == 'health'">h_idx = #{idx}</when>
+	        <when test="table_name == 'note'">o_idx = #{idx}</when>
+	        <when test="table_name == 'stoll'">s_idx = #{idx}</when>
+	        <when test="table_name == 'feeding'">f_idx = #{idx}</when>
+    	</choose>		
+  	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
