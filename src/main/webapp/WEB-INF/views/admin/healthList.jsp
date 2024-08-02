@@ -30,7 +30,6 @@
                         <th class="py-3 px-6 text-left">진료 타입</th>
                         <th class="py-3 px-6 text-left">진료 내용</th>
                         <th class="py-3 px-6 text-center">상세정보</th>
-                        <th class="py-3 px-6 text-center">수정</th>
                         <th class="py-3 px-6 text-center">삭제</th>
                     </tr>
                 </thead>
@@ -44,9 +43,6 @@
                             <td class="py-3 px-6">${health.h_content}</td>
                             <td class="py-2 text-center">
                                 <a href="${pageContext.request.contextPath}/admin/healthDetail.do?h_idx=${health.h_idx}" class="text-blue-500 hover:underline">상세정보</a>
-                            </td>
-                            <td class="py-2 text-center">
-                                <a href="${pageContext.request.contextPath}/admin/healthModify.do?h_idx=${health.h_idx}" class="text-blue-500 hover:underline">수정</a>
                             </td>
                             <td class="py-2 text-center">
                                 <a href="${pageContext.request.contextPath}/admin/healthDelete.do?h_idx=${health.h_idx}" class="text-red-500 hover:underline" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>

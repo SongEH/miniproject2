@@ -41,7 +41,7 @@
                     </tr>
                     <tr class="border-b">
                         <th class="py-3 px-6 bg-gray-50 text-left">진료 시간</th>
-                        <td class="py-3 px-6"><fmt:formatDate value="${health.h_time}" pattern="HH:mm" /></td>
+                        <td class="py-3 px-6">${health.h_time}</td>
                     </tr>
                     <tr class="border-b">
                         <th class="py-3 px-6 bg-gray-50 text-left">비용</th>
@@ -64,7 +64,6 @@
             <div class="flex justify-between mt-4">
                 <a href="${pageContext.request.contextPath}/admin/healthList.do" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">목록으로</a>
                 <div class="flex space-x-2">
-                    <a href="${pageContext.request.contextPath}/admin/healthModify.do?h_idx=${health.h_idx}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">수정</a>
                     <a href="${pageContext.request.contextPath}/admin/healthDelete.do?h_idx=${health.h_idx}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
                 </div>
             </div>
