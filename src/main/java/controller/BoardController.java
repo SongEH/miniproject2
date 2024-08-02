@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.BoardDao;
 import dao.BoardImagesDao;
+import dao.ReplyDao;
 import util.MyCommon;
 import util.Paging;
 import vo.BoardImagesVo;
@@ -45,6 +46,9 @@ public class BoardController {
 
 	@Autowired
 	BoardDao board_dao;
+	
+	@Autowired
+	ReplyDao reply_dao;
 
 	@Autowired
 	BoardImagesDao board_images_dao;

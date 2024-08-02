@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
+import org.apache.taglibs.standard.tag.rt.sql.SetDataSourceTag;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,16 +16,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.ReplyDao;
 import util.MyCommon;
 import util.Paging;
+import vo.BoardImagesVo;
+import vo.BoardVo;
+import vo.MemberVO;
 import vo.ReplyVo;
+
 
 @Controller
 @RequestMapping("/reply/")
 public class ReplyController {
 
+	@Autowired
+	HttpSession session;
+	
 	@Autowired
 	ReplyDao reply_dao;
 	
@@ -119,14 +130,59 @@ public class ReplyController {
 	
 		
 /*--------------------------------REPLY DELETE----------------------------------*/				
-		
+		//--------------------------------------------modify_form.do--------------------------------------	
 
-		
-		
-		
-		
-		
-		
-		
+		@RequestMapping(value="modify_form.do", produces = "application/json; charset=utf-8;")
+		@ResponseBody
+		public String modify_form(int re_idx, ReplyVo vo, RedirectAttributes ra) {
+
+			MemberVO user = (MemberVO) session.getAttribute("user");
+
+			if (user == null) {
+
+				ra.addAttribute("reason", "session_timeout");
+
+				return "redirect:../member/login_form.do";
+			}
+
+			vo = reply_dao.selectOne(re_idx);
+
+			JSONObject json = new JSONObject();
+			
+			if(vo !=null) {
+				json.put("result", true);
+				json.put("re_content", vo.getRe_content());
+				json.put("m_name", vo.getM_name());
+				json.put("re_rdate", vo.getRe_rdate());
+			}else { 
+				json.put("result", false);
+			}
+			
+					
+			return json.toString();
+		}
+
+		//--------------------------------------------modify_form.do--------------------------------------		
+		@RequestMapping(value="modify.do",  produces = "application/json; charset=utf-8;")
+		@ResponseBody
+		public String modify(int re_idx, ReplyVo vo, RedirectAttributes ra) {
+
+			MemberVO user = (MemberVO) session.getAttribute("user");
+
+			if (user == null) {
+
+				ra.addAttribute("reason", "session_timeout");
+
+				return "redirect:../member/login_form.do";
+			}
+
+			int res = reply_dao.update_re_idx(vo);
+			
+			JSONObject json = new JSONObject();
+			json.put("result", res==1); // {"result": true } or {"result": false }
+				
+			return json.toString();
+			
+		}
 
 }
