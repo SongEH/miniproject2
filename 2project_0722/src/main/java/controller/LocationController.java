@@ -24,11 +24,11 @@ public class LocationController {
 	
 	@RequestMapping("/searchlocation.do")
 	public String getLocation( @RequestParam(name="sido") String sido,@RequestParam(name="cate") String cate, Model model) {
-		
+
 		List<LocationVo> locations = locationService.searchLocation(sido, cate);
 		model.addAttribute("locations", locations);
-		
+
 		return"location/testview2";
 	}
-		
+
 }
